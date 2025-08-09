@@ -11,6 +11,7 @@ workspace:
   - app
   - packages/app_logger
   - packages/app_preferences
+  - packages/cores
 
 melos:
   name: flutter_template_project
