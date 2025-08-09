@@ -1,8 +1,13 @@
-/// Support for doing something awesome.
+/// Core models for the xinxin setlist application.
 ///
-/// More dartdocs go here.
+/// This library provides data models for managing music, events, stages,
+/// music orders, and setlists.
 library;
 
 export 'src/cores_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+// Export models
+export 'src/models/event.dart';
+export 'src/models/music.dart';
+export 'src/models/music_order.dart';
+export 'src/models/setlist.dart';
+export 'src/models/stage.dart';
