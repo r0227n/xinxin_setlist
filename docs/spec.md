@@ -68,31 +68,31 @@ erDiagram
         string title "日本語のみ"
         string thumbnail_url "Spotifyのサムネイル画像"
     }
-    
+
     STAGE {
         string id "ランダム"
         string title
     }
-    
+
     EVENT {
         string id "date_ランダム"
         string title
         date date
         int order "null許容"
     }
-    
+
     MUSIC_ORDER {
         string id "ランダム"
         string event_id "外部キー"
         string music_id "外部キー"
         int order
     }
-    
+
     SETLIST {
         string id
         array music_order_ids "music_orderのidを列挙管理"
     }
-    
+
     %% 関係性
     EVENT ||--o{ MUSIC_ORDER : "has"
     MUSIC ||--o{ MUSIC_ORDER : "referenced_in"
