@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "development",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/app",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define-from-file=${workspaceFolder}/app/.dart_define/development.json"
+      ],
+      "console": "debugConsole"
+    },
+    {
+      "name": "staging",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/app",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define-from-file=${workspaceFolder}/app/.dart_define/staging.json"
+      ]
+    },
+    {
+      "name": "production",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/app",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define-from-file=${workspaceFolder}/app/.dart_define/production.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+name: 'Check File Changes'
+description: 'Check for specific file type changes in PR'
+author: 'r0227n'
+
+inputs:
+  base_sha:
+    description: 'Base commit SHA for comparison'
+    required: true
+  head_sha:
+    description: 'Head commit SHA for comparison'
+    required: true
+
+outputs:
+  dart_changed:
+    description: 'Number of .dart files changed'
+    value: ${{ steps.check_changes.outputs.dart_changed }}
+  yml_changed:
+    description: 'Number of .yml files changed'
+    value: ${{ steps.check_changes.outputs.yml_changed }}
+  yaml_changed:
+    description: 'Number of .yaml files changed'
+    value: ${{ steps.check_changes.outputs.yaml_changed }}
+  md_changed:
+    description: 'Number of .md files changed'
+    value: ${{ steps.check_changes.outputs.md_changed }}
+  i18n_changed:
+    description: 'Number of .i18n.json files changed'
+    value: ${{ steps.check_changes.outputs.i18n_changed }}
+  changed_workspaces:
+    description: 'List of changed workspaces (space-separated)'
+    value: ${{ steps.check_changes.outputs.changed_workspaces }}
+  changed_tags:
+    description: 'List of directory-based tags (space-separated)'
+    value: ${{ steps.check_changes.outputs.changed_tags }}
+  all_tags:
+    description: 'Combined list of workspaces and directory tags (space-separated)'
+    value: ${{ steps.check_changes.outputs.all_tags }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check for file changes
+      id: check_changes
+      shell: bash
+      run: |
+        # Get changed files in PR
+        CHANGED_FILES=$(git diff --name-only ${{ inputs.base_sha }}..${{ inputs.head_sha }})
+
+        # Check for specific file types
+        echo "dart_changed=$(echo "$CHANGED_FILES" | grep -E '\.dart$' | wc -l | xargs)" >> $GITHUB_OUTPUT
+        echo "yml_changed=$(echo "$CHANGED_FILES" | grep -E '\.yml$' | wc -l | xargs)" >> $GITHUB_OUTPUT
+        echo "yaml_changed=$(echo "$CHANGED_FILES" | grep -E '\.yaml$' | wc -l | xargs)" >> $GITHUB_OUTPUT
+        echo "md_changed=$(echo "$CHANGED_FILES" | grep -E '\.md$' | wc -l | xargs)" >> $GITHUB_OUTPUT
+        echo "i18n_changed=$(echo "$CHANGED_FILES" | grep -E '\.i18n\.json$' | wc -l | xargs)" >> $GITHUB_OUTPUT
+
+        # Dynamically detect changed workspaces and directories
+        CHANGED_WORKSPACES=""
+        CHANGED_TAGS=""
+
+        # Check for app directory
+        if echo "$CHANGED_FILES" | grep -q "^app/"; then
+          CHANGED_WORKSPACES="$CHANGED_WORKSPACES app"
+        fi
+
+        # Check for packages subdirectories
+        shopt -s nullglob
+        for package_dir in packages/*/; do
+          if [ -d "$package_dir" ]; then
+            package_name=$(basename "$package_dir")
+            if echo "$CHANGED_FILES" | grep -q "^packages/$package_name/"; then
+              CHANGED_WORKSPACES="$CHANGED_WORKSPACES $package_name"
+            fi
+          fi
+        done
+
+        # Check for mapped directories and add corresponding tags
+        if echo "$CHANGED_FILES" | grep -q "^\.github/"; then
+          CHANGED_TAGS="$CHANGED_TAGS CI"
+        fi
+
+        if echo "$CHANGED_FILES" | grep -q "^docs/"; then
+          CHANGED_TAGS="$CHANGED_TAGS documentation"
+        fi
+
+        if echo "$CHANGED_FILES" | grep -q "^scripts/"; then
+          CHANGED_TAGS="$CHANGED_TAGS script"
+        fi
+
+        # Trim leading whitespace
+        CHANGED_WORKSPACES=$(echo "$CHANGED_WORKSPACES" | xargs)
+        CHANGED_TAGS=$(echo "$CHANGED_TAGS" | xargs)
+
+        # Combine workspaces and tags for output
+        ALL_TAGS="$CHANGED_WORKSPACES $CHANGED_TAGS"
+        ALL_TAGS=$(echo "$ALL_TAGS" | xargs)
+
+        echo "changed_workspaces=$CHANGED_WORKSPACES" >> $GITHUB_OUTPUT
+        echo "changed_tags=$CHANGED_TAGS" >> $GITHUB_OUTPUT
+        echo "all_tags=$ALL_TAGS" >> $GITHUB_OUTPUT
+        # Debug output
+        echo "Changed files:"
+        echo "$CHANGED_FILES"
+        echo "Dart files changed: $(echo "$CHANGED_FILES" | grep -E '\.dart$' | wc -l | xargs)"
+        echo "YML files changed: $(echo "$CHANGED_FILES" | grep -E '\.yml$' | wc -l | xargs)"
+        echo "YAML files changed: $(echo "$CHANGED_FILES" | grep -E '\.yaml$' | wc -l | xargs)"
+        echo "MD files changed: $(echo "$CHANGED_FILES" | grep -E '\.md$' | wc -l | xargs)"
+        echo "i18n files changed: $(echo "$CHANGED_FILES" | grep -E '\.i18n\.json$' | wc -l | xargs)"
+        echo "Changed workspaces: $CHANGED_WORKSPACES"
+        echo "Changed directory tags: $CHANGED_TAGS"
+        echo "All tags: $ALL_TAGS"
