@@ -100,6 +100,8 @@ erDiagram
     STAGE ||--o{ EVENT : "hosts"
 ```
 
+※ Spotify側のidが22文字で構成されているため、本アプリ全体の共通仕様としてidは22文字とする
+
 - 楽曲データモデル(music)
   - id
     - Spotify側のidと同じにする
