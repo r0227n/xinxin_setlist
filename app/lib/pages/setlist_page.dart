@@ -34,7 +34,7 @@ class SetlistPage extends ConsumerStatefulWidget {
 }
 
 class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
-  /// 全ての状態をList<Setlist>で管理
+  /// 全ての状態を`List<Setlist>`で管理
   late final Future<List<Setlist>> _setlistsFuture;
 
   @override
@@ -153,8 +153,13 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
         AsyncData(value: final events) => () {
           final event = events.firstWhere(
             (e) => e.id == setlist.eventId,
-            orElse: () =>
-                Event(id: '', stageId: '', title: 'エラー', date: DateTime.now()),
+            orElse: () => Event(
+              id: '',
+              stageId: '',
+              title: 'エラー',
+              date: DateTime.now(),
+              setlist: [],
+            ),
           );
 
           return ListTile(
@@ -168,7 +173,8 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
               spacing: 8,
               children: [
                 Text(
-                  '日付: ${event.date.year}年${event.date.month}月${event.date.day}日',
+                  '日付: ${event.date.year}年'
+                  '${event.date.month}月${event.date.day}日',
                 ),
 
                 WrapSetlist(

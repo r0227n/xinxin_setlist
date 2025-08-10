@@ -10,8 +10,21 @@ abstract class Event with _$Event {
     @JsonKey(name: 'stage_id') required String stageId,
     required String title,
     required DateTime date,
+    required List<SetlistItem> setlist,
     int? order, // null許容
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+}
+
+@freezed
+abstract class SetlistItem with _$SetlistItem {
+  const factory SetlistItem({
+    required String id,
+    @JsonKey(name: 'music_id') required String musicId,
+    required int order,
+  }) = _SetlistItem;
+
+  factory SetlistItem.fromJson(Map<String, dynamic> json) =>
+      _$SetlistItemFromJson(json);
 }

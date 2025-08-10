@@ -1,5 +1,4 @@
 import 'package:app/data/repositories/event_repository.dart';
-import 'package:app/data/repositories/music_order_repository.dart';
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:cores/cores.dart';
@@ -14,7 +13,6 @@ const _uuid = Uuid();
 @riverpod
 SetlistService setlistService(Ref ref) {
   return SetlistService(
-    musicOrderRepository: ref.watch(musicOrderRepositoryProvider.notifier),
     musicRepository: ref.watch(musicRepositoryProvider.notifier),
     eventRepository: ref.watch(eventRepositoryProvider.notifier),
   );
@@ -22,31 +20,28 @@ SetlistService setlistService(Ref ref) {
 
 class SetlistService with LoggerMixin {
   SetlistService({
-    required MusicOrderRepository musicOrderRepository,
     required MusicRepository musicRepository,
     required EventRepository eventRepository,
-  }) : _musicOrderRepository = musicOrderRepository,
-       _musicRepository = musicRepository,
+  }) : _musicRepository = musicRepository,
        _eventRepository = eventRepository;
 
-  final MusicOrderRepository _musicOrderRepository;
   final MusicRepository _musicRepository;
   final EventRepository _eventRepository;
 
   /// [eventId] セットリストを作成する対象のイベントID
   Future<Setlist> getSetlist(String eventId) async {
-    // イベントIDが存在するかチェック（ログ出力のため）
-    final (targetEvent, filteredMusicOrderIds) = await (
-      _eventRepository.get(eventId),
-      _musicOrderRepository.filterMusicOrderIdsByEventId(eventId),
-    ).wait;
-
+    // イベントを取得
+    final targetEvent = await _eventRepository.get(eventId);
+    
     logInfo(
       'Creating setlist for event: ${targetEvent.title} (ID: $eventId)',
     );
 
+    // イベントのsetlistから楽曲順序を取得
+    final musicOrderIds = targetEvent.setlist.map((item) => item.id).toList();
+
     logInfo(
-      '${filteredMusicOrderIds.length} music orders for event ID: $eventId',
+      '${musicOrderIds.length} music orders for event ID: $eventId',
     );
 
     final setlistId = _generateRandomId(20);
@@ -54,7 +49,7 @@ class SetlistService with LoggerMixin {
     return Setlist(
       id: setlistId,
       eventId: eventId,
-      musicOrderIds: filteredMusicOrderIds,
+      musicOrderIds: musicOrderIds,
     );
   }
 
@@ -75,9 +70,20 @@ class SetlistService with LoggerMixin {
   }
 
   Future<Music> getMusicByMusicOrderId(String musicOrderId) async {
-    final musicOrder = await _musicOrderRepository.get(musicOrderId);
-    final music = await _musicRepository.get(musicOrder.musicId);
-    return music;
+    // イベントからsetlistのitemを見つけて楽曲IDを取得
+    final events = await _eventRepository.build();
+    
+    for (final event in events) {
+      final setlistItem = event.setlist
+          .where((item) => item.id == musicOrderId)
+          .firstOrNull;
+      if (setlistItem != null) {
+        final music = await _musicRepository.get(setlistItem.musicId);
+        return music;
+      }
+    }
+    
+    throw Exception('Music order with ID $musicOrderId not found');
   }
 
   /// 指定された長さのランダムな文字列IDを生成する
