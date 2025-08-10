@@ -1,5 +1,6 @@
 import 'package:app/data/repositories/event_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
+import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/widgets/music_chip.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
@@ -54,9 +55,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
   void _initializeSetlistsFuture() {
     // eventIdとmusicIdが両方指定されている場合はエラー
     if (widget.eventId != null && widget.musicId != null) {
-      _setlistsFuture = Future.error(
-        'eventIdとmusicIdの両方を同時に指定することはできません',
-      );
+      _setlistsFuture = Future.error(t.setlist.error.bothIdsSpecified);
       logError('EventIDとMusicIDが両方指定されています');
       return;
     }
@@ -88,7 +87,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
           ? null
           : AppBar(
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              title: const Text('セットリスト'),
+              title: Text(t.setlist.title),
             ),
       body: FutureBuilder<List<Setlist>>(
         future: _setlistsFuture,
@@ -107,11 +106,13 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                 children: [
                   const Icon(Icons.error, size: 64, color: Colors.red),
                   const SizedBox(height: 16),
-                  Text('エラーが発生しました: ${snapshot.error}'),
+                  Text(
+                    '${t.setlist.error.occurred}: ${snapshot.error}',
+                  ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => setState(_initializeSetlistsFuture),
-                    child: const Text('再試行'),
+                    child: Text(t.dialog.retry),
                   ),
                 ],
               ),
@@ -128,7 +129,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                 children: [
                   const Icon(Icons.library_music, size: 64, color: Colors.grey),
                   const SizedBox(height: 16),
-                  Text(_getEmptyMessage()),
+                  Text(_getEmptyMessage(context)),
                 ],
               ),
             );
@@ -151,13 +152,13 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
   }
 
   /// 空状態メッセージを取得
-  String _getEmptyMessage() {
+  String _getEmptyMessage(BuildContext context) {
     if (widget.eventId != null) {
-      return 'このイベントにはセットリストがありません';
+      return t.setlist.empty.noSetlistForEvent;
     } else if (widget.musicId != null) {
-      return 'この音楽を含むセットリストがありません';
+      return t.setlist.empty.noSetlistForMusic;
     } else {
-      return 'セットリストがありません';
+      return t.setlist.empty.noSetlist;
     }
   }
 }
@@ -169,7 +170,6 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final eventRepositoryAsync = ref.watch(eventRepositoryProvider);
-
     final setlist = ref.watch(_currentSetlist);
 
     return Card(
@@ -181,7 +181,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
             orElse: () => Event(
               id: '',
               stageId: '',
-              title: 'エラー',
+              title: t.error,
               date: DateTime.now(),
               setlist: [],
             ),
@@ -198,8 +198,8 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
               spacing: 8,
               children: [
                 Text(
-                  '日付: ${event.date.year}年'
-                  '${event.date.month}月${event.date.day}日',
+                  '${t.setlist.date}: ${event.date.year}${t.setlist.year}'
+                  '${event.date.month}${t.setlist.month}${event.date.day}${t.setlist.day}',
                 ),
 
                 WrapSetlist(
@@ -239,7 +239,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('閉じる'),
+                      child: Text(t.dialog.close),
                     ),
                   ],
                 ),
@@ -250,12 +250,14 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
         AsyncError(error: final error) => ListTile(
           leading: const Icon(Icons.error, color: Colors.red),
           title: Text('セットリストID: ${setlist.id}'),
-          subtitle: Text('データ取得に失敗: $error'),
+          subtitle: Text(
+            '${t.setlist.error.dataFetchFailed}: $error',
+          ),
         ),
-        _ => const ListTile(
-          leading: Icon(Icons.library_music, size: 40),
-          title: Text('読み込み中...'),
-          subtitle: LinearProgressIndicator(),
+        _ => ListTile(
+          leading: const Icon(Icons.library_music, size: 40),
+          title: Text(t.setlist.loading),
+          subtitle: const LinearProgressIndicator(),
         ),
       },
     );

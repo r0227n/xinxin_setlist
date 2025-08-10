@@ -6,5 +6,33 @@
     "theme": "Theme",
     "version": "Version",
     "licenses": "Licenses"
-  }
+  },
+  "dialog": {
+    "close": "Close",
+    "retry": "Retry"
+  },
+  "setlist": {
+    "title": "XINXIN SETLIST",
+    "error": {
+      "bothIdsSpecified": "Cannot specify both eventId and musicId simultaneously",
+      "occurred": "An error occurred",
+      "dataFetchFailed": "Failed to fetch data"
+    },
+    "empty": {
+      "noSetlistForEvent": "No setlist for this event",
+      "noSetlistForMusic": "No setlist containing this music",
+      "noSetlist": "No setlist"
+    },
+    "loading": "Loading...",
+    "date": "Date",
+    "year": "",
+    "month": "/",
+    "day": "/",
+    "adoption": "Setlist adoption",
+    "times": "times"
+  },
+  "music": {
+    "detail": "Music Detail"
+  },
+  "error": "Error"
 }

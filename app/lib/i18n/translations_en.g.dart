@@ -49,6 +49,14 @@ class TranslationsEn implements Translations {
   late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(
     _root,
   );
+  @override
+  late final _TranslationsDialogEn dialog = _TranslationsDialogEn._(_root);
+  @override
+  late final _TranslationsSetlistEn setlist = _TranslationsSetlistEn._(_root);
+  @override
+  late final _TranslationsMusicEn music = _TranslationsMusicEn._(_root);
+  @override
+  String get error => 'Error';
 }
 
 // Path: settings
@@ -68,4 +76,92 @@ class _TranslationsSettingsEn implements TranslationsSettingsJa {
   String get version => 'Version';
   @override
   String get licenses => 'Licenses';
+}
+
+// Path: dialog
+class _TranslationsDialogEn implements TranslationsDialogJa {
+  _TranslationsDialogEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get close => 'Close';
+  @override
+  String get retry => 'Retry';
+}
+
+// Path: setlist
+class _TranslationsSetlistEn implements TranslationsSetlistJa {
+  _TranslationsSetlistEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'XINXIN SETLIST';
+  @override
+  late final _TranslationsSetlistErrorEn error = _TranslationsSetlistErrorEn._(
+    _root,
+  );
+  @override
+  late final _TranslationsSetlistEmptyEn empty = _TranslationsSetlistEmptyEn._(
+    _root,
+  );
+  @override
+  String get loading => 'Loading...';
+  @override
+  String get date => 'Date';
+  @override
+  String get year => '';
+  @override
+  String get month => '/';
+  @override
+  String get day => '/';
+  @override
+  String get adoption => 'Setlist adoption';
+  @override
+  String get times => 'times';
+}
+
+// Path: music
+class _TranslationsMusicEn implements TranslationsMusicJa {
+  _TranslationsMusicEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get detail => 'Music Detail';
+}
+
+// Path: setlist.error
+class _TranslationsSetlistErrorEn implements TranslationsSetlistErrorJa {
+  _TranslationsSetlistErrorEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get bothIdsSpecified =>
+      'Cannot specify both eventId and musicId simultaneously';
+  @override
+  String get occurred => 'An error occurred';
+  @override
+  String get dataFetchFailed => 'Failed to fetch data';
+}
+
+// Path: setlist.empty
+class _TranslationsSetlistEmptyEn implements TranslationsSetlistEmptyJa {
+  _TranslationsSetlistEmptyEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get noSetlistForEvent => 'No setlist for this event';
+  @override
+  String get noSetlistForMusic => 'No setlist containing this music';
+  @override
+  String get noSetlist => 'No setlist';
 }
