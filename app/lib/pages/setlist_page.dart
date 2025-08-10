@@ -1,6 +1,7 @@
 import 'package:app/data/repositories/event_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/pages/widgets/music_chip.dart';
+import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
@@ -12,21 +13,26 @@ final _currentSetlist = Provider<Setlist>((ref) => throw UnimplementedError());
 /// セットリスト表示ページ
 ///
 /// [eventId]がnullの場合は全てのセットリスト一覧を表示し、
+/// [musicId]が指定されている場合はその音楽を含むセットリストを表示し、
 /// いずれかのIDが指定されている場合は対応するセットリストを表示する
 class SetlistPage extends ConsumerStatefulWidget {
   const SetlistPage({
     this.eventId,
-
+    this.musicId,
     super.key,
   });
 
   /// オプション引数：指定されたイベントのセットリストを表示する場合のイベントID
   final String? eventId;
 
+  /// オプション引数：指定された音楽を含むセットリストを表示する場合の音楽ID
+  final String? musicId;
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('eventId', eventId));
+    properties.add(StringProperty('musicId', musicId));
   }
 
   @override
@@ -46,6 +52,15 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
 
   /// セットリストFutureの初期化
   void _initializeSetlistsFuture() {
+    // eventIdとmusicIdが両方指定されている場合はエラー
+    if (widget.eventId != null && widget.musicId != null) {
+      _setlistsFuture = Future.error(
+        'eventIdとmusicIdの両方を同時に指定することはできません',
+      );
+      logError('EventIDとMusicIDが両方指定されています');
+      return;
+    }
+
     if (widget.eventId != null) {
       // eventIdが指定されている場合、そのイベントのセットリストのみを取得
       _setlistsFuture = ref
@@ -53,6 +68,12 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
           .getSetlist(widget.eventId!)
           .then((setlist) => [setlist]);
       logInfo('EventID指定でセットリスト初期化: ${widget.eventId}');
+    } else if (widget.musicId != null) {
+      // musicIdが指定されている場合、その音楽を含むセットリストを取得
+      _setlistsFuture = ref
+          .read(setlistServiceProvider)
+          .getSetlistsByMusicId(widget.musicId!);
+      logInfo('MusicID指定でセットリスト初期化: ${widget.musicId}');
     } else {
       // どちらも指定されていない場合、全てのセットリストを取得
       _setlistsFuture = ref.read(setlistServiceProvider).getSetlists();
@@ -131,6 +152,8 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
   String _getEmptyMessage() {
     if (widget.eventId != null) {
       return 'このイベントにはセットリストがありません';
+    } else if (widget.musicId != null) {
+      return 'この音楽を含むセットリストがありません';
     } else {
       return 'セットリストがありません';
     }
@@ -180,7 +203,9 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                 WrapSetlist(
                   musicOrderIds: setlist.musicOrderIds,
                   onPressed: (music) {
-                    logInfo('${music.title}を再生');
+                    SetlistMusicRoute(
+                      musicId: music.id,
+                    ).go(context);
                   },
                 ),
               ],

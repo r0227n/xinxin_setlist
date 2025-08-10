@@ -18,6 +18,9 @@ part 'routes.g.dart';
     TypedGoRoute<SetlistDetailRoute>(
       path: 'setlist/:eventId',
     ),
+    TypedGoRoute<SetlistMusicRoute>(
+      path: 'setlist/music/:musicId',
+    ),
   ],
 )
 @immutable
@@ -59,5 +62,17 @@ class SetlistDetailRoute extends GoRouteData with _$SetlistDetailRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return SetlistPage(eventId: eventId);
+  }
+}
+
+@immutable
+class SetlistMusicRoute extends GoRouteData with _$SetlistMusicRoute {
+  const SetlistMusicRoute({required this.musicId});
+
+  final String musicId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return SetlistPage(musicId: musicId);
   }
 }
