@@ -57,7 +57,7 @@ class SetupParser {
     // Find event title (from next line until first empty line)
     final eventTitleLines = <String>[];
     var eventTitleEndIndex = startIndex + 1;
-    
+
     for (var i = startIndex + 1; i < lines.length; i++) {
       if (lines[i].isEmpty) {
         eventTitleEndIndex = i;
@@ -66,11 +66,11 @@ class SetupParser {
       eventTitleLines.add(lines[i]);
       eventTitleEndIndex = i + 1;
     }
-    
+
     if (eventTitleLines.isEmpty) {
       throw Exception('No event title found');
     }
-    
+
     final eventTitle = eventTitleLines.join('\n');
 
     String? seMusic;
