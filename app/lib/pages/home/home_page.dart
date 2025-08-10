@@ -1,6 +1,6 @@
+import 'package:app/repositories/music_repository.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
-import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
