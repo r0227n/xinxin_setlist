@@ -16,8 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$MusicOrder {
 
  String get id;// ランダム
- String get eventId;// 外部キー
- String get musicId;// 外部キー
+@JsonKey(name: 'event_id') String get eventId;// 外部キー
+@JsonKey(name: 'music_id') String get musicId;// 外部キー
  int get order;
 /// Create a copy of MusicOrder
 /// with the given fields replaced by the non-null parameter values.
@@ -51,7 +51,7 @@ abstract mixin class $MusicOrderCopyWith<$Res>  {
   factory $MusicOrderCopyWith(MusicOrder value, $Res Function(MusicOrder) _then) = _$MusicOrderCopyWithImpl;
 @useResult
 $Res call({
- String id, String eventId, String musicId, int order
+ String id,@JsonKey(name: 'event_id') String eventId,@JsonKey(name: 'music_id') String musicId, int order
 });
 
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String eventId,  String musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MusicOrder() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String eventId,  String musicId,  int order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)  $default,) {final _that = this;
 switch (_that) {
 case _MusicOrder():
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String eventId,  String musicId,  int order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)?  $default,) {final _that = this;
 switch (_that) {
 case _MusicOrder() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -215,14 +215,14 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 @JsonSerializable()
 
 class _MusicOrder implements MusicOrder {
-  const _MusicOrder({required this.id, required this.eventId, required this.musicId, required this.order});
+  const _MusicOrder({required this.id, @JsonKey(name: 'event_id') required this.eventId, @JsonKey(name: 'music_id') required this.musicId, required this.order});
   factory _MusicOrder.fromJson(Map<String, dynamic> json) => _$MusicOrderFromJson(json);
 
 @override final  String id;
 // ランダム
-@override final  String eventId;
+@override@JsonKey(name: 'event_id') final  String eventId;
 // 外部キー
-@override final  String musicId;
+@override@JsonKey(name: 'music_id') final  String musicId;
 // 外部キー
 @override final  int order;
 
@@ -259,7 +259,7 @@ abstract mixin class _$MusicOrderCopyWith<$Res> implements $MusicOrderCopyWith<$
   factory _$MusicOrderCopyWith(_MusicOrder value, $Res Function(_MusicOrder) _then) = __$MusicOrderCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String eventId, String musicId, int order
+ String id,@JsonKey(name: 'event_id') String eventId,@JsonKey(name: 'music_id') String musicId, int order
 });
 
 

@@ -1,6 +1,7 @@
-import 'package:app/repositories/music_repository.dart';
+import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,8 +32,14 @@ class _HomePageState extends ConsumerState<HomePage> with LoggerMixin {
         title: Text(widget.title),
         actions: [
           IconButton(
+            onPressed: () => const SetlistRoute().push<void>(context),
+            icon: const Icon(Icons.library_music),
+            tooltip: 'セットリスト',
+          ),
+          IconButton(
             onPressed: () => const SettingsRoute().push<void>(context),
             icon: const Icon(Icons.settings),
+            tooltip: '設定',
           ),
         ],
       ),
@@ -42,12 +49,12 @@ class _HomePageState extends ConsumerState<HomePage> with LoggerMixin {
           itemBuilder: (context, index) {
             final music = musicList[index];
             return ListTile(
-              leading: Image.network(
-                music.thumbnailUrl,
+              leading: CachedNetworkImage(
+                imageUrl: music.thumbnailUrl,
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Icon(
+                errorWidget: (context, error, stackTrace) => const Icon(
                   Icons.music_note,
                   size: 60,
                 ),

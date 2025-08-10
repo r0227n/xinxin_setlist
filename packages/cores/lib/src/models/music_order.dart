@@ -7,8 +7,8 @@ part 'music_order.g.dart';
 abstract class MusicOrder with _$MusicOrder {
   const factory MusicOrder({
     required String id, // ランダム
-    required String eventId, // 外部キー
-    required String musicId, // 外部キー
+    @JsonKey(name: 'event_id') required String eventId, // 外部キー
+    @JsonKey(name: 'music_id') required String musicId, // 外部キー
     required int order,
   }) = _MusicOrder;
 

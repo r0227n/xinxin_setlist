@@ -7,6 +7,7 @@ part 'setlist.g.dart';
 abstract class Setlist with _$Setlist {
   const factory Setlist({
     required String id,
+    required String eventId,
     required List<String> musicOrderIds, // music_orderのidを列挙管理
   }) = _Setlist;
 

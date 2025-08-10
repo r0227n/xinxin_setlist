@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'music_order_repository.dart';
+part of 'event_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$musicOrderRepositoryHash() =>
-    r'2ccf9a2df863500ab9b78e2bd4fdd50e41c57cd5';
+String _$eventRepositoryHash() => r'790166318ae903e2d2621964b4a6ac331b283787';
 
-/// See also [MusicOrderRepository].
-@ProviderFor(MusicOrderRepository)
-final musicOrderRepositoryProvider =
-    AsyncNotifierProvider<MusicOrderRepository, List<MusicOrder>>.internal(
-      MusicOrderRepository.new,
-      name: r'musicOrderRepositoryProvider',
+/// See also [EventRepository].
+@ProviderFor(EventRepository)
+final eventRepositoryProvider =
+    AsyncNotifierProvider<EventRepository, List<Event>>.internal(
+      EventRepository.new,
+      name: r'eventRepositoryProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$musicOrderRepositoryHash,
+          : _$eventRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$MusicOrderRepository = AsyncNotifier<List<MusicOrder>>;
+typedef _$EventRepository = AsyncNotifier<List<Event>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

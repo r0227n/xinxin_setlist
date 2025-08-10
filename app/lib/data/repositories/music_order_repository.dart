@@ -20,4 +20,23 @@ class MusicOrderRepository extends _$MusicOrderRepository with LoggerMixin {
         .map((e) => MusicOrder.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  /// 指定されたイベントIDに関連するMusicOrderのIDリストを抽出する
+  Future<List<String>> filterMusicOrderIdsByEventId(
+    String eventId,
+  ) async {
+    final musicOrders = await future;
+    return musicOrders
+        .where((musicOrder) => musicOrder.eventId == eventId)
+        .map((musicOrder) => musicOrder.id)
+        .toList();
+  }
+
+  /// 指定された楽曲IDを含むセットリストを取得
+  Future<MusicOrder> get(String musicOrderId) async {
+    final musicOrders = await future;
+    return musicOrders.firstWhere(
+      (musicOrder) => musicOrder.id == musicOrderId,
+    );
+  }
 }

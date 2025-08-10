@@ -7,6 +7,7 @@ part 'event.g.dart';
 abstract class Event with _$Event {
   const factory Event({
     required String id, // date_ランダム
+    @JsonKey(name: 'stage_id') required String stageId,
     required String title,
     required DateTime date,
     int? order, // null許容
