@@ -7,7 +7,7 @@ part of 'music_order_repository.dart';
 // **************************************************************************
 
 String _$musicOrderRepositoryHash() =>
-    r'accc3332386984c1a3f248064db22058b14ac349';
+    r'ad345e582a6cdc076b7c492f4ed632f8fcadf4de';
 
 /// See also [MusicOrderRepository].
 @ProviderFor(MusicOrderRepository)

@@ -76,6 +76,14 @@ class MusicOrderRepository extends _$MusicOrderRepository with LoggerMixin {
     return setlists;
   }
 
+  /// 指定された楽曲IDを含むセットリストを取得
+  Future<MusicOrder> get(String musicOrderId) async {
+    final musicOrders = await future;
+    return musicOrders.firstWhere(
+      (musicOrder) => musicOrder.id == musicOrderId,
+    );
+  }
+
   /// 指定された長さのランダムな文字列IDを生成する
   String _generateRandomId(int length) {
     return _uuid.v4().substring(0, length);

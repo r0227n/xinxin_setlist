@@ -31,8 +31,14 @@ class _HomePageState extends ConsumerState<HomePage> with LoggerMixin {
         title: Text(widget.title),
         actions: [
           IconButton(
+            onPressed: () => const SetlistRoute().push<void>(context),
+            icon: const Icon(Icons.library_music),
+            tooltip: 'セットリスト',
+          ),
+          IconButton(
             onPressed: () => const SettingsRoute().push<void>(context),
             icon: const Icon(Icons.settings),
+            tooltip: '設定',
           ),
         ],
       ),

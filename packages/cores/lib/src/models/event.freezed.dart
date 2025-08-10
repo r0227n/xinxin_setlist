@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$Event {
 
  String get id;// date_ランダム
- String get title; DateTime get date; int? get order;
+@JsonKey(name: 'stage_id') String get stageId; String get title; DateTime get date; int? get order;
 /// Create a copy of Event
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $EventCopyWith<Event> get copyWith => _$EventCopyWithImpl<Event>(this as Event, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Event&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.date, date) || other.date == date)&&(identical(other.order, order) || other.order == order));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Event&&(identical(other.id, id) || other.id == id)&&(identical(other.stageId, stageId) || other.stageId == stageId)&&(identical(other.title, title) || other.title == title)&&(identical(other.date, date) || other.date == date)&&(identical(other.order, order) || other.order == order));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,date,order);
+int get hashCode => Object.hash(runtimeType,id,stageId,title,date,order);
 
 @override
 String toString() {
-  return 'Event(id: $id, title: $title, date: $date, order: $order)';
+  return 'Event(id: $id, stageId: $stageId, title: $title, date: $date, order: $order)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $EventCopyWith<$Res>  {
   factory $EventCopyWith(Event value, $Res Function(Event) _then) = _$EventCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, DateTime date, int? order
+ String id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, int? order
 });
 
 
@@ -66,9 +66,10 @@ class _$EventCopyWithImpl<$Res>
 
 /// Create a copy of Event
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? date = null,Object? order = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? stageId = null,Object? title = null,Object? date = null,Object? order = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,order: freezed == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  DateTime date,  int? order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  int? order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Event() when $default != null:
-return $default(_that.id,_that.title,_that.date,_that.order);case _:
+return $default(_that.id,_that.stageId,_that.title,_that.date,_that.order);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.id,_that.title,_that.date,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  DateTime date,  int? order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  int? order)  $default,) {final _that = this;
 switch (_that) {
 case _Event():
-return $default(_that.id,_that.title,_that.date,_that.order);case _:
+return $default(_that.id,_that.stageId,_that.title,_that.date,_that.order);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.id,_that.title,_that.date,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  DateTime date,  int? order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  int? order)?  $default,) {final _that = this;
 switch (_that) {
 case _Event() when $default != null:
-return $default(_that.id,_that.title,_that.date,_that.order);case _:
+return $default(_that.id,_that.stageId,_that.title,_that.date,_that.order);case _:
   return null;
 
 }
@@ -213,11 +214,12 @@ return $default(_that.id,_that.title,_that.date,_that.order);case _:
 @JsonSerializable()
 
 class _Event implements Event {
-  const _Event({required this.id, required this.title, required this.date, this.order});
+  const _Event({required this.id, @JsonKey(name: 'stage_id') required this.stageId, required this.title, required this.date, this.order});
   factory _Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
 @override final  String id;
 // date_ランダム
+@override@JsonKey(name: 'stage_id') final  String stageId;
 @override final  String title;
 @override final  DateTime date;
 @override final  int? order;
@@ -235,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Event&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.date, date) || other.date == date)&&(identical(other.order, order) || other.order == order));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Event&&(identical(other.id, id) || other.id == id)&&(identical(other.stageId, stageId) || other.stageId == stageId)&&(identical(other.title, title) || other.title == title)&&(identical(other.date, date) || other.date == date)&&(identical(other.order, order) || other.order == order));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,date,order);
+int get hashCode => Object.hash(runtimeType,id,stageId,title,date,order);
 
 @override
 String toString() {
-  return 'Event(id: $id, title: $title, date: $date, order: $order)';
+  return 'Event(id: $id, stageId: $stageId, title: $title, date: $date, order: $order)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   factory _$EventCopyWith(_Event value, $Res Function(_Event) _then) = __$EventCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, DateTime date, int? order
+ String id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, int? order
 });
 
 
@@ -272,9 +274,10 @@ class __$EventCopyWithImpl<$Res>
 
 /// Create a copy of Event
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? date = null,Object? order = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? stageId = null,Object? title = null,Object? date = null,Object? order = freezed,}) {
   return _then(_Event(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,order: freezed == order ? _self.order : order // ignore: cast_nullable_to_non_nullable

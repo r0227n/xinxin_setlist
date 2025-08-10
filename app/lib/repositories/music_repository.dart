@@ -18,4 +18,9 @@ class MusicRepository extends _$MusicRepository with LoggerMixin {
         .map((e) => Music.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<Music> get(String musicId) async {
+    final music = await future;
+    return music.firstWhere((music) => music.id == musicId);
+  }
 }
