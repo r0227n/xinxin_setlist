@@ -9,11 +9,11 @@ part of 'music.dart';
 _Music _$MusicFromJson(Map<String, dynamic> json) => _Music(
   id: json['id'] as String,
   title: json['title'] as String,
-  thumbnailUrl: json['thumbnailUrl'] as String,
+  thumbnailUrl: json['thumbnail_url'] as String,
 );
 
 Map<String, dynamic> _$MusicToJson(_Music instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
-  'thumbnailUrl': instance.thumbnailUrl,
+  'thumbnail_url': instance.thumbnailUrl,
 };
