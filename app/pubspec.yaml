@@ -61,5 +61,4 @@ flutter:
     - assets/i18n/
     - assets/music.json
     - assets/event.json
-    - assets/music_order.json
     - assets/stage.json
