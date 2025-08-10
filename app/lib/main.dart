@@ -71,7 +71,11 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      // ignore: do_not_use_environment
+      title: const String.fromEnvironment(
+        'APP_NAME',
+        defaultValue: 'XINXIN SETLIST',
+      ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
