@@ -6,15 +6,14 @@ part of 'routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$homeRoute];
+List<RouteBase> get $appRoutes => [$setlistRoute];
 
-RouteBase get $homeRoute => GoRouteData.$route(
+RouteBase get $setlistRoute => GoRouteData.$route(
   path: '/',
 
-  factory: _$HomeRoute._fromState,
+  factory: _$SetlistRoute._fromState,
   routes: [
     GoRouteData.$route(path: 'settings', factory: _$SettingsRoute._fromState),
-    GoRouteData.$route(path: 'setlist', factory: _$SetlistRoute._fromState),
     GoRouteData.$route(
       path: 'setlist/:eventId',
 
@@ -33,8 +32,8 @@ RouteBase get $homeRoute => GoRouteData.$route(
   ],
 );
 
-mixin _$HomeRoute on GoRouteData {
-  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+mixin _$SetlistRoute on GoRouteData {
+  static SetlistRoute _fromState(GoRouterState state) => const SetlistRoute();
 
   @override
   String get location => GoRouteData.$location('/');
@@ -58,26 +57,6 @@ mixin _$SettingsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin _$SetlistRoute on GoRouteData {
-  static SetlistRoute _fromState(GoRouterState state) => const SetlistRoute();
-
-  @override
-  String get location => GoRouteData.$location('/setlist');
 
   @override
   void go(BuildContext context) => context.go(location);

@@ -1,4 +1,3 @@
-import 'package:app/pages/home/home_page.dart';
 import 'package:app/pages/music_detail_page.dart';
 import 'package:app/pages/setlist_page.dart';
 import 'package:app/pages/settings/settings_page.dart';
@@ -7,14 +6,11 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
 
-@TypedGoRoute<HomeRoute>(
+@TypedGoRoute<SetlistRoute>(
   path: '/',
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<SettingsRoute>(
       path: 'settings',
-    ),
-    TypedGoRoute<SetlistRoute>(
-      path: 'setlist',
     ),
     TypedGoRoute<SetlistDetailRoute>(
       path: 'setlist/:eventId',
@@ -28,12 +24,12 @@ part 'routes.g.dart';
   ],
 )
 @immutable
-class HomeRoute extends GoRouteData with _$HomeRoute {
-  const HomeRoute();
+class SetlistRoute extends GoRouteData with _$SetlistRoute {
+  const SetlistRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const HomePage(title: 'Flutter Demo Home Page');
+    return const SetlistPage();
   }
 }
 
@@ -44,16 +40,6 @@ class SettingsRoute extends GoRouteData with _$SettingsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SettingsPage();
-  }
-}
-
-@immutable
-class SetlistRoute extends GoRouteData with _$SetlistRoute {
-  const SetlistRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SetlistPage();
   }
 }
 
