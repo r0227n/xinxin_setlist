@@ -1,4 +1,5 @@
 import 'package:app/data/services/setlist_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -44,7 +45,11 @@ class _WrapSetlistState extends ConsumerState<WrapSetlist> {
                 snapshot.data
                     ?.map(
                       (e) => ActionChip(
-                        avatar: Image.network(e.thumbnailUrl),
+                        avatar: CachedNetworkImage(
+                          imageUrl: e.thumbnailUrl,
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.info),
+                        ),
                         label: Text(e.title),
                         onPressed: () {
                           widget._onPressed(e);
