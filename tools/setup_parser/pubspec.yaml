@@ -10,6 +10,8 @@ resolution: workspace
 
 dependencies:
   args: ^2.7.0
+  cores:
+    path: ../../packages/cores
 
 dev_dependencies:
   lints: ^6.0.0
