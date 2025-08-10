@@ -84,10 +84,12 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('セットリスト'),
-      ),
+      appBar: widget.musicId != null
+          ? null
+          : AppBar(
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              title: const Text('セットリスト'),
+            ),
       body: FutureBuilder<List<Setlist>>(
         future: _setlistsFuture,
         builder: (context, snapshot) {
@@ -202,11 +204,9 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
 
                 WrapSetlist(
                   musicOrderIds: setlist.musicOrderIds,
-                  onPressed: (music) {
-                    SetlistMusicRoute(
-                      musicId: music.id,
-                    ).go(context);
-                  },
+                  onPressed: (music) => MusicDetailRoute(
+                    musicId: music.id,
+                  ).go(context),
                 ),
               ],
             ),

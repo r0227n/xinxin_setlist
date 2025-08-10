@@ -1,4 +1,5 @@
 import 'package:app/pages/home/home_page.dart';
+import 'package:app/pages/music_detail_page.dart';
 import 'package:app/pages/setlist_page.dart';
 import 'package:app/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ part 'routes.g.dart';
     ),
     TypedGoRoute<SetlistMusicRoute>(
       path: 'setlist/music/:musicId',
+    ),
+    TypedGoRoute<MusicDetailRoute>(
+      path: 'music/:musicId',
     ),
   ],
 )
@@ -74,5 +78,17 @@ class SetlistMusicRoute extends GoRouteData with _$SetlistMusicRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return SetlistPage(musicId: musicId);
+  }
+}
+
+@immutable
+class MusicDetailRoute extends GoRouteData with _$MusicDetailRoute {
+  const MusicDetailRoute({required this.musicId});
+
+  final String musicId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return MusicDetailPage(musicId: musicId);
   }
 }
