@@ -26,11 +26,21 @@ class SetupParser {
   ParsedData _parseInputData(String content) {
     final lines = content.split('\n').map((line) => line.trim()).toList();
 
+    // Skip the first line if it starts with "#XINXINセトリ"
+    int startIndex = 0;
+    if (lines.isNotEmpty && lines[0].startsWith('#XINXINセトリ')) {
+      startIndex = 1;
+    }
+
+    if (startIndex >= lines.length) {
+      throw Exception('No content found after header');
+    }
+
     final dateAndVenueMatch = RegExp(
       r'^(\d{4}\.\d{1,2}\.\d{1,2})\s+(\w+\.)\s+(.+)$',
-    ).firstMatch(lines[0]);
+    ).firstMatch(lines[startIndex]);
     if (dateAndVenueMatch == null) {
-      throw Exception('Invalid date and venue format: ${lines[0]}');
+      throw Exception('Invalid date and venue format: ${lines[startIndex]}');
     }
 
     var dateStr = dateAndVenueMatch.group(1)!.replaceAll('.', '-');
@@ -44,16 +54,29 @@ class SetupParser {
     final dayOfWeek = dateAndVenueMatch.group(2)!;
     final venueName = dateAndVenueMatch.group(3)!;
 
-    final eventTitleMatch = RegExp('『(.+)』').firstMatch(lines[1]);
-    if (eventTitleMatch == null) {
-      throw Exception('Invalid event title format: ${lines[1]}');
+    // Find event title (from next line until first empty line)
+    final eventTitleLines = <String>[];
+    var eventTitleEndIndex = startIndex + 1;
+    
+    for (var i = startIndex + 1; i < lines.length; i++) {
+      if (lines[i].isEmpty) {
+        eventTitleEndIndex = i;
+        break;
+      }
+      eventTitleLines.add(lines[i]);
+      eventTitleEndIndex = i + 1;
     }
-    final eventTitle = eventTitleMatch.group(1)!;
+    
+    if (eventTitleLines.isEmpty) {
+      throw Exception('No event title found');
+    }
+    
+    final eventTitle = eventTitleLines.join('\n');
 
     String? seMusic;
     final songs = <String>[];
 
-    for (var i = 2; i < lines.length; i++) {
+    for (var i = eventTitleEndIndex; i < lines.length; i++) {
       final line = lines[i];
       if (line.isEmpty) {
         continue;
@@ -120,7 +143,7 @@ class SetupParser {
     final newEvent = Event(
       id: eventId,
       stageId: stageId,
-      title: data.eventTitle,
+      title: data.eventTitle.replaceAll('\n', ' '),
       date: DateTime.parse(data.date),
       setlist: setlist,
     );
