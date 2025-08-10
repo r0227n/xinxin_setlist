@@ -18,4 +18,14 @@ class EventRepository extends _$EventRepository with LoggerMixin {
         .map((e) => Event.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<Event> get(String eventId) async {
+    final events = await future;
+    return events.firstWhere((e) => e.id == eventId);
+  }
+
+  Future<List<String>> getAllIds() async {
+    final events = await future;
+    return events.map((e) => e.id).toList();
+  }
 }

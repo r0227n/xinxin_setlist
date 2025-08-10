@@ -1,4 +1,4 @@
-import 'package:app/repositories/music_repository.dart';
+import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:flutter/foundation.dart';

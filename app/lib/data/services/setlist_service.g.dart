@@ -6,7 +6,7 @@ part of 'setlist_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$setlistServiceHash() => r'6a53cc63abe811d5c9d81e7a19022c3f43dc3eea';
+String _$setlistServiceHash() => r'7c4202acbd771d5e1bd38cd20259f7f1e316da6c';
 
 /// See also [setlistService].
 @ProviderFor(setlistService)

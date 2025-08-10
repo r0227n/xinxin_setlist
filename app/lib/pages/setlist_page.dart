@@ -1,6 +1,6 @@
+import 'package:app/data/repositories/event_repository.dart';
+import 'package:app/data/services/setlist_service.dart';
 import 'package:app/pages/widgets/music_chip.dart';
-import 'package:app/repositories/event_repository.dart';
-import 'package:app/repositories/music_order_repository.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
@@ -49,15 +49,13 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
     if (widget.eventId != null) {
       // eventIdが指定されている場合、そのイベントのセットリストのみを取得
       _setlistsFuture = ref
-          .read(musicOrderRepositoryProvider.notifier)
+          .read(setlistServiceProvider)
           .getSetlist(widget.eventId!)
           .then((setlist) => [setlist]);
       logInfo('EventID指定でセットリスト初期化: ${widget.eventId}');
     } else {
       // どちらも指定されていない場合、全てのセットリストを取得
-      _setlistsFuture = ref
-          .read(musicOrderRepositoryProvider.notifier)
-          .getSetlists();
+      _setlistsFuture = ref.read(setlistServiceProvider).getSetlists();
       logInfo('全セットリスト一覧を初期化');
     }
   }
