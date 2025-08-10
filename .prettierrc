@@ -20,6 +20,13 @@
       }
     },
     {
+      "files": ["*.json"],
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 80
+      }
+    },
+    {
       "files": ["*.md"],
       "options": {
         "tabWidth": 2,
