@@ -198,8 +198,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
               spacing: 8,
               children: [
                 Text(
-                  '${t.setlist.date}: ${event.date.year}${t.setlist.year}'
-                  '${event.date.month}${t.setlist.month}${event.date.day}${t.setlist.day}',
+                  '${t.setlist.date}: ${event.date.toString().split(' ')[0]}',
                 ),
 
                 WrapSetlist(

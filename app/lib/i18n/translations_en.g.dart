@@ -113,12 +113,6 @@ class _TranslationsSetlistEn implements TranslationsSetlistJa {
   @override
   String get date => 'Date';
   @override
-  String get year => '';
-  @override
-  String get month => '/';
-  @override
-  String get day => '/';
-  @override
   String get adoption => 'Setlist adoption';
   @override
   String get times => 'times';

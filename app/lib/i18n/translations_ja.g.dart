@@ -97,9 +97,6 @@ class TranslationsSetlistJa {
   );
   String get loading => '読み込み中...';
   String get date => '日付';
-  String get year => '年';
-  String get month => '月';
-  String get day => '日';
   String get adoption => 'セットリスト採用';
   String get times => '回';
 }
