@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Music {
 
- String get id;// SpotifytnidhX
- String get title;// �,�n
- String get thumbnailUrl;
+ String get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -50,7 +48,7 @@ abstract mixin class $MusicCopyWith<$Res>  {
   factory $MusicCopyWith(Music value, $Res Function(Music) _then) = _$MusicCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String thumbnailUrl
+ String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl
 });
 
 
@@ -157,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String thumbnailUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
 return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
@@ -178,7 +176,7 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String thumbnailUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Music():
 return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
@@ -198,7 +196,7 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String thumbnailUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
 return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
@@ -213,14 +211,12 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 @JsonSerializable()
 
 class _Music implements Music {
-  const _Music({required this.id, required this.title, required this.thumbnailUrl});
+  const _Music({required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl});
   factory _Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
 
 @override final  String id;
-// SpotifytnidhX
 @override final  String title;
-// �,�n
-@override final  String thumbnailUrl;
+@override@JsonKey(name: 'thumbnail_url') final  String thumbnailUrl;
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
@@ -255,7 +251,7 @@ abstract mixin class _$MusicCopyWith<$Res> implements $MusicCopyWith<$Res> {
   factory _$MusicCopyWith(_Music value, $Res Function(_Music) _then) = __$MusicCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String thumbnailUrl
+ String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl
 });
 
 

@@ -1,6 +1,6 @@
-import 'package:app/i18n/translations.g.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
+import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,42 +21,10 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> with LoggerMixin {
-  var _counter = 0;
-
-  /// Performance measurement helper method
-  void _measurePerformance(
-    String operation,
-    VoidCallback callback, {
-    Map<String, dynamic>? metadata,
-  }) {
-    final stopwatch = Stopwatch()..start();
-    callback();
-    stopwatch.stop();
-
-    logger.logPerformance(
-      operation,
-      stopwatch.elapsed,
-      metadata,
-    );
-  }
-
-  void _incrementCounter() {
-    // Log user action with structured logging using mixin
-    logUserAction(
-      'counter_increment',
-      {'previous_value': _counter, 'new_value': _counter + 1},
-    );
-
-    // Use performance measurement helper
-    _measurePerformance('counter_update', () {
-      setState(() {
-        _counter++;
-      });
-    }, metadata: {'counter_value': _counter + 1});
-  }
-
   @override
   Widget build(BuildContext context) {
+    final musicListAsync = ref.watch(musicRepositoryProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -68,22 +36,40 @@ class _HomePageState extends ConsumerState<HomePage> with LoggerMixin {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(t.hello),
-            Text(
-              'カウンター: $_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: musicListAsync.when(
+        data: (musicList) => ListView.builder(
+          itemCount: musicList.length,
+          itemBuilder: (context, index) {
+            final music = musicList[index];
+            return ListTile(
+              leading: Image.network(
+                music.thumbnailUrl,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.music_note,
+                  size: 60,
+                ),
+              ),
+              title: Text(music.title),
+              subtitle: Text('ID: ${music.id}'),
+            );
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        error: (error, stackTrace) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error, size: 64, color: Colors.red),
+              const SizedBox(height: 16),
+              Text('エラーが発生しました: $error'),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ abstract class Music with _$Music {
   const factory Music({
     required String id,
     required String title,
-    required String thumbnailUrl,
+    @JsonKey(name: 'thumbnail_url') required String thumbnailUrl,
   }) = _Music;
 
   factory Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
