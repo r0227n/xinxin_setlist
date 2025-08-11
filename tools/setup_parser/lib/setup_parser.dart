@@ -10,6 +10,7 @@ class SetupParser {
   static const musicFilePath = '../../app/assets/music.json';
   static const defaultThumbnailUrl =
       'https://i.scdn.co/image/ab67616d0000b2736775a0cf0a809ce0b0d861b3';
+  static const seMusicId = 'dummyNewSeABCDEFGHIJKL';
 
   Future<void> parseAndUpdate(String filePath) async {
     final file = File(filePath);
@@ -73,7 +74,7 @@ class SetupParser {
 
     final eventTitle = eventTitleLines.join('\n');
 
-    String? seMusic;
+    var hasSE = false;
     final songs = <String>[];
 
     for (var i = eventTitleEndIndex; i < lines.length; i++) {
@@ -82,12 +83,20 @@ class SetupParser {
         continue;
       }
 
-      final seMatch = RegExp(r'^\(SE\)(.+)$').firstMatch(line);
-      if (seMatch != null) {
-        seMusic = seMatch.group(1);
+      // Check for standalone "SE" line
+      if (line == 'SE') {
+        hasSE = true;
         continue;
       }
 
+      // Check for legacy format: (SE)Title (not used in new format but kept for compatibility)
+      final seMatch = RegExp(r'^\(SE\)(.+)$').firstMatch(line);
+      if (seMatch != null) {
+        hasSE = true;
+        continue;
+      }
+
+      // Check for numbered songs: "1. Title"
       final songMatch = RegExp(r'^\d+\.\s*(.+)$').firstMatch(line);
       if (songMatch != null) {
         songs.add(songMatch.group(1)!);
@@ -99,7 +108,7 @@ class SetupParser {
       dayOfWeek: dayOfWeek,
       venueName: venueName,
       eventTitle: eventTitle,
-      seMusic: seMusic,
+      hasSE: hasSE,
       songs: songs,
     );
   }
@@ -110,9 +119,6 @@ class SetupParser {
     final musics = await _loadMusics();
 
     final stageId = _getOrCreateStage(stages, data.venueName);
-    final seMusicId = data.seMusic != null
-        ? _getOrCreateMusic(musics, data.seMusic!)
-        : null;
     final songIds = data.songs
         .map((song) => _getOrCreateMusic(musics, song))
         .toList();
@@ -120,7 +126,7 @@ class SetupParser {
     final eventId = _generateId();
     final setlist = <SetlistItem>[];
 
-    if (seMusicId != null) {
+    if (data.hasSE) {
       setlist.add(
         SetlistItem(
           id: _generateId(),
@@ -135,7 +141,7 @@ class SetupParser {
         SetlistItem(
           id: _generateId(),
           musicId: songIds[i],
-          order: seMusicId != null ? i + 1 : i,
+          order: data.hasSE ? i + 1 : i,
         ),
       );
     }
@@ -299,12 +305,12 @@ class ParsedData {
     required this.venueName,
     required this.eventTitle,
     required this.songs,
-    this.seMusic,
+    required this.hasSE,
   });
   final String date;
   final String dayOfWeek;
   final String venueName;
   final String eventTitle;
-  final String? seMusic;
+  final bool hasSE;
   final List<String> songs;
 }
