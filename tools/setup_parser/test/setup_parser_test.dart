@@ -17,7 +17,7 @@ void main() {
       expect(parsed.date, equals('2025-08-07'));
       expect(parsed.venueName, equals('Test Venue'));
       expect(parsed.eventTitle, equals('『Test Event』'));
-      expect(parsed.seMusic, equals('Test SE'));
+      expect(parsed.hasSE, isTrue);
       expect(parsed.songs.length, equals(2));
     });
 
