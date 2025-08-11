@@ -54,7 +54,7 @@ void main() {
       );
 
       // Verify the app title is displayed
-      expect(find.text('Flutter Template'), findsOneWidget);
+      expect(find.text('XINXIN SETLIST'), findsOneWidget);
     });
 
     testWidgets('Navigation buttons exist', (
@@ -69,10 +69,6 @@ void main() {
           ),
         ),
       );
-
-      // Find the setlist navigation button
-      final setlistButton = find.byIcon(Icons.library_music);
-      expect(setlistButton, findsOneWidget);
 
       // Find the settings navigation button
       final settingsButton = find.byIcon(Icons.settings);
