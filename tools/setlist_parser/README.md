@@ -1,29 +1,29 @@
-# setup_parser
+# setlist_parser
 
 セットリスト情報をパースしてJSONファイルに変換するコマンドラインツール。
 
 ## 概要
 
-setup_parserは、テキストファイルから読み込んだイベント・セットリスト情報を解析し、アプリで使用するJSONファイル（event.json、stage.json、music.json）を自動生成・更新するツールです。
+setlist_parserは、テキストファイルから読み込んだイベント・セットリスト情報を解析し、アプリで使用するJSONファイル（event.json、stage.json、music.json）を自動生成・更新するツールです。
 
 ## 使用方法
 
 ### 基本使用法
 
 ```bash
-dart run setup_parser -f input_file.txt
+dart run setlist_parser -f input_file.txt
 ```
 
 ### 複数ファイルの処理
 
 ```bash
-dart run setup_parser -f file1.txt,file2.txt,file3.txt
+dart run setlist_parser -f file1.txt,file2.txt,file3.txt
 ```
 
 ### ヘルプの表示
 
 ```bash
-dart run setup_parser -h
+dart run setlist_parser -h
 ```
 
 ## 入力ファイルフォーマット
@@ -100,5 +100,5 @@ dart run setup_parser -h
 プロジェクトには `sample_input.txt` ファイルが含まれており、正しいフォーマットの例として使用できます。
 
 ```bash
-dart run setup_parser -f sample_input.txt
+dart run setlist_parser -f sample_input.txt
 ```

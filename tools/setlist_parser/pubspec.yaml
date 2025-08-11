@@ -1,5 +1,5 @@
-name: setup_parser
-description: A sample command-line application.
+name: setlist_parser
+description: A setlist parser command-line application.
 version: 1.0.0
 publish_to: none
 
