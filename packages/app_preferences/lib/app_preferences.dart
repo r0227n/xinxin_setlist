@@ -13,6 +13,7 @@ export 'src/providers/app_preferences_provider.dart';
 export 'src/repositories/app_preferences_repository.dart';
 
 // Theme
+export 'src/theme/app_colors.dart';
 export 'src/theme/app_theme.dart';
 
 // All UI Components (widgets, dialogs, helpers)

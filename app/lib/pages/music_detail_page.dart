@@ -2,6 +2,7 @@ import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/setlist_page.dart';
+import 'package:app_preferences/app_preferences.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,6 @@ class MusicDetailPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(t.music.detail),
       ),
       body: switch (musicDetailAsync) {
@@ -86,11 +86,11 @@ class MusicDetailPage extends ConsumerWidget {
                                 return Container(
                                   height: 200,
                                   width: 200,
-                                  color: Colors.grey[300],
+                                  color: XINXINColors.white,
                                   child: const Icon(
                                     Icons.music_note,
                                     size: 64,
-                                    color: Colors.grey,
+                                    color: XINXINColors.orange,
                                   ),
                                 );
                               },
@@ -102,7 +102,7 @@ class MusicDetailPage extends ConsumerWidget {
                                     return Container(
                                       height: 200,
                                       width: 200,
-                                      color: Colors.grey[300],
+                                      color: XINXINColors.white,
                                       child: const Center(
                                         child: CircularProgressIndicator(),
                                       ),
@@ -147,7 +147,7 @@ class MusicDetailPage extends ConsumerWidget {
                                           .textTheme
                                           .bodySmall
                                           ?.copyWith(
-                                            color: Colors.white,
+                                            color: XINXINColors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -191,7 +191,11 @@ class MusicDetailPage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 16,
             children: [
-              const Icon(Icons.error, size: 64, color: Colors.red),
+              Icon(
+                Icons.error,
+                size: 64,
+                color: Theme.of(context).colorScheme.error,
+              ),
               Text('${t.setlist.error.occurred}: $error'),
               ElevatedButton(
                 onPressed: () {

@@ -86,7 +86,6 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
       appBar: widget.musicId != null
           ? null
           : AppBar(
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               title: Text(t.setlist.title),
               actions: [
                 IconButton(
@@ -109,13 +108,16 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 16,
                 children: [
-                  const Icon(Icons.error, size: 64, color: Colors.red),
-                  const SizedBox(height: 16),
+                  Icon(
+                    Icons.error,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
                   Text(
                     '${t.setlist.error.occurred}: ${snapshot.error}',
                   ),
-                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => setState(_initializeSetlistsFuture),
                     child: Text(t.dialog.retry),
@@ -132,10 +134,14 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 16,
                 children: [
-                  const Icon(Icons.library_music, size: 64, color: Colors.grey),
-                  const SizedBox(height: 16),
-                  Text(_getEmptyMessage(context)),
+                  Icon(
+                    Icons.library_music,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  Text(_getEmptyMessage()),
                 ],
               ),
             );
@@ -198,9 +204,13 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                 AsyncError(error: final error) => Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 16,
                     children: [
-                      const Icon(Icons.error, size: 64, color: Colors.red),
-                      const SizedBox(height: 16),
+                      Icon(
+                        Icons.error,
+                        size: 64,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                       Text('${t.setlist.error.occurred}: $error'),
                     ],
                   ),
@@ -215,7 +225,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
   }
 
   /// 空状態メッセージを取得
-  String _getEmptyMessage(BuildContext context) {
+  String _getEmptyMessage() {
     if (widget.eventId != null) {
       return t.setlist.empty.noSetlistForEvent;
     } else if (widget.musicId != null) {
@@ -310,7 +320,10 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
           );
         }(),
         AsyncError(error: final error) => ListTile(
-          leading: const Icon(Icons.error, color: Colors.red),
+          leading: Icon(
+            Icons.error,
+            color: Theme.of(context).colorScheme.error,
+          ),
           title: Text('セットリストID: ${setlist.id}'),
           subtitle: Text(
             '${t.setlist.error.dataFetchFailed}: $error',
