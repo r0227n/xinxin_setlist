@@ -50,6 +50,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   // Translations
   String get hello => 'こんにちは';
   late final TranslationsSettingsJa settings = TranslationsSettingsJa._(_root);
+  late final TranslationsDialogJa dialog = TranslationsDialogJa._(_root);
+  late final TranslationsSetlistJa setlist = TranslationsSetlistJa._(_root);
+  late final TranslationsMusicJa music = TranslationsMusicJa._(_root);
+  String get error => 'エラー';
 }
 
 // Path: settings
@@ -64,4 +68,69 @@ class TranslationsSettingsJa {
   String get theme => 'テーマ';
   String get version => 'バージョン';
   String get licenses => 'ライセンス';
+}
+
+// Path: dialog
+class TranslationsDialogJa {
+  TranslationsDialogJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get close => '閉じる';
+  String get retry => '再試行';
+}
+
+// Path: setlist
+class TranslationsSetlistJa {
+  TranslationsSetlistJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'XINXIN SETLIST';
+  late final TranslationsSetlistErrorJa error = TranslationsSetlistErrorJa._(
+    _root,
+  );
+  late final TranslationsSetlistEmptyJa empty = TranslationsSetlistEmptyJa._(
+    _root,
+  );
+  String get loading => '読み込み中...';
+  String get date => '日付';
+  String get adoption => 'セットリスト採用';
+  String get times => '回';
+}
+
+// Path: music
+class TranslationsMusicJa {
+  TranslationsMusicJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get detail => '楽曲詳細';
+}
+
+// Path: setlist.error
+class TranslationsSetlistErrorJa {
+  TranslationsSetlistErrorJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get bothIdsSpecified => 'eventIdとmusicIdの両方を同時に指定することはできません';
+  String get occurred => 'エラーが発生しました';
+  String get dataFetchFailed => 'データ取得に失敗';
+}
+
+// Path: setlist.empty
+class TranslationsSetlistEmptyJa {
+  TranslationsSetlistEmptyJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get noSetlistForEvent => 'このイベントにはセットリストがありません';
+  String get noSetlistForMusic => 'この音楽を含むセットリストがありません';
+  String get noSetlist => 'セットリストがありません';
 }

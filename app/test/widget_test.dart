@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:app/i18n/translations.g.dart' as app_translations;
-import 'package:app/pages/home/home_page.dart';
+import 'package:app/pages/setlist_page.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -47,14 +47,14 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
       );
 
       // Verify the app title is displayed
-      expect(find.text('Flutter Template'), findsOneWidget);
+      expect(find.text('XINXIN SETLIST'), findsOneWidget);
     });
 
     testWidgets('Navigation buttons exist', (
@@ -64,15 +64,11 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
       );
-
-      // Find the setlist navigation button
-      final setlistButton = find.byIcon(Icons.library_music);
-      expect(setlistButton, findsOneWidget);
 
       // Find the settings navigation button
       final settingsButton = find.byIcon(Icons.settings);
@@ -84,7 +80,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -111,7 +107,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -134,7 +130,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -150,7 +146,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -186,7 +182,7 @@ void main() {
           ],
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),
@@ -208,7 +204,7 @@ void main() {
         ProviderScope(
           child: app_translations.TranslationProvider(
             child: const MaterialApp(
-              home: HomePage(title: 'Flutter Template'),
+              home: SetlistPage(),
             ),
           ),
         ),

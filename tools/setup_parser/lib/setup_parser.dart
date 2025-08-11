@@ -27,7 +27,7 @@ class SetupParser {
     final lines = content.split('\n').map((line) => line.trim()).toList();
 
     // Skip the first line if it starts with "#XINXINセトリ"
-    int startIndex = 0;
+    var startIndex = 0;
     if (lines.isNotEmpty && lines[0].startsWith('#XINXINセトリ')) {
       startIndex = 1;
     }

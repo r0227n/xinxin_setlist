@@ -1,5 +1,6 @@
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
+import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/setlist_page.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
@@ -52,7 +53,7 @@ class MusicDetailPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('楽曲詳細'),
+        title: Text(t.music.detail),
       ),
       body: switch (musicDetailAsync) {
         AsyncData(value: final music) => AnimatedSwitcher(
@@ -139,7 +140,9 @@ class MusicDetailPage extends ConsumerWidget {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Text(
-                                      'セットリスト採用: $count回',
+                                      // Adoption count display
+                                      // ignore: lines_longer_than_80_chars
+                                      '${t.setlist.adoption}: $count${t.setlist.times}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
@@ -189,13 +192,13 @@ class MusicDetailPage extends ConsumerWidget {
             spacing: 16,
             children: [
               const Icon(Icons.error, size: 64, color: Colors.red),
-              Text('エラーが発生しました: $error'),
+              Text('${t.setlist.error.occurred}: $error'),
               ElevatedButton(
                 onPressed: () {
                   // Providerを無効化して再取得を促す
                   ref.invalidate(musicDetailProvider(musicId));
                 },
-                child: const Text('再試行'),
+                child: Text(t.dialog.retry),
               ),
             ],
           ),
