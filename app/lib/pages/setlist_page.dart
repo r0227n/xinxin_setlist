@@ -88,6 +88,12 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
           : AppBar(
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               title: Text(t.setlist.title),
+              actions: [
+                IconButton(
+                  onPressed: () => const SettingsRoute().go(context),
+                  icon: const Icon(Icons.settings),
+                ),
+              ],
             ),
       body: FutureBuilder<List<Setlist>>(
         future: _setlistsFuture,
@@ -139,44 +145,45 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
           return Consumer(
             builder: (context, ref, child) {
               final eventRepositoryAsync = ref.watch(eventRepositoryProvider);
-              
+
               return switch (eventRepositoryAsync) {
                 AsyncData(value: final events) => () {
                   // EventのdateとorderでSetlistをソート
-                  final sortedSetlists = [...setlists]..sort((a, b) {
-                    final eventA = events.firstWhere(
-                      (e) => e.id == a.eventId,
-                      orElse: () => Event(
-                        id: '',
-                        stageId: '',
-                        title: '',
-                        date: DateTime.fromMillisecondsSinceEpoch(0),
-                        setlist: [],
-                        order: 0,
-                      ),
-                    );
-                    final eventB = events.firstWhere(
-                      (e) => e.id == b.eventId,
-                      orElse: () => Event(
-                        id: '',
-                        stageId: '',
-                        title: '',
-                        date: DateTime.fromMillisecondsSinceEpoch(0),
-                        setlist: [],
-                        order: 0,
-                      ),
-                    );
-                    
-                    // 日付で降順ソート（新しい日付が先）
-                    final dateComparison = eventB.date.compareTo(eventA.date);
-                    if (dateComparison != 0) {
-                      return dateComparison;
-                    }
-                    
-                    // 日付が同じ場合、orderで降順ソート（大きい値が先）
-                    return (eventB.order ?? 0).compareTo(eventA.order ?? 0);
-                  });
-                  
+                  final sortedSetlists = [...setlists]
+                    ..sort((a, b) {
+                      final eventA = events.firstWhere(
+                        (e) => e.id == a.eventId,
+                        orElse: () => Event(
+                          id: '',
+                          stageId: '',
+                          title: '',
+                          date: DateTime.fromMillisecondsSinceEpoch(0),
+                          setlist: [],
+                          order: 0,
+                        ),
+                      );
+                      final eventB = events.firstWhere(
+                        (e) => e.id == b.eventId,
+                        orElse: () => Event(
+                          id: '',
+                          stageId: '',
+                          title: '',
+                          date: DateTime.fromMillisecondsSinceEpoch(0),
+                          setlist: [],
+                          order: 0,
+                        ),
+                      );
+
+                      // 日付で降順ソート（新しい日付が先）
+                      final dateComparison = eventB.date.compareTo(eventA.date);
+                      if (dateComparison != 0) {
+                        return dateComparison;
+                      }
+
+                      // 日付が同じ場合、orderで降順ソート（大きい値が先）
+                      return (eventB.order ?? 0).compareTo(eventA.order ?? 0);
+                    });
+
                   return ListView.builder(
                     itemCount: sortedSetlists.length,
                     itemBuilder: (context, index) {
