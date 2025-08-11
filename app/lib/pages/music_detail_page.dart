@@ -194,7 +194,7 @@ class MusicDetailPage extends ConsumerWidget {
               Icon(
                 Icons.error,
                 size: 64,
-                color: Theme.of(context).colorScheme.onError,
+                color: Theme.of(context).colorScheme.error,
               ),
               Text('${t.setlist.error.occurred}: $error'),
               ElevatedButton(

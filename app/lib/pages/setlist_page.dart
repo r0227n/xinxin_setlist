@@ -113,7 +113,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                   Icon(
                     Icons.error,
                     size: 64,
-                    color: Theme.of(context).colorScheme.onError,
+                    color: Theme.of(context).colorScheme.error,
                   ),
                   Text(
                     '${t.setlist.error.occurred}: ${snapshot.error}',
@@ -139,7 +139,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                   Icon(
                     Icons.library_music,
                     size: 64,
-                    color: Theme.of(context).colorScheme.onError,
+                    color: Theme.of(context).colorScheme.error,
                   ),
                   Text(_getEmptyMessage()),
                 ],
@@ -209,7 +209,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                       Icon(
                         Icons.error,
                         size: 64,
-                        color: Theme.of(context).colorScheme.onError,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                       Text('${t.setlist.error.occurred}: $error'),
                     ],
@@ -322,7 +322,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
         AsyncError(error: final error) => ListTile(
           leading: Icon(
             Icons.error,
-            color: Theme.of(context).colorScheme.onError,
+            color: Theme.of(context).colorScheme.error,
           ),
           title: Text('セットリストID: ${setlist.id}'),
           subtitle: Text(
