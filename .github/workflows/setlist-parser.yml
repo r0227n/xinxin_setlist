@@ -58,23 +58,23 @@ jobs:
           # HEAD_SHAにsetlistディレクトリのファイルがコミットされているかチェック
           echo "Checking if setlist files are committed in HEAD_SHA..."
 
-          # HEAD_SHAでsetlistディレクトリに変更があるかチェック（.gitkeepは除外）
-          setlist_files_in_head=$(git show --name-only --format="" "$HEAD_SHA" | grep '^setlist/' | grep -v '\.gitkeep$' | sort || true)
+          # BASE_SHAからHEAD_SHAまでの差分でsetlistディレクトリに変更があるファイルを取得（.gitkeepは除外）
+          setlist_files_changed=$(git diff --name-only "$BASE_SHA..$HEAD_SHA" | grep '^setlist/' | grep -v '\.gitkeep$' | sort || true)
 
-          if [ -n "$setlist_files_in_head" ]; then
-            echo "Setlist files found in HEAD_SHA:"
-            echo "$setlist_files_in_head"
+          if [ -n "$setlist_files_changed" ]; then
+            echo "Changed setlist files found:"
+            echo "$setlist_files_changed"
             
             # カンマ区切りの文字列として出力
-            setlist_files_csv=$(echo "$setlist_files_in_head" | tr '\n' ',' | sed 's/,$//')
+            setlist_files_csv=$(echo "$setlist_files_changed" | tr '\n' ',' | sed 's/,$//')
             echo "changed_setlist_files=$setlist_files_csv" >> $GITHUB_OUTPUT
             
             # ファイル数も出力
-            file_count=$(echo "$setlist_files_in_head" | wc -l)
+            file_count=$(echo "$setlist_files_changed" | wc -l)
             echo "file_count=$file_count" >> $GITHUB_OUTPUT
             echo "has_setlist_changes=true" >> $GITHUB_OUTPUT
           else
-            echo "No setlist files found in HEAD_SHA"
+            echo "No setlist files changed between BASE_REF and HEAD_REF"
             echo "changed_setlist_files=" >> $GITHUB_OUTPUT
             echo "file_count=0" >> $GITHUB_OUTPUT
             echo "has_setlist_changes=false" >> $GITHUB_OUTPUT
