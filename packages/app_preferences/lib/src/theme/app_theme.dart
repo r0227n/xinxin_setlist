@@ -196,7 +196,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: XINXINColors.orange.withOpacity(0.3),
+            color: XINXINColors.orange.withValues(alpha: 0.3),
           ),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
