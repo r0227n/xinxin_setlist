@@ -12,7 +12,7 @@ workspace:
   - packages/app_logger
   - packages/app_preferences
   - packages/cores
-  - tools/setup_parser
+  - tools/setlist_parser
 
 melos:
   name: flutter_template_project

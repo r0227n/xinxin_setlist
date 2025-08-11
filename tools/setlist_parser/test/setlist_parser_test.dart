@@ -1,10 +1,10 @@
-import 'package:setup_parser/setup_parser.dart';
+import 'package:setlist_parser/setlist_parser.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('SetupParser', () {
+  group('SetlistParser', () {
     test('should parse date format correctly', () {
-      final parser = SetupParser();
+      final parser = SetlistParser();
       const testContent = '''
 2025.8.7 Thu. Test Venue
 『Test Event』
@@ -22,7 +22,7 @@ void main() {
     });
 
     test('should generate valid IDs', () {
-      final parser = SetupParser();
+      final parser = SetlistParser();
       final id1 = parser.generateIdForTest();
       final id2 = parser.generateIdForTest();
 

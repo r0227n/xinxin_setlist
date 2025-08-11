@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:setup_parser/setup_parser.dart';
+import 'package:setlist_parser/setlist_parser.dart';
 
 void main(List<String> arguments) async {
   final parser = ArgParser()
@@ -21,7 +21,7 @@ void main(List<String> arguments) async {
     final results = parser.parse(arguments);
 
     if (results['help'] as bool) {
-      stdout.writeln('Usage: setup_parser -f file1.txt,file2.txt');
+      stdout.writeln('Usage: setlist_parser -f file1.txt,file2.txt');
       stdout.writeln(parser.usage);
       return;
     }
@@ -38,11 +38,11 @@ void main(List<String> arguments) async {
         )
         .toList();
 
-    final setupParser = SetupParser();
+    final setlistParser = SetlistParser();
 
     for (final filePath in filePaths) {
       stdout.writeln('Processing file: $filePath');
-      await setupParser.parseAndUpdate(filePath);
+      await setlistParser.parseAndUpdate(filePath);
     }
 
     stdout.writeln('All files processed successfully!');

@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:cores/cores.dart';
 
-class SetupParser {
+class SetlistParser {
   static const eventFilePath = '../../app/assets/event.json';
   static const stageFilePath = '../../app/assets/stage.json';
   static const musicFilePath = '../../app/assets/music.json';
