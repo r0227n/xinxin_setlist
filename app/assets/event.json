@@ -60,34 +60,39 @@
     "date": "2025-08-10T00:00:00.000",
     "setlist": [
       {
+        "id": "a1B2c3D4e5F6g7H8i9J0kL",
+        "music_id": "dummyNewSeABCDEFGHIJKL",
+        "order": 0
+      },
+      {
         "id": "itZuBdhpoZaGvYL95yanm8",
         "music_id": "1EvkRlwXg7DLsniVKVF87t",
-        "order": 0
+        "order": 1
       },
       {
         "id": "HJqz0usE6GIzUot0DDRR3f",
         "music_id": "6oVVwseIEvd2HUYjQggoVb",
-        "order": 1
+        "order": 2
       },
       {
         "id": "pZIK9qvWnDC60swEynESMq",
         "music_id": "1ey7G0WhN8Qvt104qQIlqY",
-        "order": 2
+        "order": 3
       },
       {
         "id": "OEA98iBQKxNWle0yjhso6V",
         "music_id": "4IS00CfJIuPa57eFy6sOfw",
-        "order": 3
+        "order": 4
       },
       {
         "id": "CBerjk74pNWs7J6cx44OWY",
         "music_id": "1Y4nV4QEOV0VWFWxphD3Vz",
-        "order": 4
+        "order": 5
       },
       {
         "id": "52Sum8TY1t4JRENlOxKwdT",
         "music_id": "2nOCB40cjvEyt1XrsIurK1",
-        "order": 5
+        "order": 6
       }
     ],
     "order": null
