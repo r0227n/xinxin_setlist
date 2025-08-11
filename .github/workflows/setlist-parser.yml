@@ -55,35 +55,29 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          # base branchとcurrent branchのdiffを取得
-          echo "Getting diff between base branch and current branch..."
-          base_branch="$BASE_REF"
-          head_branch="$HEAD_REF"
+          # HEAD_SHAにsetlistディレクトリのファイルがコミットされているかチェック
+          echo "Checking if setlist files are committed in HEAD_SHA..."
 
-          echo "Base branch: $base_branch"
-          echo "Head branch: $head_branch"
+          # HEAD_SHAでsetlistディレクトリに変更があるかチェック（.gitkeepは除外）
+          setlist_files_in_head=$(git show --name-only --format="" "$HEAD_SHA" | grep '^setlist/' | grep -v '\.gitkeep$' | sort || true)
 
-          # gitでdiffを取得（setlistディレクトリのみ）
-          git fetch --no-tags --prune --depth=1 origin "$base_branch"
-
-          # setlistディレクトリ内の変更ファイルを取得
-          changed_setlist_files=$(git diff --name-only "$BASE_SHA...$HEAD_SHA" | grep '^setlist/' | sort || true)
-
-          if [ -z "$changed_setlist_files" ]; then
-            echo "No setlist files changed"
+          if [ -n "$setlist_files_in_head" ]; then
+            echo "Setlist files found in HEAD_SHA:"
+            echo "$setlist_files_in_head"
+            
+            # カンマ区切りの文字列として出力
+            setlist_files_csv=$(echo "$setlist_files_in_head" | tr '\n' ',' | sed 's/,$//')
+            echo "changed_setlist_files=$setlist_files_csv" >> $GITHUB_OUTPUT
+            
+            # ファイル数も出力
+            file_count=$(echo "$setlist_files_in_head" | wc -l)
+            echo "file_count=$file_count" >> $GITHUB_OUTPUT
+            echo "has_setlist_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No setlist files found in HEAD_SHA"
             echo "changed_setlist_files=" >> $GITHUB_OUTPUT
             echo "file_count=0" >> $GITHUB_OUTPUT
-          else
-            echo "Changed setlist files:"
-            echo "$changed_setlist_files"
-
-            # カンマ区切りの文字列として出力
-            setlist_files_csv=$(echo "$changed_setlist_files" | tr '\n' ',' | sed 's/,$//')
-            echo "changed_setlist_files=$setlist_files_csv" >> $GITHUB_OUTPUT
-
-            # ファイル数も出力
-            file_count=$(echo "$changed_setlist_files" | wc -l)
-            echo "file_count=$file_count" >> $GITHUB_OUTPUT
+            echo "has_setlist_changes=false" >> $GITHUB_OUTPUT
           fi
 
           # 全てのsetlistディレクトリ内のファイル一覧も取得
