@@ -1,10 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
-      - feature/deploy-pipelines # 動作確認用
+      - develop
   workflow_dispatch:
 
 permissions:
@@ -13,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: auto-label-${{ github.ref }}
+  group: deploy-github-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
