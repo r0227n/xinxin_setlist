@@ -96,54 +96,5 @@
       }
     ],
     "order": null
-  },
-  {
-    "id": "P6eaJEBCwSaM9do16YJzQz",
-    "stage_id": "uZvqx25qiD2xO4Ev4OO7DJ",
-    "title": "偶像和音×UNlVERSE 『-神威解放ゾーン-』",
-    "date": "2025-08-11T00:00:00.000",
-    "setlist": [
-      {
-        "id": "fAAg9iQZPt2Xb30u7MEeV7",
-        "music_id": "dummyNewSeABCDEFGHIJKL",
-        "order": 0
-      },
-      {
-        "id": "VFwrFT5V4cA25bcDovDHAS",
-        "music_id": "6oVVwseIEvd2HUYjQggoVb",
-        "order": 1
-      },
-      {
-        "id": "8Vxn4vLhrHRb2c8DbA1N58",
-        "music_id": "4IS00CfJIuPa57eFy6sOfw",
-        "order": 2
-      },
-      {
-        "id": "hAdjjM9PIougzkWpAJkQjr",
-        "music_id": "3sraGAoHucFwO7NVbHunxn",
-        "order": 3
-      },
-      {
-        "id": "kiyaCrG3ANjOV3wNaEkFmt",
-        "music_id": "1ey7G0WhN8Qvt104qQIlqY",
-        "order": 4
-      },
-      {
-        "id": "mngdpa3794OP8EXH7lYEUF",
-        "music_id": "2nOCB40cjvEyt1XrsIurK1",
-        "order": 5
-      },
-      {
-        "id": "BD0jFVLcfZCjcv7aPHRfNs",
-        "music_id": "1cz1TpYCViNn2eSoV2qjaM",
-        "order": 6
-      },
-      {
-        "id": "BSlY5uWfrIIPYqTFxQg2KZ",
-        "music_id": "1EvkRlwXg7DLsniVKVF87t",
-        "order": 7
-      }
-    ],
-    "order": null
   }
 ]
