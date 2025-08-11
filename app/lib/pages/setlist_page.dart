@@ -136,14 +136,70 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
           }
 
           // 統合されたセットリスト表示
-          return ListView.builder(
-            itemCount: setlists.length,
-            itemBuilder: (context, index) {
-              final setlist = setlists[index];
-              return ProviderScope(
-                overrides: [_currentSetlist.overrideWithValue(setlist)],
-                child: const _SetlistTile(),
-              );
+          return Consumer(
+            builder: (context, ref, child) {
+              final eventRepositoryAsync = ref.watch(eventRepositoryProvider);
+              
+              return switch (eventRepositoryAsync) {
+                AsyncData(value: final events) => () {
+                  // EventのdateとorderでSetlistをソート
+                  final sortedSetlists = [...setlists]..sort((a, b) {
+                    final eventA = events.firstWhere(
+                      (e) => e.id == a.eventId,
+                      orElse: () => Event(
+                        id: '',
+                        stageId: '',
+                        title: '',
+                        date: DateTime.fromMillisecondsSinceEpoch(0),
+                        setlist: [],
+                        order: 0,
+                      ),
+                    );
+                    final eventB = events.firstWhere(
+                      (e) => e.id == b.eventId,
+                      orElse: () => Event(
+                        id: '',
+                        stageId: '',
+                        title: '',
+                        date: DateTime.fromMillisecondsSinceEpoch(0),
+                        setlist: [],
+                        order: 0,
+                      ),
+                    );
+                    
+                    // 日付で降順ソート（新しい日付が先）
+                    final dateComparison = eventB.date.compareTo(eventA.date);
+                    if (dateComparison != 0) {
+                      return dateComparison;
+                    }
+                    
+                    // 日付が同じ場合、orderで降順ソート（大きい値が先）
+                    return (eventB.order ?? 0).compareTo(eventA.order ?? 0);
+                  });
+                  
+                  return ListView.builder(
+                    itemCount: sortedSetlists.length,
+                    itemBuilder: (context, index) {
+                      final setlist = sortedSetlists[index];
+                      return ProviderScope(
+                        overrides: [_currentSetlist.overrideWithValue(setlist)],
+                        child: const _SetlistTile(),
+                      );
+                    },
+                  );
+                }(),
+                AsyncError(error: final error) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error, size: 64, color: Colors.red),
+                      const SizedBox(height: 16),
+                      Text('${t.setlist.error.occurred}: $error'),
+                    ],
+                  ),
+                ),
+                _ => const Center(child: CircularProgressIndicator()),
+              };
             },
           );
         },
