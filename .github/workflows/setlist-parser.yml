@@ -118,7 +118,7 @@ jobs:
           fi
 
       - name: Compile executable
-        run: dart compile exe bin/setlist_parser.dart -o build/setlist_parser
+        run: dart compile exe bin/setlist_parser.dart
 
       - name: Run setlist parser
         id: run-parser
@@ -127,8 +127,8 @@ jobs:
 
           # セットリストパーサーを実行
           if [ "${{ steps.setlist-diff.outputs.file_count }}" != "0" ]; then
-            echo "パーサーを実行: ./build/setlist_parser -f '${{ steps.setlist-diff.outputs.changed_setlist_files }}'"
-            ./build/setlist_parser -f "${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+            echo "パーサーを実行: ./bin/setlist_parser.exe -f '${{ steps.setlist-diff.outputs.changed_setlist_files }}'"
+            ./bin/setlist_parser.exe -f "${{ steps.setlist-diff.outputs.changed_setlist_files }}"
             parser_exit_code=$?
             
             if [ $parser_exit_code -ne 0 ]; then
