@@ -140,6 +140,7 @@ class MusicDetailPage extends ConsumerWidget {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Text(
+                                      // Adoption count display
                                       // ignore: lines_longer_than_80_chars
                                       '${t.setlist.adoption}: $count${t.setlist.times}',
                                       style: Theme.of(context)

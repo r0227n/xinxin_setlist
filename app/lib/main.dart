@@ -71,6 +71,7 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
 
     return MaterialApp.router(
+      // Using environment variable for dynamic app title configuration
       // ignore: do_not_use_environment
       title: const String.fromEnvironment(
         'APP_NAME',
