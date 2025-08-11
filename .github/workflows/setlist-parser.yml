@@ -1,0 +1,217 @@
+name: Setlist Parser CI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'setlist/**'
+
+env:
+  EXPECTED_BASE_BRANCH: 'develop'
+
+concurrency:
+  group: setlist-parser-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: tools/setlist_parser
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check and update base branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # 現在のPRのベースブランチを取得
+          current_base=$(gh pr view ${{ github.event.pull_request.number }} --json baseRefName --jq '.baseRefName')
+          echo "Current base branch: $current_base"
+          echo "Expected base branch: ${{ env.EXPECTED_BASE_BRANCH }}"
+
+          # ベースブランチが期待するものと異なる場合、変更する
+          if [ "$current_base" != "${{ env.EXPECTED_BASE_BRANCH }}" ]; then
+            echo "Base branch is '$current_base', changing to '${{ env.EXPECTED_BASE_BRANCH }}'"
+            gh pr edit ${{ github.event.pull_request.number }} --base ${{ env.EXPECTED_BASE_BRANCH }}
+            echo "Base branch changed successfully to ${{ env.EXPECTED_BASE_BRANCH }}"
+          else
+            echo "Base branch is already correct: $current_base"
+          fi
+
+      - name: Get changed setlist files
+        id: setlist-diff
+        run: |
+          # base branchとcurrent branchのdiffを取得
+          echo "Getting diff between base branch and current branch..."
+          base_branch="${{ github.event.pull_request.base.ref }}"
+          head_branch="${{ github.event.pull_request.head.ref }}"
+
+          echo "Base branch: $base_branch"
+          echo "Head branch: $head_branch"
+
+          # gitでdiffを取得（setlistディレクトリのみ）
+          git fetch origin $base_branch:$base_branch
+
+          # setlistディレクトリ内の変更ファイルを取得
+          changed_setlist_files=$(git diff --name-only origin/$base_branch...HEAD | grep '^setlist/' | sort || true)
+
+          if [ -z "$changed_setlist_files" ]; then
+            echo "No setlist files changed"
+            echo "changed_setlist_files=" >> $GITHUB_OUTPUT
+            echo "file_count=0" >> $GITHUB_OUTPUT
+          else
+            echo "Changed setlist files:"
+            echo "$changed_setlist_files"
+            
+            # カンマ区切りの文字列として出力
+            setlist_files_csv=$(echo "$changed_setlist_files" | tr '\n' ',' | sed 's/,$//')
+            echo "changed_setlist_files=$setlist_files_csv" >> $GITHUB_OUTPUT
+            
+            # ファイル数も出力
+            file_count=$(echo "$changed_setlist_files" | wc -l)
+            echo "file_count=$file_count" >> $GITHUB_OUTPUT
+          fi
+
+          # 全てのsetlistディレクトリ内のファイル一覧も取得
+          cd ../..
+          all_setlist_files=$(find setlist -type f 2>/dev/null | sort || echo "")
+          if [ -n "$all_setlist_files" ]; then
+            echo "All setlist files:"
+            echo "$all_setlist_files"
+            all_setlist_csv=$(echo "$all_setlist_files" | tr '\n' ',' | sed 's/,$//')
+            echo "all_setlist_files=$all_setlist_csv" >> $GITHUB_OUTPUT
+          else
+            echo "No setlist directory found or no files in setlist directory"
+            echo "all_setlist_files=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Install dependencies
+        run: melos get
+
+      - name: Display setlist files info
+        run: |
+          echo "Changed setlist files: ${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+          echo "File count: ${{ steps.setlist-diff.outputs.file_count }}"
+          echo "All setlist files: ${{ steps.setlist-diff.outputs.all_setlist_files }}"
+
+          # 変更されたファイルがある場合の処理例
+          if [ "${{ steps.setlist-diff.outputs.file_count }}" != "0" ]; then
+            echo "Processing changed files..."
+            IFS=',' read -ra FILES <<< "${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+            for file in "${FILES[@]}"; do
+              echo "Processing file: $file"
+              # ここで各ファイルに対する処理を実行
+            done
+          else
+            echo "No files to process"
+          fi
+
+      - name: Compile executable
+        run: dart compile exe bin/setlist_parser.dart -o build/setlist_parser
+
+      - name: Run setlist parser
+        id: run-parser
+        run: |
+          echo "変更されたセットリストファイルを処理中..."
+
+          # セットリストパーサーを実行
+          if [ "${{ steps.setlist-diff.outputs.file_count }}" != "0" ]; then
+            echo "パーサーを実行: ./build/setlist_parser -f '${{ steps.setlist-diff.outputs.changed_setlist_files }}'"
+            ./build/setlist_parser -f "${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+            parser_exit_code=$?
+            
+            if [ $parser_exit_code -ne 0 ]; then
+              echo "パーサーの実行に失敗しました (終了コード: $parser_exit_code)"
+              echo "parser_failed=true" >> $GITHUB_OUTPUT
+            else
+              echo "パーサーの実行が完了しました"
+              echo "parser_failed=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "変更されたセットリストファイルがありません"
+            echo "parser_failed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if event.json was updated
+        id: check-event-json
+        run: |
+          # event.jsonファイルが変更されているかチェック
+          if git diff --quiet /Users/r0227n/dev/xinxin_setlist/app/assets/event.json; then
+            echo "event.jsonファイルが更新されていません"
+            echo "event_updated=false" >> $GITHUB_OUTPUT
+          else
+            echo "event.jsonファイルが正常に更新されました"
+            echo "event_updated=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR if processing failed
+        if: steps.run-parser.outputs.parser_failed == 'true' || steps.check-event-json.outputs.event_updated == 'false'
+        run: |
+          comment='## ⚠️ セットリストパーサーの処理に問題が発生しました\n\n'
+
+          if [ "${{ steps.run-parser.outputs.parser_failed }}" == "true" ]; then
+            comment+='- セットリストパーサーの実行に失敗しました\n'
+          fi
+
+          if [ "${{ steps.check-event-json.outputs.event_updated }}" == "false" ]; then
+            comment+='- event.jsonファイルが更新されていません\n'
+          fi
+
+          comment+='\n処理内容を確認してください。'
+
+          gh pr comment ${{ github.event.number }} --body "$comment"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up setlist files and commit changes
+        working-directory: .
+        run: |
+          # git設定
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # assetsディレクトリの変更をステージング
+          echo "assetsディレクトリの変更をステージング中..."
+          git add app/assets/
+
+          # 変更されたsetlistファイルを削除
+          if [ "${{ steps.setlist-diff.outputs.file_count }}" != "0" ]; then
+            echo "変更されたsetlistファイルを削除中..."
+            IFS=',' read -ra FILES <<< "${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+            for file in "${FILES[@]}"; do
+              if [ -f "$file" ]; then
+                echo "削除: $file"
+                git rm "$file"
+              else
+                echo "ファイルが見つかりません: $file"
+              fi
+            done
+          else
+            echo "削除するsetlistファイルがありません"
+          fi
+
+          # 変更があるかチェック
+          if git diff --staged --quiet; then
+            echo "コミットする変更がありません"
+          else
+            echo "変更をコミット中..."
+            git commit -m "chore: update assets and clean up processed setlist files
+            
+            - Updated event.json with processed setlist data
+            - Removed processed setlist files: ${{ steps.setlist-diff.outputs.changed_setlist_files }}"
+            
+            echo "リモートブランチにプッシュ中..."
+            git push origin HEAD
+            echo "プッシュが完了しました"
+          fi
