@@ -220,7 +220,7 @@ jobs:
 
           # assetsディレクトリの変更をステージング
           echo "assetsディレクトリの変更をステージング中..."
-          git add app/assets/
+          git add app/assets/event.json app/assets/stage.json
 
           # 変更されたsetlistファイルを削除
           if [ "${{ steps.setlist-diff.outputs.file_count }}" != "0" ]; then
