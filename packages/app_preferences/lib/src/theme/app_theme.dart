@@ -85,7 +85,7 @@ class AppTheme {
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: XINXINColors.orange,
-          statusBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
           systemNavigationBarColor: XINXINColors.white,
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
@@ -200,7 +200,7 @@ class AppTheme {
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: XINXINColors.black,
-          statusBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: XINXINColors.black,
           systemNavigationBarIconBrightness: Brightness.light,
         ),
