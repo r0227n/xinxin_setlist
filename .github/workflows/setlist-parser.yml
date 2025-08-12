@@ -177,7 +177,7 @@ jobs:
         id: check-event-json
         run: |
           # event.jsonファイルが変更されているかチェック
-          if git diff --quiet /Users/r0227n/dev/xinxin_setlist/app/assets/event.json; then
+          if git diff --quiet app/assets/event.json; then
             echo "event.jsonファイルが更新されていません"
             echo "event_updated=false" >> $GITHUB_OUTPUT
           else
@@ -248,34 +248,7 @@ jobs:
             head_branch="${{ github.event.pull_request.head.ref }}"
             echo "プッシュ先ブランチ: $head_branch"
             
-            # リモートブランチの最新状態を取得
-            git fetch origin "$head_branch"
-            
-            # リモートブランチの存在確認
-            if git ls-remote --exit-code --heads origin "$head_branch" >/dev/null 2>&1; then
-              echo "リモートブランチ '$head_branch' が存在します"
-              
-              # 現在の変更を保存
-              current_commit=$(git rev-parse HEAD)
-              
-              # リモートブランチをローカルにチェックアウト
-              git checkout -B "$head_branch" "origin/$head_branch"
-              
-              # 保存した変更をrebase
-              echo "リモートの変更にrebaseしています..."
-              if git rebase "$current_commit"; then
-                echo "rebaseが成功しました"
-              else
-                echo "rebaseでコンフリクトが発生しました。変更を直接適用します"
-                git rebase --abort
-                git reset --hard "$current_commit"
-              fi
-              
-              # プッシュ
-              git push origin "$head_branch"
-            else
-              echo "リモートブランチ '$head_branch' が存在しません。新しいブランチとしてプッシュします"
-              git push origin HEAD:"refs/heads/$head_branch"
-            fi
+            # force pushで変更を適用（GitHub ActionsでPRブランチを更新する際の標準的な方法）
+            git push --force-with-lease origin HEAD:"refs/heads/$head_branch"
             echo "プッシュが完了しました"
           fi
