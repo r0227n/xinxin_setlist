@@ -76,6 +76,7 @@ class AppTheme {
         backgroundColor: XINXINColors.orange,
         foregroundColor: XINXINColors.white,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.white,
@@ -190,6 +191,7 @@ class AppTheme {
         backgroundColor: XINXINColors.black,
         foregroundColor: XINXINColors.white,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.orange,
