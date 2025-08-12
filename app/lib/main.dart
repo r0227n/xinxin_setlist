@@ -6,6 +6,7 @@ import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart' as prefs;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
@@ -13,6 +14,13 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // prefs.AppTheme.registerGoogleFontsLicense();
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString(
+      'google_fonts/OFL.txt',
+    );
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 
   // Initialize logger based on build mode
   final loggerConfig = kDebugMode

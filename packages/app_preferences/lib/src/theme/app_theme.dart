@@ -1,6 +1,8 @@
 import 'package:app_preferences/src/theme/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Application theme configuration and management
 ///
@@ -56,6 +58,11 @@ class AppTheme {
   /// Returns:
   /// A fully configured [ThemeData] for light mode
   ThemeData toLightTheme() {
+    LicenseRegistry.addLicense(() async* {
+      final license = await rootBundle.loadString('google_fonts/OFL.txt');
+      yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+    });
+
     final colorScheme = ColorScheme.fromSeed(
       seedColor: XINXINColors.orange,
       // 可読性を向上させるための適切な色配置
@@ -72,6 +79,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
+      // https://fonts.google.com/noto/specimen/Noto+Sans+JP
+      textTheme: GoogleFonts.notoSansJpTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.orange,
         foregroundColor: XINXINColors.white,
@@ -187,6 +196,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
+      // https://fonts.google.com/noto/specimen/Noto+Sans+JP
+      textTheme: GoogleFonts.notoSansJpTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.black,
         foregroundColor: XINXINColors.white,
