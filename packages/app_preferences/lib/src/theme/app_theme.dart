@@ -1,5 +1,6 @@
 import 'package:app_preferences/src/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Application theme configuration and management
 ///
@@ -74,12 +75,19 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.orange,
         foregroundColor: XINXINColors.white,
-        elevation: 2,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.white,
           fontSize: 20,
           fontWeight: FontWeight.w600,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: XINXINColors.orange,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: XINXINColors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
         ),
       ),
       cardTheme: CardThemeData(
@@ -147,6 +155,7 @@ class AppTheme {
         color: XINXINColors.black.withValues(alpha: 0.1),
         thickness: 1,
       ),
+      scaffoldBackgroundColor: XINXINColors.white,
     );
   }
 
@@ -181,12 +190,19 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.black,
         foregroundColor: XINXINColors.white,
-        elevation: 2,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.orange,
           fontSize: 20,
           fontWeight: FontWeight.w600,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: XINXINColors.black,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: XINXINColors.black,
+          systemNavigationBarIconBrightness: Brightness.light,
         ),
       ),
       cardTheme: CardThemeData(
@@ -254,6 +270,7 @@ class AppTheme {
         color: XINXINColors.white.withValues(alpha: 0.2),
         thickness: 1,
       ),
+      scaffoldBackgroundColor: XINXINColors.black,
     );
   }
 }
