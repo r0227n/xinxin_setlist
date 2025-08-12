@@ -147,6 +147,7 @@ class AppTheme {
         color: XINXINColors.black.withValues(alpha: 0.1),
         thickness: 1,
       ),
+      scaffoldBackgroundColor: XINXINColors.white,
     );
   }
 
@@ -254,6 +255,7 @@ class AppTheme {
         color: XINXINColors.white.withValues(alpha: 0.2),
         thickness: 1,
       ),
+      scaffoldBackgroundColor: XINXINColors.black,
     );
   }
 }
