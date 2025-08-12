@@ -1,5 +1,6 @@
 import 'package:app_preferences/src/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Application theme configuration and management
 ///
@@ -80,6 +81,12 @@ class AppTheme {
           color: XINXINColors.white,
           fontSize: 20,
           fontWeight: FontWeight.w600,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: XINXINColors.orange,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: XINXINColors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
         ),
       ),
       cardTheme: CardThemeData(
@@ -188,6 +195,12 @@ class AppTheme {
           color: XINXINColors.orange,
           fontSize: 20,
           fontWeight: FontWeight.w600,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: XINXINColors.black,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: XINXINColors.black,
+          systemNavigationBarIconBrightness: Brightness.light,
         ),
       ),
       cardTheme: CardThemeData(

@@ -6,6 +6,7 @@ import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart' as prefs;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
@@ -70,6 +71,36 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(prefs.appThemeProviderProvider);
     final router = ref.watch(appRouterProvider);
 
+    // システムUIの色をテーマに基づいて動的に設定
+    final currentThemeMode = switch (themeMode) {
+      AsyncData(value: final mode) => mode,
+      _ => ThemeMode.system,
+    };
+
+    final isDarkMode = switch (currentThemeMode) {
+      ThemeMode.dark => true,
+      ThemeMode.light => false,
+      ThemeMode.system =>
+        MediaQuery.platformBrightnessOf(context) == Brightness.dark,
+    };
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: isDarkMode
+            ? prefs.XINXINColors.black
+            : prefs.XINXINColors.orange,
+        statusBarIconBrightness: isDarkMode
+            ? Brightness.light
+            : Brightness.dark,
+        systemNavigationBarColor: isDarkMode
+            ? prefs.XINXINColors.black
+            : prefs.XINXINColors.white,
+        systemNavigationBarIconBrightness: isDarkMode
+            ? Brightness.light
+            : Brightness.dark,
+      ),
+    );
+
     return MaterialApp.router(
       // Using environment variable for dynamic app title configuration
       // ignore: do_not_use_environment
@@ -89,10 +120,7 @@ class MyApp extends ConsumerWidget {
       },
       theme: prefs.AppTheme.lightTheme,
       darkTheme: prefs.AppTheme.darkTheme,
-      themeMode: switch (themeMode) {
-        AsyncData(value: final mode) => mode,
-        _ => ThemeMode.system,
-      },
+      themeMode: currentThemeMode,
       routerConfig: router,
     );
   }
