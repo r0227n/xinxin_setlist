@@ -89,7 +89,8 @@ class SetlistParser {
         continue;
       }
 
-      // Check for legacy format: (SE)Title (not used in new format but kept for compatibility)
+      // Check for legacy format: (SE)Title (not used in new format but kept
+      // for compatibility)
       final seMatch = RegExp(r'^\(SE\)(.+)$').firstMatch(line);
       if (seMatch != null) {
         hasSE = true;
