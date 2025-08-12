@@ -241,6 +241,6 @@ jobs:
             - Removed processed setlist files: ${{ steps.setlist-diff.outputs.changed_setlist_files }}"
             
             echo "リモートブランチにプッシュ中..."
-            git push origin HEAD
+            git push origin ${{ github.event.pull_request.head.ref }}
             echo "プッシュが完了しました"
           fi
