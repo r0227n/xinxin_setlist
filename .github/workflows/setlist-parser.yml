@@ -241,6 +241,16 @@ jobs:
             - Removed processed setlist files: ${{ steps.setlist-diff.outputs.changed_setlist_files }}"
             
             echo "リモートブランチにプッシュ中..."
-            git push origin ${{ github.event.pull_request.head.ref }}
+            current_branch=$(git rev-parse --abbrev-ref HEAD)
+            echo "現在のブランチ: $current_branch"
+            
+            # リモートブランチの存在確認
+            if git ls-remote --exit-code --heads origin "$current_branch" >/dev/null 2>&1; then
+              echo "リモートブランチ '$current_branch' が存在します"
+              git push origin HEAD:"$current_branch"
+            else
+              echo "リモートブランチ '$current_branch' が存在しません。新しいブランチとしてプッシュします"
+              git push -u origin HEAD:"$current_branch"
+            fi
             echo "プッシュが完了しました"
           fi
