@@ -16,9 +16,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: tools/setlist_parser
 
     permissions:
       contents: write
@@ -80,8 +77,16 @@ jobs:
             echo "Changed setlist files found:"
             echo "$setlist_files_changed"
             
-            # カンマ区切りの文字列として出力
-            setlist_files_csv=$(echo "$setlist_files_changed" | tr '\n' ',' | sed 's/,$//')
+            # 絶対パスに変換してカンマ区切りの文字列として出力
+            setlist_files_csv=""
+            for file in $setlist_files_changed; do
+              abs_path="$(pwd)/$file"
+              if [ -z "$setlist_files_csv" ]; then
+                setlist_files_csv="$abs_path"
+              else
+                setlist_files_csv="$setlist_files_csv,$abs_path"
+              fi
+            done
             echo "changed_setlist_files=$setlist_files_csv" >> $GITHUB_OUTPUT
             
             # ファイル数も出力
@@ -96,12 +101,20 @@ jobs:
           fi
 
           # 全てのsetlistディレクトリ内のファイル一覧も取得
-          cd ../..
           all_setlist_files=$(find setlist -type f 2>/dev/null | sort || echo "")
           if [ -n "$all_setlist_files" ]; then
             echo "All setlist files:"
             echo "$all_setlist_files"
-            all_setlist_csv=$(echo "$all_setlist_files" | tr '\n' ',' | sed 's/,$//')
+            # 絶対パスに変換してカンマ区切りの文字列として出力
+            all_setlist_csv=""
+            for file in $all_setlist_files; do
+              abs_path="$(pwd)/$file"
+              if [ -z "$all_setlist_csv" ]; then
+                all_setlist_csv="$abs_path"
+              else
+                all_setlist_csv="$all_setlist_csv,$abs_path"
+              fi
+            done
             echo "all_setlist_files=$all_setlist_csv" >> $GITHUB_OUTPUT
           else
             echo "No setlist directory found or no files in setlist directory"
@@ -133,10 +146,12 @@ jobs:
           fi
 
       - name: Compile executable
+        working-directory: tools/setlist_parser
         run: dart compile exe bin/setlist_parser.dart
 
       - name: Run setlist parser
         id: run-parser
+        working-directory: tools/setlist_parser
         run: |
           echo "変更されたセットリストファイルを処理中..."
 
@@ -190,7 +205,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clean up setlist files and commit changes
-        working-directory: .
         run: |
           # git設定
           git config --local user.email "action@github.com"
