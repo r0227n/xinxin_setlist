@@ -205,6 +205,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clean up setlist files and commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # git設定
           git config --local user.email "action@github.com"
@@ -241,16 +243,18 @@ jobs:
             - Removed processed setlist files: ${{ steps.setlist-diff.outputs.changed_setlist_files }}"
             
             echo "リモートブランチにプッシュ中..."
-            current_branch=$(git rev-parse --abbrev-ref HEAD)
-            echo "現在のブランチ: $current_branch"
+            
+            # PRのヘッドブランチ名を取得
+            head_branch="${{ github.event.pull_request.head.ref }}"
+            echo "プッシュ先ブランチ: $head_branch"
             
             # リモートブランチの存在確認
-            if git ls-remote --exit-code --heads origin "$current_branch" >/dev/null 2>&1; then
-              echo "リモートブランチ '$current_branch' が存在します"
-              git push origin HEAD:"$current_branch"
+            if git ls-remote --exit-code --heads origin "$head_branch" >/dev/null 2>&1; then
+              echo "リモートブランチ '$head_branch' が存在します"
+              git push origin HEAD:"refs/heads/$head_branch"
             else
-              echo "リモートブランチ '$current_branch' が存在しません。新しいブランチとしてプッシュします"
-              git push -u origin HEAD:"$current_branch"
+              echo "リモートブランチ '$head_branch' が存在しません。新しいブランチとしてプッシュします"
+              git push origin HEAD:"refs/heads/$head_branch"
             fi
             echo "プッシュが完了しました"
           fi
