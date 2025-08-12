@@ -121,6 +121,12 @@ jobs:
             echo "all_setlist_files=" >> $GITHUB_OUTPUT
           fi
 
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Install dependencies
+        run: bun install
+
       - name: Setup Flutter
         uses: ./.github/actions/setup-flutter
 
