@@ -1,1 +1,3 @@
-bun test
+#!/bin/bash
+# Run quality checks before commit
+mise exec -- bun run lint

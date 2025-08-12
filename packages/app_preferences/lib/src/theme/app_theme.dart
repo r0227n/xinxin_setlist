@@ -75,7 +75,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.orange,
         foregroundColor: XINXINColors.white,
-        elevation: 2,
+        elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.white,
@@ -189,7 +189,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: XINXINColors.black,
         foregroundColor: XINXINColors.white,
-        elevation: 2,
+        elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: XINXINColors.orange,
