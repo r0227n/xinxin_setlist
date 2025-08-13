@@ -145,5 +145,49 @@
       }
     ],
     "order": null
+  },
+  {
+    "id": "Nv72MPkSKeSLHwJezvjLAV",
+    "stage_id": "t1XoChsSlm4PSdwOEj3Jtk",
+    "title": "『NEO KASSEN2025』RINNE STAGE",
+    "date": "2025-08-13T00:00:00.000",
+    "setlist": [
+      {
+        "id": "V4uzociaxzqKQGEeCpPfJd",
+        "music_id": "dummyNewSeABCDEFGHIJKL",
+        "order": 0
+      },
+      {
+        "id": "3JCqDexqYGMN0JVumh1SDz",
+        "music_id": "1cz1TpYCViNn2eSoV2qjaM",
+        "order": 1
+      },
+      {
+        "id": "sOSRYOm4RhhEkVdEQv9mx8",
+        "music_id": "1ey7G0WhN8Qvt104qQIlqY",
+        "order": 2
+      },
+      {
+        "id": "tv0migMgbiRjwoG0lyw5U3",
+        "music_id": "4IS00CfJIuPa57eFy6sOfw",
+        "order": 3
+      },
+      {
+        "id": "wtlHcD371sMOPlvZ3Vlsqc",
+        "music_id": "1vwLujMBp3VUFJuHPYEvmi",
+        "order": 4
+      },
+      {
+        "id": "NJ5wXwmToFTkfkBAB1DoGp",
+        "music_id": "2nOCB40cjvEyt1XrsIurK1",
+        "order": 5
+      },
+      {
+        "id": "CDOXdsEEFoZ3Dm8CMGfFI7",
+        "music_id": "6oVVwseIEvd2HUYjQggoVb",
+        "order": 6
+      }
+    ],
+    "order": null
   }
 ]
