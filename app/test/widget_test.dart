@@ -34,12 +34,13 @@ void main() {
         ),
       );
 
-      // Wait for the music data to load
-      await tester.pumpAndSettle();
+      // Wait for the music data to load with a limited duration
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
 
-      // Verify that music list is displayed
-      expect(find.byType(ListView), findsOneWidget);
-      expect(find.byType(ListTile), findsWidgets);
+      // Verify that setlist cards are displayed
+      expect(find.byType(Card), findsWidgets);
+      expect(find.byType(ActionChip), findsWidgets);
     });
 
     testWidgets('App displays correct title', (tester) async {
