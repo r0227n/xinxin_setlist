@@ -14,7 +14,6 @@ dependencies:
     path: ../packages/app_logger
   app_preferences:
     path: ../packages/app_preferences
-  cached_network_image: ^3.4.1
   cores:
     path: ../packages/cores
   cupertino_icons: ^1.0.8

@@ -9,7 +9,6 @@ import 'package:app/i18n/translations.g.dart' as app_translations;
 import 'package:app/pages/setlist_page.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,9 +19,6 @@ void main() {
     if (!AppLogger.isInitialized) {
       AppLogger.initialize(LoggerConfig.development());
     }
-
-    // Mock CachedNetworkImage for tests to avoid network requests
-    CachedNetworkImage.logLevel = CacheManagerLogLevel.none;
   });
 
   group('Basic Widget Tests', () {
