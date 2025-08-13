@@ -13,14 +13,13 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // prefs.AppTheme.registerGoogleFontsLicense();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString(
       'google_fonts/OFL.txt',
     );
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+  WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize logger based on build mode
   final loggerConfig = kDebugMode
