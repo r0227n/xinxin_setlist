@@ -519,13 +519,31 @@
             const svgPreview = document.getElementById('svgPreview');
             
             try {
-                // SVGプレビューを表示
-                svgPreview.innerHTML = svgContent;
-                const svgElement = svgPreview.querySelector('svg');
-                
-                if (!svgElement) {
+                // SVGを安全に解析・サニタイズ
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                let svgElement = doc.documentElement;
+
+                if (!svgElement || svgElement.tagName.toLowerCase() !== 'svg') {
                     throw new Error('有効なSVG要素が見つかりません');
                 }
+
+                // 危険要素と属性を除去
+                doc.querySelectorAll('script, foreignObject').forEach(el => el.remove());
+                doc.querySelectorAll('*').forEach(el => {
+                    [...el.attributes].forEach(attr => {
+                        const name = attr.name;
+                        if (/^on/i.test(name)) el.removeAttribute(name); // onload 等
+                        if (name === 'href' || name === 'xlink:href') {
+                            const val = attr.value || '';
+                            if (/^(https?:)?\\/\\//i.test(val)) el.removeAttribute(name); // 外部参照を禁止
+                        }
+                    });
+                });
+
+                // プレビューに差し込む
+                svgPreview.innerHTML = '';
+                svgPreview.appendChild(svgElement);
                 
                 // SVGサイズを調整
                 svgElement.setAttribute('width', '256');
