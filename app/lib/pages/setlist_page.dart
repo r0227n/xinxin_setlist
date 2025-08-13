@@ -2,15 +2,16 @@ import 'package:app/data/repositories/event_repository.dart';
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
-import 'package:app/pages/widgets/music_chip.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final _currentSetlist = Provider<Setlist>((ref) => throw UnimplementedError());
+typedef MusicOnPressed = void Function(Music);
 
 /// セットリスト表示ページ
 ///
@@ -275,7 +276,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                   '${t.setlist.date}: ${event.date.toString().split(' ')[0]}',
                 ),
 
-                WrapSetlist(
+                _WrapSetlist(
                   musicIds: setlist.musicIds,
                   onPressed: (music) => MusicDetailRoute(
                     musicId: music.id,
@@ -335,6 +336,70 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
           title: Text(t.setlist.loading),
           subtitle: const LinearProgressIndicator(),
         ),
+      },
+    );
+  }
+}
+
+class _WrapSetlist extends ConsumerStatefulWidget {
+  const _WrapSetlist({
+    required List<String> musicIds,
+    required MusicOnPressed onPressed,
+  }) : _musicOrderIds = musicIds,
+       _onPressed = onPressed;
+
+  final List<String> _musicOrderIds;
+  final MusicOnPressed _onPressed;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _WrapSetlistState();
+}
+
+class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
+  late final Future<List<Music>> _asyncMusic;
+
+  @override
+  void initState() {
+    super.initState();
+    _asyncMusic = ref
+        .read(musicRepositoryProvider.notifier)
+        .getByMusicIds(widget._musicOrderIds);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _asyncMusic,
+      builder: (context, snapshot) {
+        return switch ((snapshot.connectionState, snapshot.hasData)) {
+          (ConnectionState.done, true) => Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            children:
+                snapshot.data
+                    ?.map(
+                      (e) => ActionChip(
+                        avatar: CachedNetworkImage(
+                          key: ValueKey(e.thumbnailUrl),
+                          imageUrl: e.thumbnailUrl,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.info),
+                        ),
+                        label: Text(e.title),
+                        onPressed: () {
+                          widget._onPressed(e);
+                        },
+                      ),
+                    )
+                    .toList() ??
+                [],
+          ),
+          (ConnectionState.done, false) => const SizedBox.shrink(),
+          (ConnectionState.waiting, _) => const CircularProgressIndicator(),
+          (_, _) => const SizedBox.shrink(),
+        };
       },
     );
   }
