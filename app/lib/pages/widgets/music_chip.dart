@@ -8,10 +8,10 @@ typedef MusicOnPressed = void Function(Music);
 
 class WrapSetlist extends ConsumerStatefulWidget {
   const WrapSetlist({
-    required List<String> musicOrderIds,
+    required List<String> musicIds,
     required MusicOnPressed onPressed,
     super.key,
-  }) : _musicOrderIds = musicOrderIds,
+  }) : _musicOrderIds = musicIds,
        _onPressed = onPressed;
 
   final List<String> _musicOrderIds;

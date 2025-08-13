@@ -51,7 +51,7 @@ class SetlistService with LoggerMixin {
     return Setlist(
       id: setlistId,
       eventId: eventId,
-      musicOrderIds: musicIds,
+      musicIds: musicIds,
     );
   }
 

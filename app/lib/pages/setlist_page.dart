@@ -275,7 +275,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                 ),
 
                 WrapSetlist(
-                  musicOrderIds: setlist.musicOrderIds,
+                  musicIds: setlist.musicIds,
                   onPressed: (music) => MusicDetailRoute(
                     musicId: music.id,
                   ).go(context),
@@ -291,7 +291,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
               // 現状仮置きとして、ダイアログで表示する
               final musics = await ref
                   .read(setlistServiceProvider)
-                  .getMusicFromMusicOrderIds(setlist.musicOrderIds);
+                  .getMusicFromMusicOrderIds(setlist.musicIds);
               if (musics.isEmpty || !context.mounted) {
                 return;
               }
