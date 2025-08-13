@@ -63,26 +63,11 @@ class SetlistDetailRoute extends GoRouteData with _$SetlistDetailRoute {
 
 @immutable
 class LicenseRoute extends GoRouteData with _$LicenseRoute {
-  const LicenseRoute({
-    this.applicationName,
-    this.applicationVersion,
-    this.applicationLegalese,
-  });
-
-  final String? applicationName;
-  final String? applicationVersion;
-  final String? applicationLegalese;
+  const LicenseRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return CustomLicensePage(
-      applicationName:
-          // applicationNameを必須にするため、環境変数から取得
-          // ignore: do_not_use_environment
-          applicationName ?? const String.fromEnvironment('APP_NAME'),
-      applicationVersion: applicationVersion,
-      applicationLegalese: applicationLegalese,
-    );
+    return const CustomLicensePage();
   }
 }
 

@@ -80,26 +80,10 @@ mixin _$SettingsRoute on GoRouteData {
 }
 
 mixin _$LicenseRoute on GoRouteData {
-  static LicenseRoute _fromState(GoRouterState state) => LicenseRoute(
-    applicationName: state.uri.queryParameters['application-name'],
-    applicationVersion: state.uri.queryParameters['application-version'],
-    applicationLegalese: state.uri.queryParameters['application-legalese'],
-  );
-
-  LicenseRoute get _self => this as LicenseRoute;
+  static LicenseRoute _fromState(GoRouterState state) => const LicenseRoute();
 
   @override
-  String get location => GoRouteData.$location(
-    '/settings/license',
-    queryParams: {
-      if (_self.applicationName != null)
-        'application-name': _self.applicationName,
-      if (_self.applicationVersion != null)
-        'application-version': _self.applicationVersion,
-      if (_self.applicationLegalese != null)
-        'application-legalese': _self.applicationLegalese,
-    },
-  );
+  String get location => GoRouteData.$location('/settings/license');
 
   @override
   void go(BuildContext context) => context.go(location);
