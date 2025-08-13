@@ -4,7 +4,6 @@ import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -379,14 +378,10 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                 snapshot.data
                     ?.map(
                       (e) => ActionChip(
-                        avatar: CachedNetworkImage(
-                          key: ValueKey(e.thumbnailUrl),
-                          imageUrl: e.thumbnailUrl,
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Text(error.toString()),
-                          useOldImageOnUrlChange: true,
+                        avatar: Image.network(
+                          e.thumbnailUrl,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.error),
                         ),
                         label: Text(e.title),
                         onPressed: () {
