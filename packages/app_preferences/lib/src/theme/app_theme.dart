@@ -1,4 +1,5 @@
 import 'package:app_preferences/src/theme/app_colors.dart';
+import 'package:app_preferences/src/theme/dark_theme_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -173,34 +174,46 @@ class AppTheme {
   /// Creates a complete [ThemeData] configuration for dark mode with:
   /// - Material 3 design system enabled
   /// - Color scheme generated from orange seed color with dark brightness
-  /// - Custom AppBar theme with inverse primary background
-  /// - White text colors optimized for dark mode
+  /// - Custom AppBar theme with improved contrast
+  /// - Optimized text colors for enhanced readability
   ///
   /// Returns:
-  /// A fully configured [ThemeData] for dark mode
+  /// A fully configured [ThemeData] for dark mode with improved visibility
   ThemeData toDarkTheme() {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: XINXINColors.orange,
       brightness: Brightness.dark,
-      // ダークモード用の色配置
+      // ダークモード用の色配置 - 視認性を重視
       primary: XINXINColors.orange,
       onPrimary: XINXINColors.black,
       secondary: XINXINColors.orange,
       onSecondary: XINXINColors.black,
-      surface: XINXINColors.black,
-      onSurface: XINXINColors.white,
-      error: Colors.red,
-      onError: XINXINColors.black,
+      surface: DarkThemeColors.darkSurface,
+      onSurface: DarkThemeColors.lightText,
+      surfaceContainerHighest: DarkThemeColors.darkCard,
+      error: Colors.red.shade400,
+      onError: XINXINColors.white,
     );
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
       // https://fonts.google.com/noto/specimen/Noto+Sans+JP
-      textTheme: GoogleFonts.notoSansJpTextTheme(),
+      textTheme: GoogleFonts.notoSansJpTextTheme().apply(
+        bodyColor: DarkThemeColors.lightText,
+        displayColor: DarkThemeColors.lightText,
+      ).copyWith(
+        bodySmall: GoogleFonts.notoSansJp(
+          color: DarkThemeColors.secondaryText,
+        ),
+        labelSmall: GoogleFonts.notoSansJp(
+          color: DarkThemeColors.secondaryText,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: XINXINColors.black,
-        foregroundColor: XINXINColors.white,
+        backgroundColor: DarkThemeColors.darkSurface,
+        foregroundColor: DarkThemeColors.lightText,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
@@ -210,20 +223,20 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: XINXINColors.black,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: XINXINColors.black,
+          statusBarColor: DarkThemeColors.darkBackground,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: DarkThemeColors.darkBackground,
           systemNavigationBarIconBrightness: Brightness.light,
         ),
       ),
       cardTheme: CardThemeData(
-        color: XINXINColors.black,
-        elevation: 4,
-        shadowColor: XINXINColors.black,
+        color: DarkThemeColors.darkCard,
+        elevation: 8,
+        shadowColor: XINXINColors.black.withValues(alpha: 0.5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: XINXINColors.orange.withValues(alpha: 0.3),
+            color: XINXINColors.orange.withValues(alpha: 0.2),
           ),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -261,7 +274,7 @@ class AppTheme {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: XINXINColors.white.withValues(alpha: 0.3),
+            color: DarkThemeColors.secondaryText.withValues(alpha: 0.5),
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -271,17 +284,19 @@ class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: XINXINColors.white.withValues(alpha: 0.3),
+            color: DarkThemeColors.secondaryText.withValues(alpha: 0.3),
           ),
         ),
         filled: true,
-        fillColor: XINXINColors.black,
+        fillColor: DarkThemeColors.darkSurface,
+        labelStyle: const TextStyle(color: DarkThemeColors.secondaryText),
+        hintStyle: const TextStyle(color: DarkThemeColors.secondaryText),
       ),
       dividerTheme: DividerThemeData(
-        color: XINXINColors.white.withValues(alpha: 0.2),
+        color: DarkThemeColors.secondaryText.withValues(alpha: 0.2),
         thickness: 1,
       ),
-      scaffoldBackgroundColor: XINXINColors.black,
+      scaffoldBackgroundColor: DarkThemeColors.darkBackground,
     );
   }
 }
