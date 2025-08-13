@@ -81,13 +81,6 @@ class SetlistService with LoggerMixin {
     return setlists;
   }
 
-  Future<List<Music>> getMusicFromMusicOrderIds(
-    List<String> musicIds,
-  ) async {
-    final musics = await Future.wait(musicIds.map(_musicRepository.get));
-    return musics;
-  }
-
   Future<Music> getMusicByMusicId(String musicId) async {
     final music = await _musicRepository.get(musicId);
     return music;
