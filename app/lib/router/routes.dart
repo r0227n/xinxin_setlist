@@ -77,6 +77,7 @@ class LicenseRoute extends GoRouteData with _$LicenseRoute {
   Widget build(BuildContext context, GoRouterState state) {
     return CustomLicensePage(
       applicationName:
+          // applicationNameを必須にするため、環境変数から取得
           // ignore: do_not_use_environment
           applicationName ?? const String.fromEnvironment('APP_NAME'),
       applicationVersion: applicationVersion,
