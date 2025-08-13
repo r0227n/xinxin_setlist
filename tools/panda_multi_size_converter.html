@@ -232,6 +232,50 @@
             font-weight: bold;
             color: #666;
         }
+        
+        .color-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        
+        .color-input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .color-input {
+            width: 60px;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .color-input:hover {
+            transform: scale(1.1);
+            border-color: #FF8C00;
+        }
+        
+        .color-label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            min-width: 80px;
+        }
     </style>
 </head>
 <body>
@@ -248,6 +292,16 @@
         </div>
         
         <div id="status" class="status loading">SVGファイルをアップロードしてください</div>
+        
+        <div class="color-section" id="colorSection" style="display: none;">
+            <h3>🎨 マスカブルアイコン設定</h3>
+            <div class="color-input-group">
+                <span class="color-label">背景色:</span>
+                <input type="color" id="maskableBackgroundColor" class="color-input" value="#F39801">
+                <input type="text" id="maskableColorValue" class="color-value" value="#F39801" placeholder="#RRGGBB">
+            </div>
+            <p style="font-size: 14px; color: #666; margin: 10px 0;">💡 マスカブルアイコンは様々な形状にマスクされるため、背景色を指定できます</p>
+        </div>
         
         <div class="preview-grid">
             <div class="preview-box original">
@@ -342,6 +396,7 @@
             const uploadText = document.getElementById('uploadText');
             
             fileInput.addEventListener('change', handleSvgUpload);
+            setupColorPicker();
             
             // ドラッグアンドドロップイベントを設定
             uploadSection.addEventListener('click', function() {
@@ -390,6 +445,39 @@
             document.addEventListener('drop', function(e) {
                 e.preventDefault();
             });
+        }
+        
+        function setupColorPicker() {
+            const colorInput = document.getElementById('maskableBackgroundColor');
+            const colorValue = document.getElementById('maskableColorValue');
+            
+            // カラーピッカーとテキストフィールドを同期
+            colorInput.addEventListener('input', function() {
+                colorValue.value = colorInput.value;
+                if (loadedSvgElement) {
+                    regenerateAllIcons();
+                }
+            });
+            
+            colorValue.addEventListener('input', function() {
+                const color = colorValue.value;
+                if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
+                    colorInput.value = color;
+                    if (loadedSvgElement) {
+                        regenerateAllIcons();
+                    }
+                }
+            });
+        }
+        
+        function regenerateAllIcons() {
+            if (!loadedSvgElement) {
+                const statusEl = document.getElementById('status');
+                statusEl.className = 'status error';
+                statusEl.textContent = '⚠️ まずSVGファイルをアップロードしてください';
+                return;
+            }
+            generateAllIcons();
         }
         
         function handleSvgUpload(event) {
@@ -447,6 +535,9 @@
                 
                 loadedSvgElement = svgElement;
                 
+                // カラーセクションを表示
+                document.getElementById('colorSection').style.display = 'block';
+                
                 statusEl.className = 'status success';
                 statusEl.textContent = '✅ SVGファイルが読み込まれました！ アイコンを生成しましょう。';
                 
@@ -503,6 +594,13 @@
                 const actualSize = size * scaleFactor;
                 const offset = (size - actualSize) / 2;
                 
+                // マスカブルアイコンの場合、指定された背景色で全体を塗りつぶす
+                if (isMaskable) {
+                    const backgroundColor = document.getElementById('maskableBackgroundColor').value;
+                    ctx.fillStyle = backgroundColor;
+                    ctx.fillRect(0, 0, size, size);
+                }
+                
                 // SVGをイメージとして読み込んでcanvasに描画
                 const svgData = new XMLSerializer().serializeToString(loadedSvgElement);
                 const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
@@ -535,13 +633,7 @@
         }
         
         function regenerateAll() {
-            if (!loadedSvgElement) {
-                const statusEl = document.getElementById('status');
-                statusEl.className = 'status error';
-                statusEl.textContent = '⚠️ まずSVGファイルをアップロードしてください';
-                return;
-            }
-            generateAllIcons();
+            regenerateAllIcons();
         }
         
         function downloadPNG(sizeKey) {
