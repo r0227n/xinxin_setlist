@@ -1,5 +1,6 @@
 import 'package:app/pages/music_detail_page.dart';
 import 'package:app/pages/setlist_page.dart';
+import 'package:app/pages/settings/custom_license_page.dart';
 import 'package:app/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,11 @@ part 'routes.g.dart';
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<SettingsRoute>(
       path: 'settings',
+      routes: <TypedGoRoute<GoRouteData>>[
+        TypedGoRoute<LicenseRoute>(
+          path: 'license',
+        ),
+      ],
     ),
     TypedGoRoute<SetlistDetailRoute>(
       path: 'setlist/:eventId',
@@ -52,6 +58,16 @@ class SetlistDetailRoute extends GoRouteData with _$SetlistDetailRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return SetlistPage(eventId: eventId);
+  }
+}
+
+@immutable
+class LicenseRoute extends GoRouteData with _$LicenseRoute {
+  const LicenseRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CustomLicensePage();
   }
 }
 

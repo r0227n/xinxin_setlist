@@ -199,18 +199,20 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       // https://fonts.google.com/noto/specimen/Noto+Sans+JP
-      textTheme: GoogleFonts.notoSansJpTextTheme().apply(
-        bodyColor: DarkThemeColors.lightText,
-        displayColor: DarkThemeColors.lightText,
-      ).copyWith(
-        bodySmall: GoogleFonts.notoSansJp(
-          color: DarkThemeColors.secondaryText,
-        ),
-        labelSmall: GoogleFonts.notoSansJp(
-          color: DarkThemeColors.secondaryText,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      textTheme: GoogleFonts.notoSansJpTextTheme()
+          .apply(
+            bodyColor: DarkThemeColors.lightText,
+            displayColor: DarkThemeColors.lightText,
+          )
+          .copyWith(
+            bodySmall: GoogleFonts.notoSansJp(
+              color: DarkThemeColors.secondaryText,
+            ),
+            labelSmall: GoogleFonts.notoSansJp(
+              color: DarkThemeColors.secondaryText,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
       appBarTheme: const AppBarTheme(
         backgroundColor: DarkThemeColors.darkSurface,
         foregroundColor: DarkThemeColors.lightText,
