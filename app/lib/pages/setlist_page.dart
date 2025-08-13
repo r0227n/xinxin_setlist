@@ -380,6 +380,10 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                       (e) => ActionChip(
                         avatar: Image.network(
                           e.thumbnailUrl,
+                          loadingBuilder: (context, child, loadingProgress) =>
+                              loadingProgress == null
+                              ? child
+                              : const CircularProgressIndicator(),
                           errorBuilder: (context, error, stackTrace) =>
                               const Icon(Icons.error),
                         ),
@@ -392,9 +396,9 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                     .toList() ??
                 [],
           ),
-          (ConnectionState.done, false) => const SizedBox.shrink(),
+          (ConnectionState.done, false) => const Icon(Icons.error),
           (ConnectionState.waiting, _) => const CircularProgressIndicator(),
-          (_, _) => const SizedBox.shrink(),
+          (_, _) => const Icon(Icons.error),
         };
       },
     );
