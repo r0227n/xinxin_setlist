@@ -27,14 +27,9 @@ Map<String, dynamic> _$EventToJson(_Event instance) => <String, dynamic>{
 };
 
 _SetlistItem _$SetlistItemFromJson(Map<String, dynamic> json) => _SetlistItem(
-  id: json['id'] as String,
   musicId: json['music_id'] as String,
   order: (json['order'] as num).toInt(),
 );
 
 Map<String, dynamic> _$SetlistItemToJson(_SetlistItem instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'music_id': instance.musicId,
-      'order': instance.order,
-    };
+    <String, dynamic>{'music_id': instance.musicId, 'order': instance.order};

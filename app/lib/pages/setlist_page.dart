@@ -1,4 +1,5 @@
 import 'package:app/data/repositories/event_repository.dart';
+import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/widgets/music_chip.dart';
@@ -275,7 +276,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                 ),
 
                 WrapSetlist(
-                  musicOrderIds: setlist.musicOrderIds,
+                  musicIds: setlist.musicIds,
                   onPressed: (music) => MusicDetailRoute(
                     musicId: music.id,
                   ).go(context),
@@ -290,8 +291,8 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
               // TODO: セットリスト詳細画面作成後、遷移するように書き換える
               // 現状仮置きとして、ダイアログで表示する
               final musics = await ref
-                  .read(setlistServiceProvider)
-                  .getMusicFromMusicOrderIds(setlist.musicOrderIds);
+                  .read(musicRepositoryProvider.notifier)
+                  .getByMusicIds(setlist.musicIds);
               if (musics.isEmpty || !context.mounted) {
                 return;
               }

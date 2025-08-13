@@ -1,4 +1,4 @@
-import 'package:app/data/services/setlist_service.dart';
+import 'package:app/data/repositories/music_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +8,10 @@ typedef MusicOnPressed = void Function(Music);
 
 class WrapSetlist extends ConsumerStatefulWidget {
   const WrapSetlist({
-    required List<String> musicOrderIds,
+    required List<String> musicIds,
     required MusicOnPressed onPressed,
     super.key,
-  }) : _musicOrderIds = musicOrderIds,
+  }) : _musicOrderIds = musicIds,
        _onPressed = onPressed;
 
   final List<String> _musicOrderIds;
@@ -28,8 +28,8 @@ class _WrapSetlistState extends ConsumerState<WrapSetlist> {
   void initState() {
     super.initState();
     _asyncMusic = ref
-        .read(setlistServiceProvider)
-        .getMusicFromMusicOrderIds(widget._musicOrderIds);
+        .read(musicRepositoryProvider.notifier)
+        .getByMusicIds(widget._musicOrderIds);
   }
 
   @override

@@ -129,8 +129,7 @@ class SetlistParser {
 
     if (data.hasSE) {
       setlist.add(
-        SetlistItem(
-          id: _generateId(),
+        const SetlistItem(
           musicId: seMusicId,
           order: 0,
         ),
@@ -140,7 +139,6 @@ class SetlistParser {
     for (var i = 0; i < songIds.length; i++) {
       setlist.add(
         SetlistItem(
-          id: _generateId(),
           musicId: songIds[i],
           order: data.hasSE ? i + 1 : i,
         ),

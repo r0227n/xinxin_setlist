@@ -20,7 +20,6 @@ abstract class Event with _$Event {
 @freezed
 abstract class SetlistItem with _$SetlistItem {
   const factory SetlistItem({
-    required String id,
     @JsonKey(name: 'music_id') required String musicId,
     required int order,
   }) = _SetlistItem;
