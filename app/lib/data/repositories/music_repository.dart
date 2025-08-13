@@ -26,6 +26,15 @@ class MusicRepository extends _$MusicRepository with LoggerMixin {
 
   Future<List<Music>> getByMusicIds(List<String> musicIds) async {
     final music = await future;
-    return music.where((music) => musicIds.contains(music.id)).toList();
+    logInfo('musicIds: $musicIds');
+    // musicIdsの順番通りにMusicを取得して返す
+    return musicIds
+        .map(
+          (id) => music.firstWhere(
+            (m) => m.id == id,
+          ),
+        )
+        .cast<Music>()
+        .toList();
   }
 }
