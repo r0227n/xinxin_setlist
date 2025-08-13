@@ -14,8 +14,14 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
   LicenseRegistry.addLicense(() async* {
+    // NOTE:
+    // GitHub Pagesの場合、artifact/assets/assets/google_fonts/OFL.txtに配置されているため、
+    // - デバッグモード: assets/google_fonts/OFL.txtを参照
+    // - リリースモード: assets/assets/google_fonts/OFL.txtを参照
     final license = await rootBundle.loadString(
-      'google_fonts/OFL.txt',
+      kDebugMode
+          ? 'assets/google_fonts/OFL.txt'
+          : 'assets/assets/google_fonts/OFL.txt',
     );
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
