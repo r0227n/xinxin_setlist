@@ -385,7 +385,7 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.info),
+                              Text(error.toString()),
                           useOldImageOnUrlChange: true,
                         ),
                         label: Text(e.title),
