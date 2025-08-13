@@ -13,7 +13,14 @@ RouteBase get $setlistRoute => GoRouteData.$route(
 
   factory: _$SetlistRoute._fromState,
   routes: [
-    GoRouteData.$route(path: 'settings', factory: _$SettingsRoute._fromState),
+    GoRouteData.$route(
+      path: 'settings',
+
+      factory: _$SettingsRoute._fromState,
+      routes: [
+        GoRouteData.$route(path: 'license', factory: _$LicenseRoute._fromState),
+      ],
+    ),
     GoRouteData.$route(
       path: 'setlist/:eventId',
 
@@ -57,6 +64,42 @@ mixin _$SettingsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$LicenseRoute on GoRouteData {
+  static LicenseRoute _fromState(GoRouterState state) => LicenseRoute(
+    applicationName: state.uri.queryParameters['application-name'],
+    applicationVersion: state.uri.queryParameters['application-version'],
+    applicationLegalese: state.uri.queryParameters['application-legalese'],
+  );
+
+  LicenseRoute get _self => this as LicenseRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/settings/license',
+    queryParams: {
+      if (_self.applicationName != null)
+        'application-name': _self.applicationName,
+      if (_self.applicationVersion != null)
+        'application-version': _self.applicationVersion,
+      if (_self.applicationLegalese != null)
+        'application-legalese': _self.applicationLegalese,
+    },
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
