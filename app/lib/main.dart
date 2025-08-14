@@ -14,11 +14,9 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // prefs.AppTheme.registerGoogleFontsLicense();
+
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString(
-      'google_fonts/OFL.txt',
-    );
+    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
