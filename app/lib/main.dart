@@ -16,15 +16,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   LicenseRegistry.addLicense(() async* {
-    // NOTE:
-    // GitHub Pagesの場合、artifact/assets/assets/google_fonts/OFL.txtに配置されているため、
-    // - デバッグモード: assets/google_fonts/OFL.txtを参照
-    // - リリースモード: assets/assets/google_fonts/OFL.txtを参照
-    final license = await rootBundle.loadString(
-      kDebugMode
-          ? 'assets/google_fonts/OFL.txt'
-          : 'assets/assets/google_fonts/OFL.txt',
-    );
+    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
