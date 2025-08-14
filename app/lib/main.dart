@@ -13,6 +13,8 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   LicenseRegistry.addLicense(() async* {
     // NOTE:
     // GitHub Pagesの場合、artifact/assets/assets/google_fonts/OFL.txtに配置されているため、
@@ -25,7 +27,6 @@ Future<void> main() async {
     );
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
-  WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize logger based on build mode
   final loggerConfig = kDebugMode
