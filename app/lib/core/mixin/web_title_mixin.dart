@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 mixin WebTitleMixin<T extends StatefulWidget> on State<T> {
   String get pageTitle;
 
-  WebTitleService get _titleService => WebTitleService.instance;
+  WebTitleService get _titleService => WebTitleServiceImpl();
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ mixin ConsumerWebTitleMixin<T extends ConsumerStatefulWidget>
     on ConsumerState<T> {
   String get pageTitle;
 
-  WebTitleService get _titleService => WebTitleService.instance;
+  WebTitleService get _titleService => WebTitleServiceImpl();
 
   @override
   void initState() {
