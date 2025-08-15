@@ -3,11 +3,13 @@ import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/setlist_page.dart';
+import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 /// 楽曲詳細表示ページ
 ///
@@ -33,7 +35,7 @@ class MusicDetailPage extends ConsumerStatefulWidget {
 }
 
 class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
-    with ConsumerWebTitleMixin {
+    with ConsumerWebTitleMixin, LoggerMixin {
   /// 楽曲詳細データの取得Future
   late Future<Music> _musicDetailFuture;
 
@@ -61,14 +63,14 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
       final music = await ref
           .read(musicRepositoryProvider.notifier)
           .get(widget.musicId);
-      debugPrint('楽曲詳細を表示: ${music.title}');
+      logInfo('楽曲詳細を表示: ${music.toJson()}');
       // ブラウザタブのタイトルを楽曲名に設定
       WidgetsBinding.instance.addPostFrameCallback((_) {
         updatePageTitle(music.title);
       });
       return music;
     } catch (error) {
-      debugPrint('楽曲詳細の取得に失敗: $error');
+      logError('楽曲詳細の取得に失敗: $error');
       rethrow;
     }
   }
@@ -78,12 +80,6 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
     super.debugFillProperties(properties);
     properties.add(StringProperty('musicId', widget.musicId));
     properties.add(StringProperty('pageTitle', pageTitle));
-    properties.add(
-      DiagnosticsProperty<Future<Music>>(
-        'musicDetailFuture',
-        _musicDetailFuture,
-      ),
-    );
   }
 
   @override
@@ -239,57 +235,71 @@ class _MusicCard extends ConsumerWidget {
 }
 
 class _Thumbnail extends StatelessWidget {
-  const _Thumbnail({
-    required Music music,
-    double height = AppLayout.thumbnailSize,
-    double width = AppLayout.thumbnailSize,
-  }) : _music = music,
-       _height = height,
-       _width = width;
+  const _Thumbnail({required Music music}) : _music = music;
 
   final Music _music;
-  final double _height;
-  final double _width;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(AppBorderRadius.small),
-        child: Image.network(
-          _music.thumbnailUrl,
-          height: _height,
-          width: _width,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              height: _height,
-              width: _width,
-              color: XINXINColors.white,
-              child: const Icon(
-                Icons.music_note,
-                size: AppIconSizes.xxl,
-                color: XINXINColors.orange,
-              ),
-            );
-          },
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return SizedBox(
-              height: _height,
-              width: _width,
-              child: const ColoredBox(
-                color: XINXINColors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            );
-          },
-        ),
+    final locale = Localizations.localeOf(context);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppBorderRadius.small),
+      child: _music.youtubeId != null
+          ? _YouTube(youtubeId: _music.youtubeId!, locale: locale)
+          : Image.network(
+              _music.thumbnailUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.music_note, size: AppIconSizes.xxl),
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
+    );
+  }
+}
+
+class _YouTube extends StatefulWidget {
+  const _YouTube({
+    required String youtubeId,
+    required Locale locale,
+  }) : _youtubeId = youtubeId,
+       _locale = locale;
+
+  final String _youtubeId;
+  final Locale _locale;
+
+  @override
+  State<_YouTube> createState() => __YouTubeState();
+}
+
+class __YouTubeState extends State<_YouTube> with LoggerMixin {
+  late final YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    final languageCode = widget._locale.languageCode;
+    logInfo('load video: ${widget._youtubeId} / languageCode: $languageCode');
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: widget._youtubeId,
+      params: YoutubePlayerParams(
+        captionLanguage: languageCode,
+        showFullscreenButton: true,
+        interfaceLanguage: languageCode,
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return YoutubePlayer(
+      controller: _controller,
     );
   }
 }

@@ -122,9 +122,6 @@ abstract class AppLayout {
   /// Desktop layout: Setlist flex ratio
   static const desktopSetlistFlex = 7;
 
-  /// Standard thumbnail size (200.0)
-  static const thumbnailSize = 200.0;
-
   /// Card elevation value
   static const cardElevation = 4.0;
 }
