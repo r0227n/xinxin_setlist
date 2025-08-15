@@ -1,3 +1,4 @@
+import 'package:app/core/mixin/web_title_mixin.dart';
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
@@ -21,7 +22,7 @@ Future<Music> musicDetail(Ref ref, String musicId) {
 ///
 /// [musicId]で指定された楽曲の詳細情報を表示し、
 /// その楽曲が採用されているセットリスト一覧へのナビゲーションを提供する
-class MusicDetailPage extends ConsumerWidget {
+class MusicDetailPage extends ConsumerStatefulWidget {
   const MusicDetailPage({
     required this.musicId,
     super.key,
@@ -31,23 +32,41 @@ class MusicDetailPage extends ConsumerWidget {
   final String musicId;
 
   @override
+  ConsumerState<MusicDetailPage> createState() => _MusicDetailPageState();
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('musicId', musicId));
   }
+}
+
+class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
+    with ConsumerWebTitleMixin {
+  @override
+  String get pageTitle => t.music.detail;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('musicId', widget.musicId));
+    properties.add(StringProperty('pageTitle', pageTitle));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Riverpodを使用してmusicIdが変更された時に自動的に再取得される
-    final musicDetailAsync = ref.watch(musicDetailProvider(musicId));
+    final musicDetailAsync = ref.watch(musicDetailProvider(widget.musicId));
 
     // ログ出力（デバッグ用）
-    ref.listen<AsyncValue<Music>>(musicDetailProvider(musicId), (
+    ref.listen<AsyncValue<Music>>(musicDetailProvider(widget.musicId), (
       previous,
       next,
     ) {
       if (next.hasValue) {
         debugPrint('楽曲詳細を表示: ${next.value!.title}');
+        // ブラウザタブのタイトルを楽曲名に設定
+        updatePageTitle(next.value!.title);
       }
     });
 
@@ -200,7 +219,7 @@ class MusicDetailPage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   // Providerを無効化して再取得を促す
-                  ref.invalidate(musicDetailProvider(musicId));
+                  ref.invalidate(musicDetailProvider(widget.musicId));
                 },
                 child: Text(t.dialog.retry),
               ),
