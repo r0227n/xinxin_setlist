@@ -61,10 +61,40 @@ class SelectionDialog<T> extends StatelessWidget {
 
   /// Optional value selector function for complex objects
   /// If null, uses the value directly for comparison
-  final Object? Function(T value)? valueSelector;
+  final T? Function(T value)? valueSelector;
 
   /// Optional icon to display in the dialog title
   final Widget? icon;
+
+  /// Gets the currently selected value using valueSelector if provided
+  T? _getSelectedValue() {
+    if (currentValue == null) {
+      return null;
+    }
+    if (valueSelector != null) {
+      return valueSelector!(currentValue as T);
+    }
+    return currentValue;
+  }
+
+  /// Handles selection from RadioGroup
+  Future<void> _handleSelection(T? value, BuildContext context) async {
+    if (value == null) {
+      return;
+    }
+
+    // Find the option that matches the selected value
+    for (final option in options) {
+      final optionValue = valueSelector?.call(option.value) ?? option.value;
+      if (optionValue == value) {
+        await onChanged(option.value);
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
+        return;
+      }
+    }
+  }
 
   /// Builds the selection dialog UI
   ///
@@ -79,16 +109,33 @@ class SelectionDialog<T> extends StatelessWidget {
       title: Text(title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: options
-            .map(
-              (option) => _SelectionOptionTile<T>(
-                option: option,
-                currentValue: currentValue,
-                onChanged: onChanged,
-                valueSelector: valueSelector,
-              ),
-            )
-            .toList(),
+        children: [
+          RadioGroup<T?>(
+            groupValue: _getSelectedValue(),
+            onChanged: (value) => _handleSelection(value, context),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: options.map(
+                (option) {
+                  final optionValue =
+                      valueSelector?.call(option.value) ?? option.value;
+                  return ListTile(
+                    leading: Radio<T?>(
+                      value: optionValue,
+                    ),
+                    title: Text(option.displayText),
+                    onTap: () async {
+                      await onChanged(option.value);
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+          ),
+        ],
       ),
       actions: [
         TextButton(
@@ -113,7 +160,7 @@ class SelectionDialog<T> extends StatelessWidget {
       ),
     );
     properties.add(
-      ObjectFlagProperty<Object? Function(T value)?>.has(
+      ObjectFlagProperty<T? Function(T value)?>.has(
         'valueSelector',
         valueSelector,
       ),
@@ -139,77 +186,4 @@ class SelectionOption<T> {
 
   /// The text to display for this option
   final String displayText;
-}
-
-/// A radio list tile for selection options
-///
-/// Internal widget that renders a single option as a radio button.
-/// Handles the selection logic and automatically dismisses the dialog
-/// when an option is selected.
-class _SelectionOptionTile<T> extends StatelessWidget {
-  const _SelectionOptionTile({
-    required this.option,
-    required this.currentValue,
-    required this.onChanged,
-    this.valueSelector,
-  });
-
-  /// The selection option to display
-  final SelectionOption<T> option;
-
-  /// The currently selected value
-  final T? currentValue;
-
-  /// Callback when this option is selected
-  final Future<void> Function(T value) onChanged;
-
-  /// Optional value selector for complex object comparison
-  final Object? Function(T value)? valueSelector;
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<SelectionOption<T>>('option', option));
-    properties.add(DiagnosticsProperty<T?>('currentValue', currentValue));
-    properties.add(
-      ObjectFlagProperty<Future<void> Function(T value)?>.has(
-        'onChanged',
-        onChanged,
-      ),
-    );
-    properties.add(
-      ObjectFlagProperty<Object? Function(T value)?>.has(
-        'valueSelector',
-        valueSelector,
-      ),
-    );
-  }
-
-  /// Builds the radio list tile
-  ///
-  /// Uses [valueSelector] if provided to compare values, otherwise
-  /// compares the values directly. Automatically closes the dialog
-  /// when selected.
-  @override
-  Widget build(BuildContext context) {
-    // Use valueSelector if provided, otherwise use the value directly
-    final optionValue = valueSelector?.call(option.value) ?? option.value;
-    final selectedValue = currentValue != null && valueSelector != null
-        ? valueSelector!(currentValue as T)
-        : currentValue;
-
-    return RadioListTile<Object?>(
-      title: Text(option.displayText),
-      value: optionValue,
-      groupValue: selectedValue,
-      onChanged: (value) async {
-        if (value != null) {
-          await onChanged(option.value);
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
-        }
-      },
-    );
-  }
 }

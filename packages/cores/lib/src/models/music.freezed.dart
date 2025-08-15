@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Music {
 
- String get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;
+ String get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;@JsonKey(name: 'youtube_id') String? get youtubeId;
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $MusicCopyWith<Music> get copyWith => _$MusicCopyWithImpl<Music>(this as Music, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl);
+int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,youtubeId);
 
 @override
 String toString() {
-  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl)';
+  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, youtubeId: $youtubeId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $MusicCopyWith<$Res>  {
   factory $MusicCopyWith(Music value, $Res Function(Music) _then) = _$MusicCopyWithImpl;
 @useResult
 $Res call({
- String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl
+ String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -65,12 +65,13 @@ class _$MusicCopyWithImpl<$Res>
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-as String,
+as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
-return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)  $default,) {final _that = this;
 switch (_that) {
 case _Music():
-return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
-return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
   return null;
 
 }
@@ -211,12 +212,13 @@ return $default(_that.id,_that.title,_that.thumbnailUrl);case _:
 @JsonSerializable()
 
 class _Music implements Music {
-  const _Music({required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl});
+  const _Music({required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, @JsonKey(name: 'youtube_id') this.youtubeId});
   factory _Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
 
 @override final  String id;
 @override final  String title;
 @override@JsonKey(name: 'thumbnail_url') final  String thumbnailUrl;
+@override@JsonKey(name: 'youtube_id') final  String? youtubeId;
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl);
+int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,youtubeId);
 
 @override
 String toString() {
-  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl)';
+  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, youtubeId: $youtubeId)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$MusicCopyWith<$Res> implements $MusicCopyWith<$Res> {
   factory _$MusicCopyWith(_Music value, $Res Function(_Music) _then) = __$MusicCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl
+ String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -268,12 +270,13 @@ class __$MusicCopyWithImpl<$Res>
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
   return _then(_Music(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-as String,
+as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
