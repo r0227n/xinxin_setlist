@@ -82,5 +82,22 @@
       { "music_id": "265zeE8tnr952OoRkFGW0b", "order": 7 }
     ],
     "order": null
+  },
+  {
+    "id": "2qi9JngpdcMVghrMxWXHyy",
+    "stage_id": "lyupeHNdOnJnzAHPKHQO5P",
+    "title": "『2Kでよろ！！大阪』",
+    "date": "2025-08-15T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 1 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 2 },
+      { "music_id": "3sraGAoHucFwO7NVbHunxn", "order": 3 },
+      { "music_id": "1vwLujMBp3VUFJuHPYEvmi", "order": 4 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 5 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 6 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 7 }
+    ],
+    "order": null
   }
 ]
