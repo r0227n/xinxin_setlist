@@ -1,4 +1,4 @@
-import 'package:app/core/mixin/web_title_mixin.dart';
+import 'package:app/core/mixin/ogp_mixin.dart';
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
@@ -42,9 +42,12 @@ class MusicDetailPage extends ConsumerStatefulWidget {
 }
 
 class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
-    with ConsumerWebTitleMixin {
+    with ConsumerWebTitleOgpMixin {
   @override
   String get pageTitle => t.music.detail;
+
+  @override
+  String get ogpDescription => '楽曲の詳細情報を表示します';
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -64,9 +67,17 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
       next,
     ) {
       if (next.hasValue) {
-        debugPrint('楽曲詳細を表示: ${next.value!.title}');
-        // ブラウザタブのタイトルを楽曲名に設定
-        updatePageTitle(next.value!.title);
+        final music = next.value!;
+        debugPrint('楽曲詳細を表示: ${music.title}');
+
+        // ブラウザタブのタイトルとOGPを楽曲情報に設定
+        updatePageTitleAndOgp(
+          music.title,
+          newDescription: '楽曲ID: ${music.id} - XINXIN SETLISTで詳細を確認',
+        );
+
+        // 楽曲専用のOGP設定（動的画像生成含む）
+        setMusicOgp(music);
       }
     });
 
