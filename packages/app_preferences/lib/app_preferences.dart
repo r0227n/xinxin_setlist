@@ -15,6 +15,7 @@ export 'src/repositories/app_preferences_repository.dart';
 // Theme
 export 'src/theme/app_colors.dart';
 export 'src/theme/app_theme.dart';
+export 'src/theme/ui_constants.dart';
 
 // All UI Components (widgets, dialogs, helpers)
 export 'widgets.dart';

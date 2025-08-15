@@ -4,6 +4,7 @@ import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
+import 'package:app_preferences/app_preferences.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -109,11 +110,11 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 16,
+                spacing: AppSpacing.medium,
                 children: [
                   Icon(
                     Icons.error,
-                    size: 64,
+                    size: AppIconSizes.xxl,
                     color: Theme.of(context).colorScheme.error,
                   ),
                   Text(
@@ -135,11 +136,11 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 16,
+                spacing: AppSpacing.medium,
                 children: [
                   Icon(
                     Icons.library_music,
-                    size: 64,
+                    size: AppIconSizes.xxl,
                     color: Theme.of(context).colorScheme.error,
                   ),
                   Text(_getEmptyMessage()),
@@ -205,11 +206,11 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                 AsyncError(error: final error) => Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 16,
+                    spacing: AppSpacing.medium,
                     children: [
                       Icon(
                         Icons.error,
-                        size: 64,
+                        size: AppIconSizes.xxl,
                         color: Theme.of(context).colorScheme.error,
                       ),
                       Text('${t.setlist.error.occurred}: $error'),
@@ -247,7 +248,10 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
     final setlist = ref.watch(_currentSetlist);
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.medium,
+        vertical: AppSpacing.small,
+      ),
       child: switch (eventRepositoryAsync) {
         AsyncData(value: final events) => () {
           final event = events.firstWhere(
@@ -262,14 +266,17 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
           );
 
           return ListTile(
-            leading: const Icon(Icons.library_music, size: 40),
+            leading: const Icon(
+              Icons.library_music,
+              size: AppIconSizes.large,
+            ),
             title: Text(
               event.title,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+              spacing: AppSpacing.small,
               children: [
                 Text(
                   '${t.setlist.date}: ${event.date.toString().split(' ')[0]}',
@@ -331,7 +338,10 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
           ),
         ),
         _ => ListTile(
-          leading: const Icon(Icons.library_music, size: 40),
+          leading: const Icon(
+            Icons.library_music,
+            size: AppIconSizes.large,
+          ),
           title: Text(t.setlist.loading),
           subtitle: const LinearProgressIndicator(),
         ),
@@ -372,8 +382,8 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
       builder: (context, snapshot) {
         return switch ((snapshot.connectionState, snapshot.hasData)) {
           (ConnectionState.done, true) => Wrap(
-            spacing: 4,
-            runSpacing: 4,
+            spacing: AppComponentSpacing.wrap,
+            runSpacing: AppComponentSpacing.wrap,
             children:
                 snapshot.data
                     ?.map(
