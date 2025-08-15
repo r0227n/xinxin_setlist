@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/core/mixin/web_title_mixin.dart';
 import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
@@ -201,14 +203,14 @@ class _MobileMusicDetailLayout extends StatelessWidget {
 }
 
 /// 楽曲情報カードを表示するStatelessWidget
-class _MusicCard extends ConsumerWidget {
+class _MusicCard extends StatelessWidget {
   const _MusicCard(Music music) : _music = music;
 
   /// 表示する楽曲データ
   final Music _music;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Card(
       elevation: AppLayout.cardElevation,
       child: Padding(
@@ -294,6 +296,12 @@ class __YouTubeState extends State<_YouTube> with LoggerMixin {
         interfaceLanguage: languageCode,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    unawaited(_controller.close());
+    super.dispose();
   }
 
   @override
