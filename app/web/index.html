@@ -35,10 +35,7 @@
       property="og:description"
       content="XINXIN SETLISTで楽曲とセットリスト情報を確認できます"
     />
-    <meta
-      property="og:url"
-      content="https://r0227n.github.io/xinxin_setlist/"
-    />
+    <meta property="og:url" content="" />
     <meta property="og:image" content="icons/icon-192x192.png" />
     <meta property="og:image:width" content="192" />
     <meta property="og:image:height" content="192" />
@@ -55,6 +52,17 @@
     />
     <meta name="twitter:image" content="icons/icon-192x192.png" />
     <meta name="twitter:image:alt" content="XINXIN SETLIST" />
+
+    <!-- Dynamic OG URL Script -->
+    <script>
+      // Set the og:url to the current page URL
+      document.addEventListener('DOMContentLoaded', function() {
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+          ogUrl.setAttribute('content', window.location.href);
+        }
+      });
+    </script>
 
     <!-- PWA & Mobile meta tags -->
     <meta name="mobile-web-app-capable" content="yes" />
