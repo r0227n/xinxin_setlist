@@ -73,13 +73,6 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
     }
   }
 
-  /// データを再読み込みする
-  void _refreshMusicDetail() {
-    setState(() {
-      _musicDetailFuture = _loadMusicDetail();
-    });
-  }
-
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -106,7 +99,8 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
             final music = snapshot.data!;
             return LayoutBuilder(
               builder: (context, constraints) {
-                final isLargeScreen = constraints.maxWidth > 800;
+                final isLargeScreen =
+                    constraints.maxWidth > AppLayout.largeScreenBreakpoint;
 
                 if (isLargeScreen) {
                   // 大画面レイアウト: 左側3割にCard、右側7割にSetlist
@@ -120,7 +114,7 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
           } else if (snapshot.hasError) {
             return Icon(
               Icons.error,
-              size: 64,
+              size: AppIconSizes.xxl,
               color: Theme.of(context).colorScheme.error,
             );
           } else {
@@ -142,24 +136,24 @@ class _DesktopMusicDetailLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
+      duration: AppAnimationDurations.normal,
       child: Padding(
         key: ValueKey(_music.id),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.medium),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 左側3割: 楽曲情報カード
             Expanded(
-              flex: 3,
+              flex: AppLayout.desktopMusicInfoFlex,
               child: _MusicCard(_music),
             ),
 
             // 右側7割: セットリストページ
             Expanded(
-              flex: 7,
+              flex: AppLayout.desktopSetlistFlex,
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
+                duration: AppAnimationDurations.fast,
                 child: SetlistPage(
                   key: ValueKey('setlist_${_music.id}'),
                   musicId: _music.id,
@@ -183,20 +177,20 @@ class _MobileMusicDetailLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
+      duration: AppAnimationDurations.normal,
       child: Padding(
         key: ValueKey(_music.id),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.medium),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 24,
+          spacing: AppSpacing.large,
           children: [
             // 楽曲情報カード
             _MusicCard(_music),
 
             Expanded(
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
+                duration: AppAnimationDurations.fast,
                 child: SetlistPage(
                   key: ValueKey('setlist_${_music.id}'),
                   musicId: _music.id,
@@ -220,12 +214,12 @@ class _MusicCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-      elevation: 4,
+      elevation: AppLayout.cardElevation,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.medium),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 16,
+          spacing: AppSpacing.medium,
           children: [
             // サムネイル画像
             _Thumbnail(music: _music),
@@ -247,8 +241,8 @@ class _MusicCard extends ConsumerWidget {
 class _Thumbnail extends StatelessWidget {
   const _Thumbnail({
     required Music music,
-    double height = 200,
-    double width = 200,
+    double height = AppLayout.thumbnailSize,
+    double width = AppLayout.thumbnailSize,
   }) : _music = music,
        _height = height,
        _width = width;
@@ -261,7 +255,7 @@ class _Thumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppBorderRadius.small),
         child: Image.network(
           _music.thumbnailUrl,
           height: _height,
@@ -274,7 +268,7 @@ class _Thumbnail extends StatelessWidget {
               color: XINXINColors.white,
               child: const Icon(
                 Icons.music_note,
-                size: 64,
+                size: AppIconSizes.xxl,
                 color: XINXINColors.orange,
               ),
             );
@@ -339,12 +333,14 @@ class _AdoptionCountBadgeState extends ConsumerState<_AdoptionCountBadge> {
           final count = snapshot.data!.length;
           return Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
+              horizontal: AppSpacing.small,
+              vertical: AppComponentSpacing.badgeVertical,
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(
+                AppBorderRadius.medium,
+              ),
             ),
             child: Text(
               '${t.setlist.adoption}: $count${t.setlist.times}',
@@ -358,7 +354,7 @@ class _AdoptionCountBadgeState extends ConsumerState<_AdoptionCountBadge> {
           // エラー時は何も表示しない（またはエラーアイコンを表示）
           return Icon(
             Icons.error,
-            size: 32,
+            size: AppIconSizes.small,
             color: Theme.of(context).colorScheme.error,
           );
         } else {
