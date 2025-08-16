@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -63,7 +61,8 @@ class ShareButton extends StatelessWidget {
         text: _text,
         subject: _subject,
         uri: _url != null ? Uri.parse(_url) : null,
-        sharePositionOrigin: !kIsWeb && Platform.isIOS
+        sharePositionOrigin:
+            !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS
             ? _getShareButtonRect(context)
             : null,
       ),
