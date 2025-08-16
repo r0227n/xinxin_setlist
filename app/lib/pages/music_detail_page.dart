@@ -5,6 +5,7 @@ import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/pages/setlist_page.dart';
+import 'package:app/pages/widgets/share_button.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart';
 import 'package:cores/cores.dart';
@@ -229,6 +230,11 @@ class _MusicCard extends StatelessWidget {
             ),
 
             _AdoptionCountBadge(musicId: _music.id),
+
+            ShareButton(
+              url:
+                  'https://r0227n.github.io/xinxin_setlist/#/music/${_music.id}',
+            ),
           ],
         ),
       ),
