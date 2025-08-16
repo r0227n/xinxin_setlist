@@ -76,6 +76,15 @@ class _TranslationsSettingsEn implements TranslationsSettingsJa {
   String get version => 'Version';
   @override
   String get licenses => 'Licenses';
+  @override
+  String get aboutXinxin => 'About XINXIN';
+  @override
+  String get aboutXinxinSubtitle => 'Please check the official X for details';
+  @override
+  String get inquiry => 'Inquiries about this site';
+  @override
+  String get inquirySubtitle =>
+      'Please contact @r0227n for opinions, requests, questions, etc.';
 }
 
 // Path: dialog

@@ -5,6 +5,7 @@ import 'package:app/router/routes.dart';
 import 'package:app_preferences/app_preferences.dart' as app_prefs;
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListItem {
   const ListItem({
@@ -23,6 +24,8 @@ class ListItem {
   final GestureTapCallback? _onTap;
 
   static Icon get iconChervon => const Icon(Icons.chevron_right);
+
+  static Icon get iconOpenBrowser => const Icon(Icons.open_in_new);
 
   ListTile toListTile() {
     return ListTile(
@@ -55,10 +58,21 @@ class SettingsPage extends ConsumerWidget {
         onTap: () => _showThemeDialog(context, t),
       ),
       ListItem(
+        title: Text(t.settings.aboutXinxin),
+        subtitle: Text(t.settings.aboutXinxinSubtitle),
+        trailing: ListItem.iconOpenBrowser,
+        onTap: () => launchUrl(Uri.parse('https://x.com/xinxin_official')),
+      ),
+      ListItem(
+        title: Text(t.settings.inquiry),
+        subtitle: Text(t.settings.inquirySubtitle),
+        trailing: ListItem.iconOpenBrowser,
+        onTap: () => launchUrl(Uri.parse('https://x.com/r0227n')),
+      ),
+      ListItem(
         title: Text(t.settings.version),
         subtitle: const app_prefs.VersionText(),
         trailing: const Icon(Icons.info_outline),
-        // Version is display-only
       ),
       ListItem(
         title: Text(t.settings.licenses),

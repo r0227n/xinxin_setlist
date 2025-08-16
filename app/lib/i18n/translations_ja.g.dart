@@ -68,6 +68,10 @@ class TranslationsSettingsJa {
   String get theme => 'テーマ';
   String get version => 'バージョン';
   String get licenses => 'ライセンス';
+  String get aboutXinxin => 'XINXINとは？';
+  String get aboutXinxinSubtitle => '詳細は公式Xをご覧ください';
+  String get inquiry => '本サイトに対するお問い合わせ';
+  String get inquirySubtitle => 'ご意見・ご要望・ご質問などは@r0227nへご連絡ください';
 }
 
 // Path: dialog
