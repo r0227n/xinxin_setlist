@@ -18,4 +18,10 @@ class StageRepository extends _$StageRepository with LoggerMixin {
         .map((e) => Stage.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  /// イベントIDからステージを取得する
+  Future<Stage?> getFromEventId(String eventId) async {
+    final stages = await ref.read(stageRepositoryProvider.future);
+    return stages.where((stage) => stage.id == eventId).firstOrNull;
+  }
 }

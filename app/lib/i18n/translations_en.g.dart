@@ -110,6 +110,9 @@ class _TranslationsSetlistEn implements TranslationsSetlistJa {
   @override
   String get title => 'XINXIN SETLIST';
   @override
+  late final _TranslationsSetlistDetailEn detail =
+      _TranslationsSetlistDetailEn._(_root);
+  @override
   late final _TranslationsSetlistErrorEn error = _TranslationsSetlistErrorEn._(
     _root,
   );
@@ -136,6 +139,31 @@ class _TranslationsMusicEn implements TranslationsMusicJa {
   // Translations
   @override
   String get detail => 'Music Detail';
+}
+
+// Path: setlist.detail
+class _TranslationsSetlistDetailEn implements TranslationsSetlistDetailJa {
+  _TranslationsSetlistDetailEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Setlist Detail';
+  @override
+  String get eventInfo => 'Event Information';
+  @override
+  String get eventTitle => 'Event Title';
+  @override
+  String get eventOrder => 'Event Order';
+  @override
+  String get venue => 'Venue';
+  @override
+  String get musicList => 'Music List';
+  @override
+  String musicNumber({required Object number}) => '${number} number';
+  @override
+  String musicCount({required Object count}) => '${count} songs';
 }
 
 // Path: setlist.error
