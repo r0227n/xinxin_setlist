@@ -116,50 +116,44 @@ class _EventInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: AppSpacing.small,
-          children: [
-            _ContentHeader(
-              leading: Icon(
-                Icons.event,
-                size: AppIconSizes.medium,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                t.setlist.detail.eventInfo,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              trailing: ShareButton(
-                url:
-                    'https://r0227n.github.io/xinxin_setlist/#/setlist/${_event.id}',
-              ),
-            ),
-            const Divider(),
-            _InfoRow(
-              label: t.setlist.detail.eventTitle,
-              value: _event.title,
-            ),
-            _InfoRow(
-              label: t.setlist.date,
-              value: _event.date.toString().split(' ')[0],
-            ),
-            if (_stage != null)
-              _InfoRow(
-                label: t.setlist.detail.venue,
-                value: _stage.title,
-              ),
-            if (_event.order != null)
-              _InfoRow(
-                label: t.setlist.detail.eventOrder,
-                value: _event.order.toString(),
-              ),
-          ],
+    return _ContentCard(
+      children: [
+        _ContentHeader(
+          leading: Icon(
+            Icons.event,
+            size: AppIconSizes.medium,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          title: Text(
+            t.setlist.detail.eventInfo,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          trailing: ShareButton(
+            tooltip: t.share,
+            url:
+                'https://r0227n.github.io/xinxin_setlist/#/setlist/${_event.id}',
+          ),
         ),
-      ),
+        const Divider(),
+        _InfoRow(
+          label: t.setlist.detail.eventTitle,
+          value: _event.title,
+        ),
+        _InfoRow(
+          label: t.setlist.date,
+          value: _event.date.toString().split(' ')[0],
+        ),
+        if (_stage != null)
+          _InfoRow(
+            label: t.setlist.detail.venue,
+            value: _stage.title,
+          ),
+        if (_event.order != null)
+          _InfoRow(
+            label: t.setlist.detail.eventOrder,
+            value: _event.order.toString(),
+          ),
+      ],
     );
   }
 }
@@ -234,35 +228,51 @@ class _MusicListWidget extends ConsumerWidget with LoggerMixin {
       );
     }
 
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.medium),
-            child: _ContentHeader(
-              leading: Icon(
-                Icons.library_music,
-                size: AppIconSizes.medium,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                t.setlist.detail.musicList,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              trailing: Chip(
-                label: Text(
-                  t.setlist.detail.musicCount(count: _musicIds.length),
-                ),
-                backgroundColor: Theme.of(
-                  context,
-                ).colorScheme.primaryContainer,
-              ),
-            ),
+    return _ContentCard(
+      children: [
+        _ContentHeader(
+          leading: Icon(
+            Icons.library_music,
+            size: AppIconSizes.medium,
+            color: Theme.of(context).colorScheme.primary,
           ),
-          const Divider(height: 1),
-          _OrderedMusicList(musicIds: _musicIds),
-        ],
+          title: Text(
+            t.setlist.detail.musicList,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          trailing: Chip(
+            label: Text(
+              t.setlist.detail.musicCount(count: _musicIds.length),
+            ),
+            backgroundColor: Theme.of(
+              context,
+            ).colorScheme.primaryContainer,
+          ),
+        ),
+        const Divider(),
+        _OrderedMusicList(musicIds: _musicIds),
+      ],
+    );
+  }
+}
+
+class _ContentCard extends StatelessWidget {
+  const _ContentCard({
+    required List<Widget> children,
+  }) : _children = children;
+
+  final List<Widget> _children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.medium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: AppSpacing.small,
+          children: _children,
+        ),
       ),
     );
   }
@@ -363,7 +373,7 @@ class _OrderedMusicList extends ConsumerWidget with LoggerMixin {
             final music = orderedMusics[index];
 
             return ListTile(
-              contentPadding: const EdgeInsets.all(AppSpacing.small),
+              contentPadding: const EdgeInsets.all(AppSpacing.extraSmall),
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(AppBorderRadius.medium),
                 child: Image.network(
