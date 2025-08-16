@@ -44,7 +44,7 @@ class TranslationsEn implements Translations {
 
   // Translations
   @override
-  String get hello => 'Hello';
+  String get share => 'Share';
   @override
   late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(
     _root,

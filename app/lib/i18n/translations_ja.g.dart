@@ -48,7 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   }) => Translations(meta: meta ?? this.$meta);
 
   // Translations
-  String get hello => 'こんにちは';
+  String get share => '共有';
   late final TranslationsSettingsJa settings = TranslationsSettingsJa._(_root);
   late final TranslationsDialogJa dialog = TranslationsDialogJa._(_root);
   late final TranslationsSetlistJa setlist = TranslationsSetlistJa._(_root);
