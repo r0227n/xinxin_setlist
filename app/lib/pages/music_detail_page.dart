@@ -232,6 +232,7 @@ class _MusicCard extends StatelessWidget {
             _AdoptionCountBadge(musicId: _music.id),
 
             ShareButton(
+              tooltip: t.share,
               url:
                   'https://r0227n.github.io/xinxin_setlist/#/music/${_music.id}',
             ),
