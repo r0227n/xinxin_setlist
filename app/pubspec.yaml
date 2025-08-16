@@ -34,6 +34,7 @@ dependencies:
   slang_flutter: ^4.7.0
   talker_flutter: ^4.9.2
   talker_riverpod_logger: ^4.9.2
+  url_launcher: ^6.3.2
   web: ^1.1.1
   youtube_player_iframe: ^5.2.2
 
