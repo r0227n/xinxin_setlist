@@ -93,6 +93,9 @@ class TranslationsSetlistJa {
 
   // Translations
   String get title => 'XINXIN SETLIST';
+  late final TranslationsSetlistDetailJa detail = TranslationsSetlistDetailJa._(
+    _root,
+  );
   late final TranslationsSetlistErrorJa error = TranslationsSetlistErrorJa._(
     _root,
   );
@@ -113,6 +116,23 @@ class TranslationsMusicJa {
 
   // Translations
   String get detail => '楽曲詳細';
+}
+
+// Path: setlist.detail
+class TranslationsSetlistDetailJa {
+  TranslationsSetlistDetailJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'セットリスト詳細';
+  String get eventInfo => 'イベント情報';
+  String get eventTitle => 'イベント名';
+  String get eventOrder => '開催順';
+  String get venue => '会場';
+  String get musicList => '楽曲リスト';
+  String musicNumber({required Object number}) => '${number} 曲目';
+  String musicCount({required Object count}) => '${count} 曲';
 }
 
 // Path: setlist.error

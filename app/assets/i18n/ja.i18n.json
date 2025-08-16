@@ -17,6 +17,16 @@
   },
   "setlist": {
     "title": "XINXIN SETLIST",
+    "detail": {
+      "title": "セットリスト詳細",
+      "eventInfo": "イベント情報",
+      "eventTitle": "イベント名",
+      "eventOrder": "開催順",
+      "venue": "会場",
+      "musicList": "楽曲リスト",
+      "musicNumber": "$number 曲目",
+      "musicCount": "$count 曲"
+    },
     "error": {
       "bothIdsSpecified": "eventIdとmusicIdの両方を同時に指定することはできません",
       "occurred": "エラーが発生しました",
