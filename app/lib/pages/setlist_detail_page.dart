@@ -3,6 +3,7 @@ import 'package:app/data/repositories/music_repository.dart';
 import 'package:app/data/repositories/stage_repository.dart';
 import 'package:app/data/services/setlist_service.dart';
 import 'package:app/i18n/translations.g.dart';
+import 'package:app/pages/widgets/share_button.dart';
 import 'package:app/router/routes.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart';
@@ -131,6 +132,10 @@ class _EventInfoCard extends StatelessWidget {
               title: Text(
                 t.setlist.detail.eventInfo,
                 style: Theme.of(context).textTheme.titleMedium,
+              ),
+              trailing: ShareButton(
+                url:
+                    'https://r0227n.github.io/xinxin_setlist/#/setlist/${_event.id}',
               ),
             ),
             const Divider(),
