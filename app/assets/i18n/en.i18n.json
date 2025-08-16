@@ -1,11 +1,15 @@
 {
-  "hello": "Hello",
+  "share": "Share",
   "settings": {
     "title": "Settings",
     "language": "Language",
     "theme": "Theme",
     "version": "Version",
-    "licenses": "Licenses"
+    "licenses": "Licenses",
+    "aboutXinxin": "About XINXIN",
+    "aboutXinxinSubtitle": "Please check the official X for details",
+    "inquiry": "Inquiries about this site",
+    "inquirySubtitle": "Please contact @r0227n for opinions, requests, questions, etc."
   },
   "dialog": {
     "close": "Close",
@@ -13,6 +17,16 @@
   },
   "setlist": {
     "title": "XINXIN SETLIST",
+    "detail": {
+      "title": "Setlist Detail",
+      "eventInfo": "Event Information",
+      "eventTitle": "Event Title",
+      "eventOrder": "Event Order",
+      "venue": "Venue",
+      "musicList": "Music List",
+      "musicNumber": "$number number",
+      "musicCount": "$count songs"
+    },
     "error": {
       "bothIdsSpecified": "Cannot specify both eventId and musicId simultaneously",
       "occurred": "An error occurred",

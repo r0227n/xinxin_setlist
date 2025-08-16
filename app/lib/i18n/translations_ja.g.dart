@@ -48,7 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   }) => Translations(meta: meta ?? this.$meta);
 
   // Translations
-  String get hello => 'こんにちは';
+  String get share => '共有';
   late final TranslationsSettingsJa settings = TranslationsSettingsJa._(_root);
   late final TranslationsDialogJa dialog = TranslationsDialogJa._(_root);
   late final TranslationsSetlistJa setlist = TranslationsSetlistJa._(_root);
@@ -68,6 +68,10 @@ class TranslationsSettingsJa {
   String get theme => 'テーマ';
   String get version => 'バージョン';
   String get licenses => 'ライセンス';
+  String get aboutXinxin => 'XINXINとは？';
+  String get aboutXinxinSubtitle => '詳細は公式Xをご覧ください';
+  String get inquiry => '本サイトに対するお問い合わせ';
+  String get inquirySubtitle => 'ご意見・ご要望・ご質問などは@r0227nへご連絡ください';
 }
 
 // Path: dialog
@@ -89,6 +93,9 @@ class TranslationsSetlistJa {
 
   // Translations
   String get title => 'XINXIN SETLIST';
+  late final TranslationsSetlistDetailJa detail = TranslationsSetlistDetailJa._(
+    _root,
+  );
   late final TranslationsSetlistErrorJa error = TranslationsSetlistErrorJa._(
     _root,
   );
@@ -109,6 +116,23 @@ class TranslationsMusicJa {
 
   // Translations
   String get detail => '楽曲詳細';
+}
+
+// Path: setlist.detail
+class TranslationsSetlistDetailJa {
+  TranslationsSetlistDetailJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'セットリスト詳細';
+  String get eventInfo => 'イベント情報';
+  String get eventTitle => 'イベント名';
+  String get eventOrder => '開催順';
+  String get venue => '会場';
+  String get musicList => '楽曲リスト';
+  String musicNumber({required Object number}) => '${number} 曲目';
+  String musicCount({required Object count}) => '${count} 曲';
 }
 
 // Path: setlist.error

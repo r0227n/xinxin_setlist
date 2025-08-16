@@ -1,4 +1,5 @@
 import 'package:app/pages/music_detail_page.dart';
+import 'package:app/pages/setlist_detail_page.dart';
 import 'package:app/pages/setlist_page.dart';
 import 'package:app/pages/settings/custom_license_page.dart';
 import 'package:app/pages/settings/settings_page.dart';
@@ -57,7 +58,7 @@ class SetlistDetailRoute extends GoRouteData with _$SetlistDetailRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return SetlistPage(eventId: eventId);
+    return SetlistDetailPage(eventId: eventId);
   }
 }
 

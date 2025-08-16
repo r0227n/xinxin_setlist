@@ -44,7 +44,7 @@ class TranslationsEn implements Translations {
 
   // Translations
   @override
-  String get hello => 'Hello';
+  String get share => 'Share';
   @override
   late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(
     _root,
@@ -76,6 +76,15 @@ class _TranslationsSettingsEn implements TranslationsSettingsJa {
   String get version => 'Version';
   @override
   String get licenses => 'Licenses';
+  @override
+  String get aboutXinxin => 'About XINXIN';
+  @override
+  String get aboutXinxinSubtitle => 'Please check the official X for details';
+  @override
+  String get inquiry => 'Inquiries about this site';
+  @override
+  String get inquirySubtitle =>
+      'Please contact @r0227n for opinions, requests, questions, etc.';
 }
 
 // Path: dialog
@@ -100,6 +109,9 @@ class _TranslationsSetlistEn implements TranslationsSetlistJa {
   // Translations
   @override
   String get title => 'XINXIN SETLIST';
+  @override
+  late final _TranslationsSetlistDetailEn detail =
+      _TranslationsSetlistDetailEn._(_root);
   @override
   late final _TranslationsSetlistErrorEn error = _TranslationsSetlistErrorEn._(
     _root,
@@ -127,6 +139,31 @@ class _TranslationsMusicEn implements TranslationsMusicJa {
   // Translations
   @override
   String get detail => 'Music Detail';
+}
+
+// Path: setlist.detail
+class _TranslationsSetlistDetailEn implements TranslationsSetlistDetailJa {
+  _TranslationsSetlistDetailEn._(this._root);
+
+  final TranslationsEn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Setlist Detail';
+  @override
+  String get eventInfo => 'Event Information';
+  @override
+  String get eventTitle => 'Event Title';
+  @override
+  String get eventOrder => 'Event Order';
+  @override
+  String get venue => 'Venue';
+  @override
+  String get musicList => 'Music List';
+  @override
+  String musicNumber({required Object number}) => '${number} number';
+  @override
+  String musicCount({required Object count}) => '${count} songs';
 }
 
 // Path: setlist.error

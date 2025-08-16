@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/data/repositories/event_repository.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:cores/cores.dart';
 import 'package:flutter/services.dart';
@@ -17,5 +18,15 @@ class StageRepository extends _$StageRepository with LoggerMixin {
     return jsonList
         .map((e) => Stage.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  /// イベントIDからステージを取得する
+  Future<Stage?> getFromEventId(String eventId) async {
+    final (stages, event) = await (
+      future,
+      ref.read(eventRepositoryProvider.notifier).get(eventId),
+    ).wait;
+
+    return stages.where((stage) => stage.id == event.stageId).firstOrNull;
   }
 }

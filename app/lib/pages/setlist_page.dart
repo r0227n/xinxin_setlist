@@ -292,38 +292,9 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
             ),
             trailing: const Icon(Icons.arrow_forward_ios),
             isThreeLine: true,
-            onTap: () async {
-              logInfo('セットリスト詳細をダイアログ表示: ${setlist.id}');
-
-              // TODO: セットリスト詳細画面作成後、遷移するように書き換える
-              // 現状仮置きとして、ダイアログで表示する
-              final musics = await ref
-                  .read(musicRepositoryProvider.notifier)
-                  .getByMusicIds(setlist.musicIds);
-              if (musics.isEmpty || !context.mounted) {
-                return;
-              }
-              await showDialog<void>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(event.title),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: [
-                        for (var index = 0; index < musics.length; index++) ...[
-                          Text('${index + 1}. ${musics[index].title}'),
-                        ],
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(t.dialog.close),
-                    ),
-                  ],
-                ),
-              );
+            onTap: () {
+              logInfo('セットリスト詳細へ遷移: ${setlist.id}');
+              SetlistDetailRoute(eventId: setlist.eventId).go(context);
             },
           );
         }(),
