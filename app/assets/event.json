@@ -99,5 +99,20 @@
       { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 7 }
     ],
     "order": null
+  },
+  {
+    "id": "I2Ku32peTdHYnQQiO2LPRJ",
+    "stage_id": "0AP5EpUU78F93WZx8Aapj5",
+    "title": "Hotty&Rhythm 2025 Summer Festival",
+    "date": "2025-08-16T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 1 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 2 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 3 },
+      { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 4 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 5 }
+    ],
+    "order": null
   }
 ]
