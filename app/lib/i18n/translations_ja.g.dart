@@ -136,7 +136,7 @@ class TranslationsSetlistDetailJa {
   String musicNumber({required Object number}) => '${number} 曲目';
   String musicCount({required Object count}) => '${count} 曲';
   String shareText({required Object date, required Object title}) =>
-      '${date} ${title}\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
+      '${date} ${title}\n\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
 }
 
 // Path: setlist.error
