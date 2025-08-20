@@ -1,9 +1,14 @@
 import 'dart:async';
 
+import 'package:app/config/enviroment/src/ext_flavor.dart';
+import 'package:app/config/enviroment/src/flavor.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/router/app_router.dart';
+import 'package:app/services/firebase_analytics_service.dart';
 import 'package:app_logger/app_logger.dart';
 import 'package:app_preferences/app_preferences.dart' as prefs;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +19,7 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final flavor = Flavor.fromEnvironment();
 
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
@@ -27,19 +33,26 @@ Future<void> main() async {
   AppLogger.initialize(loggerConfig);
   final logger = AppLogger.instance;
 
+  logger.info('flavor: $flavor');
+
   // Initialize locale from stored preferences or use device locale as fallback
-  final sharedPrefs = await prefs.AppPreferencesInitializer.initializeLocale(
-    onLocaleFound: (languageCode) async {
-      final appLocale = AppLocale.values.firstWhere(
-        (locale) => locale.languageCode == languageCode,
-        orElse: () => AppLocale.ja,
-      );
-      await LocaleSettings.setLocale(appLocale);
-    },
-    onUseDeviceLocale: () async {
-      await LocaleSettings.useDeviceLocale();
-    },
-  );
+  final (sharedPrefs, firebase) = await (
+    prefs.AppPreferencesInitializer.initializeLocale(
+      onLocaleFound: (languageCode) async {
+        final appLocale = AppLocale.values.firstWhere(
+          (locale) => locale.languageCode == languageCode,
+          orElse: () => AppLocale.ja,
+        );
+        await LocaleSettings.setLocale(appLocale);
+      },
+      onUseDeviceLocale: () async {
+        await LocaleSettings.useDeviceLocale();
+      },
+    ),
+    Firebase.initializeApp(options: flavor.firebaseOptions),
+  ).wait;
+
+  final analytics = FirebaseAnalytics.instanceFor(app: firebase);
 
   final talker = logger.talker;
 
@@ -56,6 +69,7 @@ Future<void> main() async {
       overrides: [
         talkerProvider.overrideWithValue(talker),
         prefs.sharedPreferencesProvider.overrideWithValue(sharedPrefs),
+        firebaseAnalyticsProvider.overrideWithValue(analytics),
       ],
       child: TranslationProvider(
         child: prefs.TranslationProvider(
