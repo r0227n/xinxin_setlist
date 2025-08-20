@@ -25,7 +25,8 @@
       "venue": "会場",
       "musicList": "楽曲リスト",
       "musicNumber": "$number 曲目",
-      "musicCount": "$count 曲"
+      "musicCount": "$count 曲",
+      "shareText": "$date $title\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST"
     },
     "error": {
       "bothIdsSpecified": "eventIdとmusicIdの両方を同時に指定することはできません",

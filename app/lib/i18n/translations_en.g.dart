@@ -164,6 +164,9 @@ class _TranslationsSetlistDetailEn implements TranslationsSetlistDetailJa {
   String musicNumber({required Object number}) => '${number} number';
   @override
   String musicCount({required Object count}) => '${count} songs';
+  @override
+  String shareText({required Object date, required Object title}) =>
+      '${date} ${title}\nCheck out XINXIN\'s setlist!\n\n#XINXIN #XINXIN_SETLIST';
 }
 
 // Path: setlist.error

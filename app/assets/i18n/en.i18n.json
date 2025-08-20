@@ -25,7 +25,8 @@
       "venue": "Venue",
       "musicList": "Music List",
       "musicNumber": "$number number",
-      "musicCount": "$count songs"
+      "musicCount": "$count songs",
+      "shareText": "$date $title\nCheck out XINXIN's setlist!\n\n#XINXIN #XINXIN_SETLIST"
     },
     "error": {
       "bothIdsSpecified": "Cannot specify both eventId and musicId simultaneously",
