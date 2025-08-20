@@ -36,14 +36,18 @@ jobs:
       - name: Create dart define file from secrets
         run: |
           mkdir -p .dart_define
-          echo '${{ secrets.DART_DEFINE_PRODUCTION }}' > .dart_define/production.json 2>/dev/null
-        env:
-          DART_DEFINE_PRODUCTION: ${{ secrets.DART_DEFINE_PRODUCTION }}
+          cat << 'EOF' > .dart_define/production.json
+          ${{ secrets.DART_DEFINE_PRODUCTION }}
+          EOF
 
       - name: Create firebase config files
         run: |
-          echo '${{ secrets.FIREBASE_JSON_PRODUCTION }}' > firebase.json 2>/dev/null
-          echo '${{ secrets.FIREBASE_CONFIG_PRODUCTION }}' > lib/config/environment/src/production_firebase_options.dart 2>/dev/null
+          cat << 'EOF' > firebase.json
+          ${{ secrets.FIREBASE_JSON_PRODUCTION }}
+          EOF
+          cat << 'EOF' > lib/config/environment/src/production_firebase_options.dart
+          ${{ secrets.FIREBASE_CONFIG_PRODUCTION }}
+          EOF
 
       - name: Build for web (wasm)
         run: flutter build web --release --base-href /${{ github.event.repository.name }}/ --wasm --dart-define-from-file=.dart_define/production.json
