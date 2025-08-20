@@ -233,6 +233,7 @@ class _MusicCard extends StatelessWidget {
 
             ShareButton(
               tooltip: t.share,
+              text: t.music.shareText(title: _music.title),
               url:
                   'https://r0227n.github.io/xinxin_setlist/#/music/${_music.id}',
             ),

@@ -44,7 +44,8 @@
     "times": "回"
   },
   "music": {
-    "detail": "楽曲詳細"
+    "detail": "楽曲詳細",
+    "shareText": "$title\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST"
   },
   "error": "エラー"
 }

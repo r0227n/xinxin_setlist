@@ -139,6 +139,9 @@ class _TranslationsMusicEn implements TranslationsMusicJa {
   // Translations
   @override
   String get detail => 'Music Detail';
+  @override
+  String shareText({required Object title}) =>
+      '${title}\n\nXINXIN\'s music to check!\n\n#XINXIN #XINXIN_SETLIST';
 }
 
 // Path: setlist.detail
