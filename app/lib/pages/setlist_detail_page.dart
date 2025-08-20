@@ -130,6 +130,8 @@ class _EventInfoCard extends StatelessWidget {
           ),
           trailing: ShareButton(
             tooltip: t.share,
+            text: '#XINXIN #XINXIN_SETLIST',
+            subject: '${_event.date.toString().split(' ')[0]}${_event.title}',
             url:
                 'https://r0227n.github.io/xinxin_setlist/#/setlist/${_event.id}',
           ),
