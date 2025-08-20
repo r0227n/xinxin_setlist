@@ -6,7 +6,7 @@ part of 'stage_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stageRepositoryHash() => r'5f510c7ec3f16cf51122eb8df8c6450c6b413054';
+String _$stageRepositoryHash() => r'99e96722ccf9ab43c9009924ca7c367b34164d23';
 
 /// See also [StageRepository].
 @ProviderFor(StageRepository)
