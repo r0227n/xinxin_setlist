@@ -10,7 +10,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final _currentSetlist = Provider<Setlist>((ref) => throw UnimplementedError());
+final _currentSetlist = Provider<({Setlist setlist, String? selectedMusicId})>(
+  (ref) => throw UnimplementedError(),
+);
 typedef MusicOnPressed = void Function(Music);
 
 /// セットリスト表示ページ
@@ -197,7 +199,14 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                     itemBuilder: (context, index) {
                       final setlist = sortedSetlists[index];
                       return ProviderScope(
-                        overrides: [_currentSetlist.overrideWithValue(setlist)],
+                        overrides: [
+                          _currentSetlist.overrideWithValue(
+                            (
+                              setlist: setlist,
+                              selectedMusicId: widget.musicId,
+                            ),
+                          ),
+                        ],
                         child: const _SetlistTile(),
                       );
                     },
@@ -255,7 +264,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
       child: switch (eventRepositoryAsync) {
         AsyncData(value: final events) => () {
           final event = events.firstWhere(
-            (e) => e.id == setlist.eventId,
+            (e) => e.id == setlist.setlist.eventId,
             orElse: () => Event(
               id: '',
               stageId: '',
@@ -283,7 +292,9 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                 ),
 
                 _WrapSetlist(
-                  musicIds: setlist.musicIds,
+                  musicIds: setlist.setlist.musicIds,
+                  selectedMusicId: setlist.selectedMusicId,
+
                   onPressed: (music) => MusicDetailRoute(
                     musicId: music.id,
                   ).go(context),
@@ -293,8 +304,8 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
             trailing: const Icon(Icons.arrow_forward_ios),
             isThreeLine: true,
             onTap: () {
-              logInfo('セットリスト詳細へ遷移: ${setlist.id}');
-              SetlistDetailRoute(eventId: setlist.eventId).go(context);
+              logInfo('セットリスト詳細へ遷移: ${setlist.setlist.id}');
+              SetlistDetailRoute(eventId: setlist.setlist.eventId).go(context);
             },
           );
         }(),
@@ -303,7 +314,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
             Icons.error,
             color: Theme.of(context).colorScheme.error,
           ),
-          title: Text('セットリストID: ${setlist.id}'),
+          title: Text('セットリストID: ${setlist.setlist.id}'),
           subtitle: Text(
             '${t.setlist.error.dataFetchFailed}: $error',
           ),
@@ -324,11 +335,14 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
 class _WrapSetlist extends ConsumerStatefulWidget {
   const _WrapSetlist({
     required List<String> musicIds,
+    required String? selectedMusicId,
     required MusicOnPressed onPressed,
   }) : _musicOrderIds = musicIds,
+       _selectedMusicId = selectedMusicId,
        _onPressed = onPressed;
 
   final List<String> _musicOrderIds;
+  final String? _selectedMusicId;
   final MusicOnPressed _onPressed;
 
   @override
@@ -358,7 +372,8 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
             children:
                 snapshot.data
                     ?.map(
-                      (e) => ActionChip(
+                      (e) => ChoiceChip(
+                        selected: e.id == widget._selectedMusicId,
                         avatar: Image.network(
                           e.thumbnailUrl,
                           loadingBuilder: (context, child, loadingProgress) =>
@@ -369,9 +384,9 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                               const Icon(Icons.error),
                         ),
                         label: Text(e.title),
-                        onPressed: () {
-                          widget._onPressed(e);
-                        },
+                        onSelected: e.id == widget._selectedMusicId
+                            ? null
+                            : (_) => widget._onPressed(e),
                       ),
                     )
                     .toList() ??
