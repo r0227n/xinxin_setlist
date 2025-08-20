@@ -40,6 +40,12 @@ jobs:
         env:
           DART_DEFINE_PRODUCTION: ${{ secrets.DART_DEFINE_PRODUCTION }}
 
+      - name: Setup Firebase
+        run: |
+          curl -sL https://firebase.tools | bash
+          dart pub global activate flutterfire_cli
+          source ../scripts/setup-firebase-flavors.sh production
+
       - name: Build for web (wasm)
         run: flutter build web --release --base-href /${{ github.event.repository.name }}/ --wasm --dart-define-from-file=.dart_define/production.json
 
