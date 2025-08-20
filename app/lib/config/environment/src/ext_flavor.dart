@@ -1,6 +1,5 @@
 // CI環境でlintが失敗するため、ignore_for_fileを使用している
 // ignore_for_file: type=lint
-
 import 'package:app/config/environment/src/flavor.dart';
 import 'package:app/config/environment/src/production_firebase_options.dart'
     as prod;
