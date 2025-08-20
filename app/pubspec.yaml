@@ -17,6 +17,8 @@ dependencies:
   cores:
     path: ../packages/cores
   cupertino_icons: ^1.0.8
+  firebase_analytics: ^11.6.0
+  firebase_core: ^3.15.2
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.2
