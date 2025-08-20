@@ -116,6 +116,8 @@ class TranslationsMusicJa {
 
   // Translations
   String get detail => '楽曲詳細';
+  String shareText({required Object title}) =>
+      '${title}\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
 }
 
 // Path: setlist.detail
@@ -133,6 +135,8 @@ class TranslationsSetlistDetailJa {
   String get musicList => '楽曲リスト';
   String musicNumber({required Object number}) => '${number} 曲目';
   String musicCount({required Object count}) => '${count} 曲';
+  String shareText({required Object date, required Object title}) =>
+      '${date} ${title}\n\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
 }
 
 // Path: setlist.error

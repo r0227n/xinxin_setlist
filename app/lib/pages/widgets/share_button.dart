@@ -55,12 +55,25 @@ class ShareButton extends StatelessWidget {
   Future<void> _handleShare(BuildContext context) async {
     final files = _getFiles?.call();
 
+    // Combine text and URL to avoid "uri and text cannot be provided
+    String? shareText;
+    Uri? shareUri;
+
+    if (_text != null && _url != null) {
+      // When both text and URL are provided, combine them into text
+      shareText = '$_text\n$_url';
+    } else if (_text != null) {
+      shareText = _text;
+    } else if (_url != null) {
+      shareUri = Uri.parse(_url);
+    }
+
     await SharePlus.instance.share(
       ShareParams(
         files: files,
-        text: _text,
+        text: shareText,
         subject: _subject,
-        uri: _url != null ? Uri.parse(_url) : null,
+        uri: shareUri,
         sharePositionOrigin:
             !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS
             ? _getShareButtonRect(context)
