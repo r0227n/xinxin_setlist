@@ -1,5 +1,5 @@
-import 'package:app/config/enviroment/src/flavor.dart';
-import 'package:app/config/enviroment/src/production_firebase_options.dart'
+import 'package:app/config/environment/src/flavor.dart';
+import 'package:app/config/environment/src/production_firebase_options.dart'
     as prod;
 import 'package:firebase_core/firebase_core.dart';
 

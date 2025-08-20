@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:app/config/enviroment/src/ext_flavor.dart';
-import 'package:app/config/enviroment/src/flavor.dart';
+import 'package:app/config/environment/src/ext_flavor.dart';
+import 'package:app/config/environment/src/flavor.dart';
 import 'package:app/i18n/translations.g.dart';
 import 'package:app/router/app_router.dart';
 import 'package:app/services/firebase_analytics_service.dart';
