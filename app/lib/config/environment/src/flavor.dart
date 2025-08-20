@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'flavor.g.dart';
 
 @Riverpod(keepAlive: true)
-Flavor flavor(Ref ref) => throw UnimplementedError();
+Flavor flavor(Ref ref) => Flavor.fromEnvironment();
 
 enum Flavor {
   development,
