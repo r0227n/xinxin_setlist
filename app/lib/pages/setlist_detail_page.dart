@@ -93,7 +93,9 @@ class _SetlistDetailPageState extends ConsumerState<SetlistDetailPage>
                 _EventInfoCard(event: event, stage: stage),
 
                 // セットリスト
-                _MusicListWidget(musicIds: setlist.musicIds),
+                _MusicListWidget(
+                  musicIds: setlist.musicIds.map((e) => e.value).toList(),
+                ),
               ],
             ),
           );
@@ -421,7 +423,9 @@ class _OrderedMusicList extends ConsumerWidget with LoggerMixin {
                 Icons.arrow_forward_ios,
                 size: AppIconSizes.small,
               ),
-              onTap: () => MusicDetailRoute(musicId: music.id).go(context),
+              onTap: () => MusicDetailRoute(
+                musicId: music.id.value,
+              ).go(context),
             );
           },
         );

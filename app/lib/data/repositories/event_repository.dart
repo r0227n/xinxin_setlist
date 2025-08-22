@@ -26,7 +26,7 @@ class EventRepository extends _$EventRepository with LoggerMixin {
 
   Future<List<String>> getAllIds() async {
     final events = await future;
-    return events.map((e) => e.id).toList();
+    return events.map((e) => e.id.value).toList();
   }
 
   Future<List<Event>> whereFromMusicId(String musicId) async {

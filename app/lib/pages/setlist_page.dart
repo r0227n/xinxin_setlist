@@ -164,7 +164,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                       final eventA = events.firstWhere(
                         (e) => e.id == a.eventId,
                         orElse: () => Event(
-                          id: '',
+                          id: EventId(''),
                           stageId: '',
                           title: '',
                           date: DateTime.fromMillisecondsSinceEpoch(0),
@@ -175,7 +175,7 @@ class _SetlistPageState extends ConsumerState<SetlistPage> with LoggerMixin {
                       final eventB = events.firstWhere(
                         (e) => e.id == b.eventId,
                         orElse: () => Event(
-                          id: '',
+                          id: EventId(''),
                           stageId: '',
                           title: '',
                           date: DateTime.fromMillisecondsSinceEpoch(0),
@@ -266,7 +266,7 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
           final event = events.firstWhere(
             (e) => e.id == setlist.setlist.eventId,
             orElse: () => Event(
-              id: '',
+              id: EventId(''),
               stageId: '',
               title: t.error,
               date: DateTime.now(),
@@ -292,11 +292,13 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
                 ),
 
                 _WrapSetlist(
-                  musicIds: setlist.setlist.musicIds,
+                  musicIds: setlist.setlist.musicIds
+                      .map((e) => e.value)
+                      .toList(),
                   selectedMusicId: setlist.selectedMusicId,
 
                   onPressed: (music) => MusicDetailRoute(
-                    musicId: music.id,
+                    musicId: music.id.value,
                   ).go(context),
                 ),
               ],
@@ -305,7 +307,9 @@ class _SetlistTile extends ConsumerWidget with LoggerMixin {
             isThreeLine: true,
             onTap: () {
               logInfo('セットリスト詳細へ遷移: ${setlist.setlist.id}');
-              SetlistDetailRoute(eventId: setlist.setlist.eventId).go(context);
+              SetlistDetailRoute(
+                eventId: setlist.setlist.eventId.value,
+              ).go(context);
             },
           );
         }(),
