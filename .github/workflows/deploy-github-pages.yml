@@ -2,16 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   pull_request:
-    types: [closed]
+    types:
+      - closed
     branches:
       - main
-      - develop
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: deploy-github-pages-${{ github.ref }}
@@ -19,7 +13,8 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: ./app
@@ -61,10 +56,13 @@ jobs:
           path: './app/build/web'
 
   deploy:
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
