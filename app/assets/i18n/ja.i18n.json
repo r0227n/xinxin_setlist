@@ -1,10 +1,51 @@
 {
-  "hello": "こんにちは",
+  "share": "共有",
   "settings": {
     "title": "設定",
     "language": "言語",
     "theme": "テーマ",
     "version": "バージョン",
-    "licenses": "ライセンス"
-  }
+    "licenses": "ライセンス",
+    "aboutXinxin": "XINXINとは？",
+    "aboutXinxinSubtitle": "詳細は公式Xをご覧ください",
+    "inquiry": "本サイトに対するお問い合わせ",
+    "inquirySubtitle": "ご意見・ご要望・ご質問などは@r0227nへご連絡ください"
+  },
+  "dialog": {
+    "close": "閉じる",
+    "retry": "再試行"
+  },
+  "setlist": {
+    "title": "XINXIN SETLIST",
+    "detail": {
+      "title": "セットリスト詳細",
+      "eventInfo": "イベント情報",
+      "eventTitle": "イベント名",
+      "eventOrder": "開催順",
+      "venue": "会場",
+      "musicList": "楽曲リスト",
+      "musicNumber": "$number 曲目",
+      "musicCount": "$count 曲",
+      "shareText": "$date $title\n\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST"
+    },
+    "error": {
+      "bothIdsSpecified": "eventIdとmusicIdの両方を同時に指定することはできません",
+      "occurred": "エラーが発生しました",
+      "dataFetchFailed": "データ取得に失敗"
+    },
+    "empty": {
+      "noSetlistForEvent": "このイベントにはセットリストがありません",
+      "noSetlistForMusic": "この音楽を含むセットリストがありません",
+      "noSetlist": "セットリストがありません"
+    },
+    "loading": "読み込み中...",
+    "date": "日付",
+    "adoption": "セットリスト採用",
+    "times": "回"
+  },
+  "music": {
+    "detail": "楽曲詳細",
+    "shareText": "$title\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST"
+  },
+  "error": "エラー"
 }

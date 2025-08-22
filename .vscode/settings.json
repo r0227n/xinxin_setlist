@@ -7,7 +7,7 @@
   // ===========================================
   // Flutter & Dart Configuration
   // ===========================================
-  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.32.8-stable",
+  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.35.1-stable",
   "dart.previewFlutterUiGuides": true,
   "dart.previewFlutterUiGuidesCustomTracking": true,
 
@@ -100,5 +100,6 @@
   },
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
-  }
+  },
+  "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun"
 }

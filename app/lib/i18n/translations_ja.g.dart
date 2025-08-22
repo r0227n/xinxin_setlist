@@ -48,8 +48,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   }) => Translations(meta: meta ?? this.$meta);
 
   // Translations
-  String get hello => 'こんにちは';
+  String get share => '共有';
   late final TranslationsSettingsJa settings = TranslationsSettingsJa._(_root);
+  late final TranslationsDialogJa dialog = TranslationsDialogJa._(_root);
+  late final TranslationsSetlistJa setlist = TranslationsSetlistJa._(_root);
+  late final TranslationsMusicJa music = TranslationsMusicJa._(_root);
+  String get error => 'エラー';
 }
 
 // Path: settings
@@ -64,4 +68,97 @@ class TranslationsSettingsJa {
   String get theme => 'テーマ';
   String get version => 'バージョン';
   String get licenses => 'ライセンス';
+  String get aboutXinxin => 'XINXINとは？';
+  String get aboutXinxinSubtitle => '詳細は公式Xをご覧ください';
+  String get inquiry => '本サイトに対するお問い合わせ';
+  String get inquirySubtitle => 'ご意見・ご要望・ご質問などは@r0227nへご連絡ください';
+}
+
+// Path: dialog
+class TranslationsDialogJa {
+  TranslationsDialogJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get close => '閉じる';
+  String get retry => '再試行';
+}
+
+// Path: setlist
+class TranslationsSetlistJa {
+  TranslationsSetlistJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'XINXIN SETLIST';
+  late final TranslationsSetlistDetailJa detail = TranslationsSetlistDetailJa._(
+    _root,
+  );
+  late final TranslationsSetlistErrorJa error = TranslationsSetlistErrorJa._(
+    _root,
+  );
+  late final TranslationsSetlistEmptyJa empty = TranslationsSetlistEmptyJa._(
+    _root,
+  );
+  String get loading => '読み込み中...';
+  String get date => '日付';
+  String get adoption => 'セットリスト採用';
+  String get times => '回';
+}
+
+// Path: music
+class TranslationsMusicJa {
+  TranslationsMusicJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get detail => '楽曲詳細';
+  String shareText({required Object title}) =>
+      '${title}\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
+}
+
+// Path: setlist.detail
+class TranslationsSetlistDetailJa {
+  TranslationsSetlistDetailJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'セットリスト詳細';
+  String get eventInfo => 'イベント情報';
+  String get eventTitle => 'イベント名';
+  String get eventOrder => '開催順';
+  String get venue => '会場';
+  String get musicList => '楽曲リスト';
+  String musicNumber({required Object number}) => '${number} 曲目';
+  String musicCount({required Object count}) => '${count} 曲';
+  String shareText({required Object date, required Object title}) =>
+      '${date} ${title}\n\nXINXIN のセットリストを確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
+}
+
+// Path: setlist.error
+class TranslationsSetlistErrorJa {
+  TranslationsSetlistErrorJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get bothIdsSpecified => 'eventIdとmusicIdの両方を同時に指定することはできません';
+  String get occurred => 'エラーが発生しました';
+  String get dataFetchFailed => 'データ取得に失敗';
+}
+
+// Path: setlist.empty
+class TranslationsSetlistEmptyJa {
+  TranslationsSetlistEmptyJa._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get noSetlistForEvent => 'このイベントにはセットリストがありません';
+  String get noSetlistForMusic => 'この音楽を含むセットリストがありません';
+  String get noSetlist => 'セットリストがありません';
 }

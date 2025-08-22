@@ -1,5 +1,5 @@
 [tools]
-flutter = "3.32.8"
+flutter = "3.35.1"
 node = "22.18.0"
 bun = "1.2.17"
 
@@ -66,3 +66,23 @@ bun run format
 [tasks.clean-branch]
 description = "Clean git branches/worktrees"
 run = "./scripts/clean-branch.sh"
+
+# Firebase configuration tasks
+[tasks.firebase-setup]
+description = "Setup Firebase for all flavors"
+run = "./scripts/setup-firebase-flavors.sh"
+
+[tasks.firebase-setup-dev]
+description = "Setup Firebase for development flavor"
+run = "{{cwd}}/scripts/setup-firebase-flavors.sh development"
+dir = "{{cwd}}/app"
+
+[tasks.firebase-setup-staging]
+description = "Setup Firebase for staging flavor"
+run = "{{cwd}}/scripts/setup-firebase-flavors.sh staging"
+dir = "{{cwd}}/app"
+
+[tasks.firebase-setup-prod]
+description = "Setup Firebase for production flavor"
+run = "{{cwd}}/scripts/setup-firebase-flavors.sh production"
+dir = "{{cwd}}/app"

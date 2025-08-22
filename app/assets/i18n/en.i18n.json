@@ -1,10 +1,51 @@
 {
-  "hello": "Hello",
+  "share": "Share",
   "settings": {
     "title": "Settings",
     "language": "Language",
     "theme": "Theme",
     "version": "Version",
-    "licenses": "Licenses"
-  }
+    "licenses": "Licenses",
+    "aboutXinxin": "About XINXIN",
+    "aboutXinxinSubtitle": "Please check the official X for details",
+    "inquiry": "Inquiries about this site",
+    "inquirySubtitle": "Please contact @r0227n for opinions, requests, questions, etc."
+  },
+  "dialog": {
+    "close": "Close",
+    "retry": "Retry"
+  },
+  "setlist": {
+    "title": "XINXIN SETLIST",
+    "detail": {
+      "title": "Setlist Detail",
+      "eventInfo": "Event Information",
+      "eventTitle": "Event Title",
+      "eventOrder": "Event Order",
+      "venue": "Venue",
+      "musicList": "Music List",
+      "musicNumber": "$number number",
+      "musicCount": "$count songs",
+      "shareText": "$date $title\n\nCheck out XINXIN's setlist!\n\n#XINXIN #XINXIN_SETLIST"
+    },
+    "error": {
+      "bothIdsSpecified": "Cannot specify both eventId and musicId simultaneously",
+      "occurred": "An error occurred",
+      "dataFetchFailed": "Failed to fetch data"
+    },
+    "empty": {
+      "noSetlistForEvent": "No setlist for this event",
+      "noSetlistForMusic": "No setlist containing this music",
+      "noSetlist": "No setlist"
+    },
+    "loading": "Loading...",
+    "date": "Date",
+    "adoption": "Setlist adoption",
+    "times": "times"
+  },
+  "music": {
+    "detail": "Music Detail",
+    "shareText": "$title\n\nXINXIN's music to check!\n\n#XINXIN #XINXIN_SETLIST"
+  },
+  "error": "Error"
 }

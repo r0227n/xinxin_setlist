@@ -1,1 +1,6 @@
 app/.dart_define/*
+
+# firebase
+**/firebase.json
+**/firebase_options.dart
+**/**_firebase_options.dart

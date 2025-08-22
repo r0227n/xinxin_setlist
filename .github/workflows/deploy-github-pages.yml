@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+concurrency:
+  group: deploy-github-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Create dart define file from secrets
+        run: |
+          mkdir -p .dart_define
+          cat << 'EOF' > .dart_define/production.json
+          ${{ secrets.DART_DEFINE_PRODUCTION }}
+          EOF
+
+      - name: Create firebase config files
+        run: |
+          cat << 'EOF' > firebase.json
+          ${{ secrets.FIREBASE_JSON_PRODUCTION }}
+          EOF
+          cat << 'EOF' > lib/config/environment/src/production_firebase_options.dart
+          ${{ secrets.FIREBASE_CONFIG_PRODUCTION }}
+          EOF
+
+      - name: Build for web (wasm)
+        run: flutter build web --release --base-href /${{ github.event.repository.name }}/ --wasm --dart-define-from-file=.dart_define/production.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: './app/build/web'
+
+  deploy:
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
