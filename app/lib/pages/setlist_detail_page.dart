@@ -364,7 +364,7 @@ class _OrderedMusicList extends ConsumerWidget with LoggerMixin {
         // musicIdsの順序でソート
         final orderedMusics = <Music>[];
         for (final musicId in _musicIds) {
-          final music = musics.where((m) => m.id == musicId).firstOrNull;
+          final music = musics.where((m) => m.id.value == musicId).firstOrNull;
           if (music != null) {
             orderedMusics.add(music);
           }

@@ -21,7 +21,7 @@ class EventRepository extends _$EventRepository with LoggerMixin {
 
   Future<Event> get(String eventId) async {
     final events = await future;
-    return events.firstWhere((e) => e.id == eventId);
+    return events.firstWhere((e) => e.id.value == eventId);
   }
 
   Future<List<String>> getAllIds() async {
@@ -32,7 +32,7 @@ class EventRepository extends _$EventRepository with LoggerMixin {
   Future<List<Event>> whereFromMusicId(String musicId) async {
     final events = await future;
     return events
-        .where((e) => e.setlist.any((item) => item.musicId == musicId))
+        .where((e) => e.setlist.any((item) => item.musicId.value == musicId))
         .toList();
   }
 }

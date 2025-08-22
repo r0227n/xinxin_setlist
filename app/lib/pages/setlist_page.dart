@@ -377,7 +377,7 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                 snapshot.data
                     ?.map(
                       (e) => ChoiceChip(
-                        selected: e.id == widget._selectedMusicId,
+                        selected: e.id.value == widget._selectedMusicId,
                         avatar: Image.network(
                           e.thumbnailUrl,
                           loadingBuilder: (context, child, loadingProgress) =>
@@ -388,7 +388,7 @@ class _WrapSetlistState extends ConsumerState<_WrapSetlist> {
                               const Icon(Icons.error),
                         ),
                         label: Text(e.title),
-                        onSelected: e.id == widget._selectedMusicId
+                        onSelected: e.id.value == widget._selectedMusicId
                             ? null
                             : (_) => widget._onPressed(e),
                       ),

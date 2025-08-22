@@ -129,8 +129,8 @@ class SetlistParser {
 
     if (data.hasSE) {
       setlist.add(
-        const SetlistItem(
-          musicId: seMusicId,
+        SetlistItem(
+          musicId: SetlistItemId(seMusicId),
           order: 0,
         ),
       );
@@ -139,14 +139,14 @@ class SetlistParser {
     for (var i = 0; i < songIds.length; i++) {
       setlist.add(
         SetlistItem(
-          musicId: songIds[i],
+          musicId: SetlistItemId(songIds[i]),
           order: data.hasSE ? i + 1 : i,
         ),
       );
     }
 
     final newEvent = Event(
-      id: eventId,
+      id: EventId(eventId),
       stageId: stageId,
       title: data.eventTitle.replaceAll('\n', ' '),
       date: DateTime.parse(data.date),
@@ -206,15 +206,15 @@ class SetlistParser {
         .where((stage) => stage.title == title)
         .firstOrNull;
     if (existingStage != null) {
-      return existingStage.id;
+      return existingStage.id.value;
     }
 
     final newStage = Stage(
-      id: _generateId(),
+      id: StageId(_generateId()),
       title: title,
     );
     stages.add(newStage);
-    return newStage.id;
+    return newStage.id.value;
   }
 
   String _getOrCreateMusic(List<Music> musics, String title) {
@@ -222,16 +222,16 @@ class SetlistParser {
         .where((music) => music.title == title)
         .firstOrNull;
     if (existingMusic != null) {
-      return existingMusic.id;
+      return existingMusic.id.value;
     }
 
     final newMusic = Music(
-      id: _generateId(),
+      id: MusicId(_generateId()),
       title: title,
       thumbnailUrl: defaultThumbnailUrl,
     );
     musics.add(newMusic);
-    return newMusic.id;
+    return newMusic.id.value;
   }
 
   String _generateId() {

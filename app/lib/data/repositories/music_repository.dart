@@ -21,7 +21,7 @@ class MusicRepository extends _$MusicRepository with LoggerMixin {
 
   Future<Music> get(String musicId) async {
     final music = await future;
-    return music.firstWhere((music) => music.id == musicId);
+    return music.firstWhere((music) => music.id.value == musicId);
   }
 
   Future<List<Music>> getByMusicIds(List<String> musicIds) async {
@@ -31,7 +31,7 @@ class MusicRepository extends _$MusicRepository with LoggerMixin {
     return musicIds
         .map(
           (id) => music.firstWhere(
-            (m) => m.id == id,
+            (m) => m.id.value == id,
           ),
         )
         .cast<Music>()
