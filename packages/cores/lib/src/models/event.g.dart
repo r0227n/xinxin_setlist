@@ -17,7 +17,19 @@ _Event _$EventFromJson(Map<String, dynamic> json) => _Event(
   order: (json['order'] as num?)?.toInt(),
 );
 
+Map<String, dynamic> _$EventToJson(_Event instance) => <String, dynamic>{
+  'id': instance.id,
+  'stage_id': instance.stageId,
+  'title': instance.title,
+  'date': instance.date.toIso8601String(),
+  'setlist': instance.setlist,
+  'order': instance.order,
+};
+
 _SetlistItem _$SetlistItemFromJson(Map<String, dynamic> json) => _SetlistItem(
   musicId: SetlistItemId.fromJson(json['music_id'] as String),
   order: (json['order'] as num).toInt(),
 );
+
+Map<String, dynamic> _$SetlistItemToJson(_SetlistItem instance) =>
+    <String, dynamic>{'music_id': instance.musicId, 'order': instance.order};

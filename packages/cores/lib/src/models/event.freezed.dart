@@ -22,6 +22,8 @@ mixin _$Event {
 @pragma('vm:prefer-inline')
 $EventCopyWith<Event> get copyWith => _$EventCopyWithImpl<Event>(this as Event, _$identity);
 
+  /// Serializes this Event to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -209,7 +211,7 @@ return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_tha
 }
 
 /// @nodoc
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 
 class _Event implements Event {
   const _Event({@JsonKey(fromJson: EventId.fromJson) required this.id, @JsonKey(name: 'stage_id') required this.stageId, required this.title, required this.date, required final  List<SetlistItem> setlist, this.order}): _setlist = setlist;
@@ -234,7 +236,10 @@ class _Event implements Event {
 @pragma('vm:prefer-inline')
 _$EventCopyWith<_Event> get copyWith => __$EventCopyWithImpl<_Event>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$EventToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
@@ -301,6 +306,8 @@ mixin _$SetlistItem {
 @pragma('vm:prefer-inline')
 $SetlistItemCopyWith<SetlistItem> get copyWith => _$SetlistItemCopyWithImpl<SetlistItem>(this as SetlistItem, _$identity);
 
+  /// Serializes this SetlistItem to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -484,7 +491,7 @@ return $default(_that.musicId,_that.order);case _:
 }
 
 /// @nodoc
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 
 class _SetlistItem implements SetlistItem {
   const _SetlistItem({@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) required this.musicId, required this.order});
@@ -499,7 +506,10 @@ class _SetlistItem implements SetlistItem {
 @pragma('vm:prefer-inline')
 _$SetlistItemCopyWith<_SetlistItem> get copyWith => __$SetlistItemCopyWithImpl<_SetlistItem>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$SetlistItemToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {

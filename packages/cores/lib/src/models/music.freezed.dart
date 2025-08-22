@@ -22,6 +22,8 @@ mixin _$Music {
 @pragma('vm:prefer-inline')
 $MusicCopyWith<Music> get copyWith => _$MusicCopyWithImpl<Music>(this as Music, _$identity);
 
+  /// Serializes this Music to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -207,7 +209,7 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 }
 
 /// @nodoc
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 
 class _Music implements Music {
   const _Music({@JsonKey(fromJson: MusicId.fromJson) required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, @JsonKey(name: 'youtube_id') this.youtubeId});
@@ -224,7 +226,10 @@ class _Music implements Music {
 @pragma('vm:prefer-inline')
 _$MusicCopyWith<_Music> get copyWith => __$MusicCopyWithImpl<_Music>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$MusicToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {

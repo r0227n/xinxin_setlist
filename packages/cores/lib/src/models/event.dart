@@ -5,13 +5,15 @@ part 'event.g.dart';
 
 extension type EventId(String value) {
   factory EventId.fromJson(String value) => EventId(value);
+  String toJson() => value;
 }
 
 extension type SetlistItemId(String value) {
   factory SetlistItemId.fromJson(String value) => SetlistItemId(value);
+  String toJson() => value;
 }
 
-@Freezed(toJson: false)
+@freezed
 abstract class Event with _$Event {
   const factory Event({
     @JsonKey(fromJson: EventId.fromJson) required EventId id,
@@ -25,10 +27,13 @@ abstract class Event with _$Event {
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 }
 
-@Freezed(toJson: false)
+@freezed
 abstract class SetlistItem with _$SetlistItem {
   const factory SetlistItem({
-    @JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson)
+    @JsonKey(
+      name: 'music_id',
+      fromJson: SetlistItemId.fromJson,
+    )
     required SetlistItemId musicId,
     required int order,
   }) = _SetlistItem;

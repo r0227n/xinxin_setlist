@@ -5,9 +5,10 @@ part 'music.g.dart';
 
 extension type MusicId(String value) {
   factory MusicId.fromJson(String value) => MusicId(value);
+  String toJson() => value;
 }
 
-@Freezed(toJson: false)
+@freezed
 abstract class Music with _$Music {
   const factory Music({
     @JsonKey(fromJson: MusicId.fromJson) required MusicId id,

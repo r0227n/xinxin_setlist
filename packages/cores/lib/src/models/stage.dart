@@ -5,9 +5,10 @@ part 'stage.g.dart';
 
 extension type StageId(String value) {
   factory StageId.fromJson(String value) => StageId(value);
+  String toJson() => value;
 }
 
-@Freezed(toJson: false)
+@freezed
 abstract class Stage with _$Stage {
   const factory Stage({
     @JsonKey(fromJson: StageId.fromJson) required StageId id,

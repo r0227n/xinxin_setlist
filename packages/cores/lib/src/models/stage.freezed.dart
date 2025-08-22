@@ -22,6 +22,8 @@ mixin _$Stage {
 @pragma('vm:prefer-inline')
 $StageCopyWith<Stage> get copyWith => _$StageCopyWithImpl<Stage>(this as Stage, _$identity);
 
+  /// Serializes this Stage to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -205,7 +207,7 @@ return $default(_that.id,_that.title);case _:
 }
 
 /// @nodoc
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 
 class _Stage implements Stage {
   const _Stage({@JsonKey(fromJson: StageId.fromJson) required this.id, required this.title});
@@ -220,7 +222,10 @@ class _Stage implements Stage {
 @pragma('vm:prefer-inline')
 _$StageCopyWith<_Stage> get copyWith => __$StageCopyWithImpl<_Stage>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$StageToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
