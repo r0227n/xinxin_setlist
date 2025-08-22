@@ -7,7 +7,7 @@ part of 'music.dart';
 // **************************************************************************
 
 _Music _$MusicFromJson(Map<String, dynamic> json) => _Music(
-  id: json['id'] as String,
+  id: MusicId.fromJson(json['id'] as String),
   title: json['title'] as String,
   thumbnailUrl: json['thumbnail_url'] as String,
   youtubeId: json['youtube_id'] as String?,

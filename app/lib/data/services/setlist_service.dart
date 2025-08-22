@@ -39,8 +39,8 @@ class SetlistService with LoggerMixin {
     );
 
     return Setlist(
-      id: targetEvent.id,
-      eventId: eventId,
+      id: SetlistId(eventId),
+      eventId: targetEvent.id,
       musicIds: musicIds,
     );
   }
@@ -65,7 +65,7 @@ class SetlistService with LoggerMixin {
 
     // マッチしたイベントのセットリストを作成
     final setlists = await Future.wait(
-      matchingEvents.map((event) => getSetlist(event.id)),
+      matchingEvents.map((event) => getSetlist(event.id.value)),
     );
 
     return setlists;

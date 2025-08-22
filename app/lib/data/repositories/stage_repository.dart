@@ -27,6 +27,6 @@ class StageRepository extends _$StageRepository with LoggerMixin {
       ref.read(eventRepositoryProvider.notifier).get(eventId),
     ).wait;
 
-    return stages.where((stage) => stage.id == event.stageId).firstOrNull;
+    return stages.where((stage) => stage.id.value == event.stageId).firstOrNull;
   }
 }

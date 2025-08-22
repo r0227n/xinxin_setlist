@@ -66,7 +66,7 @@ class _MusicDetailPageState extends ConsumerState<MusicDetailPage>
       final music = await ref
           .read(musicRepositoryProvider.notifier)
           .get(widget.musicId);
-      logInfo('楽曲詳細を表示: ${music.toJson()}');
+      logInfo('楽曲詳細を表示: ${music.id}');
       // ブラウザタブのタイトルを楽曲名に設定
       WidgetsBinding.instance.addPostFrameCallback((_) {
         updatePageTitle(music.title);
@@ -155,7 +155,7 @@ class _DesktopMusicDetailLayout extends StatelessWidget {
                 duration: AppAnimationDurations.fast,
                 child: SetlistPage(
                   key: ValueKey('setlist_${_music.id}'),
-                  musicId: _music.id,
+                  musicId: _music.id.value,
                 ),
               ),
             ),
@@ -192,7 +192,7 @@ class _MobileMusicDetailLayout extends StatelessWidget {
                 duration: AppAnimationDurations.fast,
                 child: SetlistPage(
                   key: ValueKey('setlist_${_music.id}'),
-                  musicId: _music.id,
+                  musicId: _music.id.value,
                 ),
               ),
             ),
@@ -229,7 +229,7 @@ class _MusicCard extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
 
-            _AdoptionCountBadge(musicId: _music.id),
+            _AdoptionCountBadge(musicId: _music.id.value),
 
             ShareButton(
               tooltip: t.share,

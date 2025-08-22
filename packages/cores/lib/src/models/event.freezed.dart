@@ -15,8 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Event {
 
- String get id;// date_ランダム
-@JsonKey(name: 'stage_id') String get stageId; String get title; DateTime get date; List<SetlistItem> get setlist; int? get order;
+@JsonKey(fromJson: EventId.fromJson) EventId get id;@JsonKey(name: 'stage_id') String get stageId; String get title; DateTime get date; List<SetlistItem> get setlist; int? get order;
 /// Create a copy of Event
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +48,7 @@ abstract mixin class $EventCopyWith<$Res>  {
   factory $EventCopyWith(Event value, $Res Function(Event) _then) = _$EventCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, List<SetlistItem> setlist, int? order
+@JsonKey(fromJson: EventId.fromJson) EventId id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, List<SetlistItem> setlist, int? order
 });
 
 
@@ -69,7 +68,7 @@ class _$EventCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? stageId = null,Object? title = null,Object? date = null,Object? setlist = null,Object? order = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
+as EventId,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,setlist: null == setlist ? _self.setlist : setlist // ignore: cast_nullable_to_non_nullable
@@ -159,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: EventId.fromJson)  EventId id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Event() when $default != null:
 return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_that.order);case _:
@@ -180,7 +179,7 @@ return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: EventId.fromJson)  EventId id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)  $default,) {final _that = this;
 switch (_that) {
 case _Event():
 return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_that.order);case _:
@@ -200,7 +199,7 @@ return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: EventId.fromJson)  EventId id, @JsonKey(name: 'stage_id')  String stageId,  String title,  DateTime date,  List<SetlistItem> setlist,  int? order)?  $default,) {final _that = this;
 switch (_that) {
 case _Event() when $default != null:
 return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_that.order);case _:
@@ -215,11 +214,10 @@ return $default(_that.id,_that.stageId,_that.title,_that.date,_that.setlist,_tha
 @JsonSerializable()
 
 class _Event implements Event {
-  const _Event({required this.id, @JsonKey(name: 'stage_id') required this.stageId, required this.title, required this.date, required final  List<SetlistItem> setlist, this.order}): _setlist = setlist;
+  const _Event({@JsonKey(fromJson: EventId.fromJson) required this.id, @JsonKey(name: 'stage_id') required this.stageId, required this.title, required this.date, required final  List<SetlistItem> setlist, this.order}): _setlist = setlist;
   factory _Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
-@override final  String id;
-// date_ランダム
+@override@JsonKey(fromJson: EventId.fromJson) final  EventId id;
 @override@JsonKey(name: 'stage_id') final  String stageId;
 @override final  String title;
 @override final  DateTime date;
@@ -265,7 +263,7 @@ abstract mixin class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   factory _$EventCopyWith(_Event value, $Res Function(_Event) _then) = __$EventCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, List<SetlistItem> setlist, int? order
+@JsonKey(fromJson: EventId.fromJson) EventId id,@JsonKey(name: 'stage_id') String stageId, String title, DateTime date, List<SetlistItem> setlist, int? order
 });
 
 
@@ -285,7 +283,7 @@ class __$EventCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? stageId = null,Object? title = null,Object? date = null,Object? setlist = null,Object? order = freezed,}) {
   return _then(_Event(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
+as EventId,stageId: null == stageId ? _self.stageId : stageId // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,setlist: null == setlist ? _self._setlist : setlist // ignore: cast_nullable_to_non_nullable
@@ -301,7 +299,7 @@ as int?,
 /// @nodoc
 mixin _$SetlistItem {
 
-@JsonKey(name: 'music_id') String get musicId; int get order;
+@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) SetlistItemId get musicId; int get order;
 /// Create a copy of SetlistItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -334,7 +332,7 @@ abstract mixin class $SetlistItemCopyWith<$Res>  {
   factory $SetlistItemCopyWith(SetlistItem value, $Res Function(SetlistItem) _then) = _$SetlistItemCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'music_id') String musicId, int order
+@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) SetlistItemId musicId, int order
 });
 
 
@@ -354,7 +352,7 @@ class _$SetlistItemCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? musicId = null,Object? order = null,}) {
   return _then(_self.copyWith(
 musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
-as String,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as SetlistItemId,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -440,7 +438,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'music_id')  String musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson)  SetlistItemId musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SetlistItem() when $default != null:
 return $default(_that.musicId,_that.order);case _:
@@ -461,7 +459,7 @@ return $default(_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'music_id')  String musicId,  int order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson)  SetlistItemId musicId,  int order)  $default,) {final _that = this;
 switch (_that) {
 case _SetlistItem():
 return $default(_that.musicId,_that.order);case _:
@@ -481,7 +479,7 @@ return $default(_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'music_id')  String musicId,  int order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson)  SetlistItemId musicId,  int order)?  $default,) {final _that = this;
 switch (_that) {
 case _SetlistItem() when $default != null:
 return $default(_that.musicId,_that.order);case _:
@@ -496,10 +494,10 @@ return $default(_that.musicId,_that.order);case _:
 @JsonSerializable()
 
 class _SetlistItem implements SetlistItem {
-  const _SetlistItem({@JsonKey(name: 'music_id') required this.musicId, required this.order});
+  const _SetlistItem({@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) required this.musicId, required this.order});
   factory _SetlistItem.fromJson(Map<String, dynamic> json) => _$SetlistItemFromJson(json);
 
-@override@JsonKey(name: 'music_id') final  String musicId;
+@override@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) final  SetlistItemId musicId;
 @override final  int order;
 
 /// Create a copy of SetlistItem
@@ -535,7 +533,7 @@ abstract mixin class _$SetlistItemCopyWith<$Res> implements $SetlistItemCopyWith
   factory _$SetlistItemCopyWith(_SetlistItem value, $Res Function(_SetlistItem) _then) = __$SetlistItemCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'music_id') String musicId, int order
+@JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson) SetlistItemId musicId, int order
 });
 
 
@@ -555,7 +553,7 @@ class __$SetlistItemCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? musicId = null,Object? order = null,}) {
   return _then(_SetlistItem(
 musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
-as String,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as SetlistItemId,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

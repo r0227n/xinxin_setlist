@@ -15,15 +15,13 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Setlist {
 
- String get id; String get eventId; List<String> get musicIds;
+@JsonKey(fromJson: SetlistId.fromJson) SetlistId get id;@JsonKey(name: 'event_id') EventId get eventId; List<SetlistItemId> get musicIds;
 /// Create a copy of Setlist
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $SetlistCopyWith<Setlist> get copyWith => _$SetlistCopyWithImpl<Setlist>(this as Setlist, _$identity);
 
-  /// Serializes this Setlist to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -48,7 +46,7 @@ abstract mixin class $SetlistCopyWith<$Res>  {
   factory $SetlistCopyWith(Setlist value, $Res Function(Setlist) _then) = _$SetlistCopyWithImpl;
 @useResult
 $Res call({
- String id, String eventId, List<String> musicIds
+@JsonKey(fromJson: SetlistId.fromJson) SetlistId id,@JsonKey(name: 'event_id') EventId eventId, List<SetlistItemId> musicIds
 });
 
 
@@ -68,9 +66,9 @@ class _$SetlistCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? eventId = null,Object? musicIds = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
-as String,musicIds: null == musicIds ? _self.musicIds : musicIds // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as SetlistId,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as EventId,musicIds: null == musicIds ? _self.musicIds : musicIds // ignore: cast_nullable_to_non_nullable
+as List<SetlistItemId>,
   ));
 }
 
@@ -155,7 +153,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String eventId,  List<String> musicIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: SetlistId.fromJson)  SetlistId id, @JsonKey(name: 'event_id')  EventId eventId,  List<SetlistItemId> musicIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Setlist() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicIds);case _:
@@ -176,7 +174,7 @@ return $default(_that.id,_that.eventId,_that.musicIds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String eventId,  List<String> musicIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: SetlistId.fromJson)  SetlistId id, @JsonKey(name: 'event_id')  EventId eventId,  List<SetlistItemId> musicIds)  $default,) {final _that = this;
 switch (_that) {
 case _Setlist():
 return $default(_that.id,_that.eventId,_that.musicIds);case _:
@@ -196,7 +194,7 @@ return $default(_that.id,_that.eventId,_that.musicIds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String eventId,  List<String> musicIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: SetlistId.fromJson)  SetlistId id, @JsonKey(name: 'event_id')  EventId eventId,  List<SetlistItemId> musicIds)?  $default,) {final _that = this;
 switch (_that) {
 case _Setlist() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicIds);case _:
@@ -208,16 +206,16 @@ return $default(_that.id,_that.eventId,_that.musicIds);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 
 class _Setlist implements Setlist {
-  const _Setlist({required this.id, required this.eventId, required final  List<String> musicIds}): _musicIds = musicIds;
+  const _Setlist({@JsonKey(fromJson: SetlistId.fromJson) required this.id, @JsonKey(name: 'event_id') required this.eventId, required final  List<SetlistItemId> musicIds}): _musicIds = musicIds;
   factory _Setlist.fromJson(Map<String, dynamic> json) => _$SetlistFromJson(json);
 
-@override final  String id;
-@override final  String eventId;
- final  List<String> _musicIds;
-@override List<String> get musicIds {
+@override@JsonKey(fromJson: SetlistId.fromJson) final  SetlistId id;
+@override@JsonKey(name: 'event_id') final  EventId eventId;
+ final  List<SetlistItemId> _musicIds;
+@override List<SetlistItemId> get musicIds {
   if (_musicIds is EqualUnmodifiableListView) return _musicIds;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_musicIds);
@@ -230,10 +228,7 @@ class _Setlist implements Setlist {
 @pragma('vm:prefer-inline')
 _$SetlistCopyWith<_Setlist> get copyWith => __$SetlistCopyWithImpl<_Setlist>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$SetlistToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
@@ -257,7 +252,7 @@ abstract mixin class _$SetlistCopyWith<$Res> implements $SetlistCopyWith<$Res> {
   factory _$SetlistCopyWith(_Setlist value, $Res Function(_Setlist) _then) = __$SetlistCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String eventId, List<String> musicIds
+@JsonKey(fromJson: SetlistId.fromJson) SetlistId id,@JsonKey(name: 'event_id') EventId eventId, List<SetlistItemId> musicIds
 });
 
 
@@ -277,9 +272,9 @@ class __$SetlistCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? eventId = null,Object? musicIds = null,}) {
   return _then(_Setlist(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
-as String,musicIds: null == musicIds ? _self._musicIds : musicIds // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as SetlistId,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as EventId,musicIds: null == musicIds ? _self._musicIds : musicIds // ignore: cast_nullable_to_non_nullable
+as List<SetlistItemId>,
   ));
 }
 

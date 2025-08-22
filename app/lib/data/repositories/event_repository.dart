@@ -21,18 +21,18 @@ class EventRepository extends _$EventRepository with LoggerMixin {
 
   Future<Event> get(String eventId) async {
     final events = await future;
-    return events.firstWhere((e) => e.id == eventId);
+    return events.firstWhere((e) => e.id.value == eventId);
   }
 
   Future<List<String>> getAllIds() async {
     final events = await future;
-    return events.map((e) => e.id).toList();
+    return events.map((e) => e.id.value).toList();
   }
 
   Future<List<Event>> whereFromMusicId(String musicId) async {
     final events = await future;
     return events
-        .where((e) => e.setlist.any((item) => item.musicId == musicId))
+        .where((e) => e.setlist.any((item) => item.musicId.value == musicId))
         .toList();
   }
 }

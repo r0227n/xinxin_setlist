@@ -93,7 +93,9 @@ class _SetlistDetailPageState extends ConsumerState<SetlistDetailPage>
                 _EventInfoCard(event: event, stage: stage),
 
                 // セットリスト
-                _MusicListWidget(musicIds: setlist.musicIds),
+                _MusicListWidget(
+                  musicIds: setlist.musicIds.map((e) => e.value).toList(),
+                ),
               ],
             ),
           );
@@ -362,7 +364,7 @@ class _OrderedMusicList extends ConsumerWidget with LoggerMixin {
         // musicIdsの順序でソート
         final orderedMusics = <Music>[];
         for (final musicId in _musicIds) {
-          final music = musics.where((m) => m.id == musicId).firstOrNull;
+          final music = musics.where((m) => m.id.value == musicId).firstOrNull;
           if (music != null) {
             orderedMusics.add(music);
           }
@@ -421,7 +423,9 @@ class _OrderedMusicList extends ConsumerWidget with LoggerMixin {
                 Icons.arrow_forward_ios,
                 size: AppIconSizes.small,
               ),
-              onTap: () => MusicDetailRoute(musicId: music.id).go(context),
+              onTap: () => MusicDetailRoute(
+                musicId: music.id.value,
+              ).go(context),
             );
           },
         );
