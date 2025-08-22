@@ -2,7 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   pull_request:
-    types: [closed]
+    types:
+      - closed
     branches:
       - main
 
@@ -12,6 +13,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-24.04
     defaults:
       run:
