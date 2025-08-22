@@ -15,16 +15,13 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Stage {
 
- String get id;// ランダム
- String get title;
+@JsonKey(fromJson: StageId.fromJson) StageId get id; String get title;
 /// Create a copy of Stage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $StageCopyWith<Stage> get copyWith => _$StageCopyWithImpl<Stage>(this as Stage, _$identity);
 
-  /// Serializes this Stage to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -49,7 +46,7 @@ abstract mixin class $StageCopyWith<$Res>  {
   factory $StageCopyWith(Stage value, $Res Function(Stage) _then) = _$StageCopyWithImpl;
 @useResult
 $Res call({
- String id, String title
+@JsonKey(fromJson: StageId.fromJson) StageId id, String title
 });
 
 
@@ -69,7 +66,7 @@ class _$StageCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as StageId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -155,7 +152,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: StageId.fromJson)  StageId id,  String title)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Stage() when $default != null:
 return $default(_that.id,_that.title);case _:
@@ -176,7 +173,7 @@ return $default(_that.id,_that.title);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: StageId.fromJson)  StageId id,  String title)  $default,) {final _that = this;
 switch (_that) {
 case _Stage():
 return $default(_that.id,_that.title);case _:
@@ -196,7 +193,7 @@ return $default(_that.id,_that.title);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: StageId.fromJson)  StageId id,  String title)?  $default,) {final _that = this;
 switch (_that) {
 case _Stage() when $default != null:
 return $default(_that.id,_that.title);case _:
@@ -208,14 +205,13 @@ return $default(_that.id,_that.title);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 
 class _Stage implements Stage {
-  const _Stage({required this.id, required this.title});
+  const _Stage({@JsonKey(fromJson: StageId.fromJson) required this.id, required this.title});
   factory _Stage.fromJson(Map<String, dynamic> json) => _$StageFromJson(json);
 
-@override final  String id;
-// ランダム
+@override@JsonKey(fromJson: StageId.fromJson) final  StageId id;
 @override final  String title;
 
 /// Create a copy of Stage
@@ -224,10 +220,7 @@ class _Stage implements Stage {
 @pragma('vm:prefer-inline')
 _$StageCopyWith<_Stage> get copyWith => __$StageCopyWithImpl<_Stage>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$StageToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
@@ -251,7 +244,7 @@ abstract mixin class _$StageCopyWith<$Res> implements $StageCopyWith<$Res> {
   factory _$StageCopyWith(_Stage value, $Res Function(_Stage) _then) = __$StageCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title
+@JsonKey(fromJson: StageId.fromJson) StageId id, String title
 });
 
 
@@ -271,7 +264,7 @@ class __$StageCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,}) {
   return _then(_Stage(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as StageId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

@@ -3,10 +3,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'event.freezed.dart';
 part 'event.g.dart';
 
-@freezed
+extension type EventId(String value) {
+  factory EventId.fromJson(String value) => EventId(value);
+}
+
+extension type SetlistItemId(String value) {
+  factory SetlistItemId.fromJson(String value) => SetlistItemId(value);
+}
+
+@Freezed(toJson: false)
 abstract class Event with _$Event {
   const factory Event({
-    required String id, // date_ランダム
+    @JsonKey(fromJson: EventId.fromJson) required EventId id,
     @JsonKey(name: 'stage_id') required String stageId,
     required String title,
     required DateTime date,
@@ -17,10 +25,11 @@ abstract class Event with _$Event {
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 }
 
-@freezed
+@Freezed(toJson: false)
 abstract class SetlistItem with _$SetlistItem {
   const factory SetlistItem({
-    @JsonKey(name: 'music_id') required String musicId,
+    @JsonKey(name: 'music_id', fromJson: SetlistItemId.fromJson)
+    required SetlistItemId musicId,
     required int order,
   }) = _SetlistItem;
 

@@ -15,9 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MusicOrder {
 
- String get id;// ランダム
-@JsonKey(name: 'event_id') String get eventId;// 外部キー
-@JsonKey(name: 'music_id') String get musicId;// 外部キー
+ MusicOrderId get id;@JsonKey(name: 'event_id') EventId get eventId;// 外部キー
+@JsonKey(name: 'music_id') MusicId get musicId;// 外部キー
  int get order;
 /// Create a copy of MusicOrder
 /// with the given fields replaced by the non-null parameter values.
@@ -25,8 +24,6 @@ mixin _$MusicOrder {
 @pragma('vm:prefer-inline')
 $MusicOrderCopyWith<MusicOrder> get copyWith => _$MusicOrderCopyWithImpl<MusicOrder>(this as MusicOrder, _$identity);
 
-  /// Serializes this MusicOrder to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -51,7 +48,7 @@ abstract mixin class $MusicOrderCopyWith<$Res>  {
   factory $MusicOrderCopyWith(MusicOrder value, $Res Function(MusicOrder) _then) = _$MusicOrderCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'event_id') String eventId,@JsonKey(name: 'music_id') String musicId, int order
+ MusicOrderId id,@JsonKey(name: 'event_id') EventId eventId,@JsonKey(name: 'music_id') MusicId musicId, int order
 });
 
 
@@ -71,9 +68,9 @@ class _$MusicOrderCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? eventId = null,Object? musicId = null,Object? order = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
-as String,musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
-as String,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as MusicOrderId,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as EventId,musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
+as MusicId,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -159,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MusicOrderId id, @JsonKey(name: 'event_id')  EventId eventId, @JsonKey(name: 'music_id')  MusicId musicId,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MusicOrder() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -180,7 +177,7 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MusicOrderId id, @JsonKey(name: 'event_id')  EventId eventId, @JsonKey(name: 'music_id')  MusicId musicId,  int order)  $default,) {final _that = this;
 switch (_that) {
 case _MusicOrder():
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -200,7 +197,7 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'event_id')  String eventId, @JsonKey(name: 'music_id')  String musicId,  int order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MusicOrderId id, @JsonKey(name: 'event_id')  EventId eventId, @JsonKey(name: 'music_id')  MusicId musicId,  int order)?  $default,) {final _that = this;
 switch (_that) {
 case _MusicOrder() when $default != null:
 return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
@@ -212,17 +209,16 @@ return $default(_that.id,_that.eventId,_that.musicId,_that.order);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 
 class _MusicOrder implements MusicOrder {
   const _MusicOrder({required this.id, @JsonKey(name: 'event_id') required this.eventId, @JsonKey(name: 'music_id') required this.musicId, required this.order});
   factory _MusicOrder.fromJson(Map<String, dynamic> json) => _$MusicOrderFromJson(json);
 
-@override final  String id;
-// ランダム
-@override@JsonKey(name: 'event_id') final  String eventId;
+@override final  MusicOrderId id;
+@override@JsonKey(name: 'event_id') final  EventId eventId;
 // 外部キー
-@override@JsonKey(name: 'music_id') final  String musicId;
+@override@JsonKey(name: 'music_id') final  MusicId musicId;
 // 外部キー
 @override final  int order;
 
@@ -232,10 +228,7 @@ class _MusicOrder implements MusicOrder {
 @pragma('vm:prefer-inline')
 _$MusicOrderCopyWith<_MusicOrder> get copyWith => __$MusicOrderCopyWithImpl<_MusicOrder>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$MusicOrderToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
@@ -259,7 +252,7 @@ abstract mixin class _$MusicOrderCopyWith<$Res> implements $MusicOrderCopyWith<$
   factory _$MusicOrderCopyWith(_MusicOrder value, $Res Function(_MusicOrder) _then) = __$MusicOrderCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'event_id') String eventId,@JsonKey(name: 'music_id') String musicId, int order
+ MusicOrderId id,@JsonKey(name: 'event_id') EventId eventId,@JsonKey(name: 'music_id') MusicId musicId, int order
 });
 
 
@@ -279,9 +272,9 @@ class __$MusicOrderCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? eventId = null,Object? musicId = null,Object? order = null,}) {
   return _then(_MusicOrder(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
-as String,musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
-as String,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as MusicOrderId,eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as EventId,musicId: null == musicId ? _self.musicId : musicId // ignore: cast_nullable_to_non_nullable
+as MusicId,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

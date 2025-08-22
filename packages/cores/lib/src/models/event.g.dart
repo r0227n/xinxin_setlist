@@ -7,7 +7,7 @@ part of 'event.dart';
 // **************************************************************************
 
 _Event _$EventFromJson(Map<String, dynamic> json) => _Event(
-  id: json['id'] as String,
+  id: EventId.fromJson(json['id'] as String),
   stageId: json['stage_id'] as String,
   title: json['title'] as String,
   date: DateTime.parse(json['date'] as String),
@@ -17,19 +17,7 @@ _Event _$EventFromJson(Map<String, dynamic> json) => _Event(
   order: (json['order'] as num?)?.toInt(),
 );
 
-Map<String, dynamic> _$EventToJson(_Event instance) => <String, dynamic>{
-  'id': instance.id,
-  'stage_id': instance.stageId,
-  'title': instance.title,
-  'date': instance.date.toIso8601String(),
-  'setlist': instance.setlist,
-  'order': instance.order,
-};
-
 _SetlistItem _$SetlistItemFromJson(Map<String, dynamic> json) => _SetlistItem(
-  musicId: json['music_id'] as String,
+  musicId: SetlistItemId.fromJson(json['music_id'] as String),
   order: (json['order'] as num).toInt(),
 );
-
-Map<String, dynamic> _$SetlistItemToJson(_SetlistItem instance) =>
-    <String, dynamic>{'music_id': instance.musicId, 'order': instance.order};

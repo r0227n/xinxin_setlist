@@ -3,10 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'stage.freezed.dart';
 part 'stage.g.dart';
 
-@freezed
+extension type StageId(String value) {
+  factory StageId.fromJson(String value) => StageId(value);
+}
+
+@Freezed(toJson: false)
 abstract class Stage with _$Stage {
   const factory Stage({
-    required String id, // ランダム
+    @JsonKey(fromJson: StageId.fromJson) required StageId id,
     required String title,
   }) = _Stage;
 

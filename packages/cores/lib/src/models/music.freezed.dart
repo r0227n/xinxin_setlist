@@ -15,15 +15,13 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Music {
 
- String get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;@JsonKey(name: 'youtube_id') String? get youtubeId;
+@JsonKey(fromJson: MusicId.fromJson) MusicId get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;@JsonKey(name: 'youtube_id') String? get youtubeId;
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $MusicCopyWith<Music> get copyWith => _$MusicCopyWithImpl<Music>(this as Music, _$identity);
 
-  /// Serializes this Music to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -48,7 +46,7 @@ abstract mixin class $MusicCopyWith<$Res>  {
   factory $MusicCopyWith(Music value, $Res Function(Music) _then) = _$MusicCopyWithImpl;
 @useResult
 $Res call({
- String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
+@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -68,7 +66,7 @@ class _$MusicCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as MusicId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
 as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -156,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
 return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
@@ -177,7 +175,7 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)  $default,) {final _that = this;
 switch (_that) {
 case _Music():
 return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
@@ -197,7 +195,7 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
 return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
@@ -209,13 +207,13 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 
 class _Music implements Music {
-  const _Music({required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, @JsonKey(name: 'youtube_id') this.youtubeId});
+  const _Music({@JsonKey(fromJson: MusicId.fromJson) required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, @JsonKey(name: 'youtube_id') this.youtubeId});
   factory _Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
 
-@override final  String id;
+@override@JsonKey(fromJson: MusicId.fromJson) final  MusicId id;
 @override final  String title;
 @override@JsonKey(name: 'thumbnail_url') final  String thumbnailUrl;
 @override@JsonKey(name: 'youtube_id') final  String? youtubeId;
@@ -226,10 +224,7 @@ class _Music implements Music {
 @pragma('vm:prefer-inline')
 _$MusicCopyWith<_Music> get copyWith => __$MusicCopyWithImpl<_Music>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$MusicToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
@@ -253,7 +248,7 @@ abstract mixin class _$MusicCopyWith<$Res> implements $MusicCopyWith<$Res> {
   factory _$MusicCopyWith(_Music value, $Res Function(_Music) _then) = __$MusicCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
+@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -273,7 +268,7 @@ class __$MusicCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
   return _then(_Music(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as MusicId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
 as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
 as String?,
