@@ -161,5 +161,20 @@
       { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 5 }
     ],
     "order": null
+  },
+  {
+    "id": "zudjVv1mic1cnzKXYEhH8O",
+    "stage_id": "KewJ6VSsOzBteP0i0bA67I",
+    "title": "『RA\"ど\"JAM』",
+    "date": "2025-08-24T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 1 },
+      { "music_id": "1vwLujMBp3VUFJuHPYEvmi", "order": 2 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 3 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 4 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 5 }
+    ],
+    "order": null
   }
 ]
