@@ -176,5 +176,23 @@
       { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 5 }
     ],
     "order": null
+  },
+  {
+    "id": "asFJ22xDgNkcMWOxcFP5bC",
+    "stage_id": "L507v9MCSyhgQBRfcyMbCr",
+    "title": "夏のMirror,Mirror拡⼤⼤作戦 『東名阪 FREE LIVE ! 〜鏡祭〜』",
+    "date": "2025-08-26T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 1 },
+      { "music_id": "3sraGAoHucFwO7NVbHunxn", "order": 2 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 3 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 4 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 5 },
+      { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 6 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 7 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 8 }
+    ],
+    "order": null
   }
 ]
