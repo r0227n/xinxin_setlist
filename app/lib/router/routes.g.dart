@@ -6,13 +6,14 @@ part of 'routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$setlistRoute];
+List<RouteBase> get $appRoutes => [$homeRoute];
 
-RouteBase get $setlistRoute => GoRouteData.$route(
+RouteBase get $homeRoute => GoRouteData.$route(
   path: '/',
 
-  factory: _$SetlistRoute._fromState,
+  factory: _$HomeRoute._fromState,
   routes: [
+    GoRouteData.$route(path: '/setlist', factory: _$SetlistRoute._fromState),
     GoRouteData.$route(
       path: 'settings',
 
@@ -39,11 +40,31 @@ RouteBase get $setlistRoute => GoRouteData.$route(
   ],
 );
 
+mixin _$HomeRoute on GoRouteData {
+  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+
+  @override
+  String get location => GoRouteData.$location('/');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin _$SetlistRoute on GoRouteData {
   static SetlistRoute _fromState(GoRouterState state) => const SetlistRoute();
 
   @override
-  String get location => GoRouteData.$location('/');
+  String get location => GoRouteData.$location('/setlist');
 
   @override
   void go(BuildContext context) => context.go(location);

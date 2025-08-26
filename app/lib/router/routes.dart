@@ -1,3 +1,4 @@
+import 'package:app/pages/home_page.dart';
 import 'package:app/pages/music_detail_page.dart';
 import 'package:app/pages/setlist_detail_page.dart';
 import 'package:app/pages/setlist_page.dart';
@@ -8,9 +9,12 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
 
-@TypedGoRoute<SetlistRoute>(
+@TypedGoRoute<HomeRoute>(
   path: '/',
   routes: <TypedGoRoute<GoRouteData>>[
+    TypedGoRoute<SetlistRoute>(
+      path: '/setlist',
+    ),
     TypedGoRoute<SettingsRoute>(
       path: 'settings',
       routes: <TypedGoRoute<GoRouteData>>[
@@ -30,6 +34,16 @@ part 'routes.g.dart';
     ),
   ],
 )
+@immutable
+class HomeRoute extends GoRouteData with _$HomeRoute {
+  const HomeRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomePage();
+  }
+}
+
 @immutable
 class SetlistRoute extends GoRouteData with _$SetlistRoute {
   const SetlistRoute();
