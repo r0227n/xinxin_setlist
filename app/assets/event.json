@@ -240,7 +240,7 @@
       { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 5 },
       { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 6 }
     ],
-    "order": null
+    "order": 0
   },
   {
     "id": "EODXQ9TI7DP5EyGUkcg4va",
@@ -256,6 +256,6 @@
       { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 5 },
       { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 6 }
     ],
-    "order": null
+    "order": 1
   }
 ]
