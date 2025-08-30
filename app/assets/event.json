@@ -240,6 +240,22 @@
       { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 5 },
       { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 6 }
     ],
-    "order": null
+    "order": 0
+  },
+  {
+    "id": "EODXQ9TI7DP5EyGUkcg4va",
+    "stage_id": "efabaGsyR4xDwnyqP7bL0F",
+    "title": "『IDO-LIVE!!』",
+    "date": "2025-08-30T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 1 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 2 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 3 },
+      { "music_id": "1vwLujMBp3VUFJuHPYEvmi", "order": 4 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 5 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 6 }
+    ],
+    "order": 1
   }
 ]
