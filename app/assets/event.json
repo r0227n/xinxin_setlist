@@ -289,5 +289,21 @@
       { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 6 }
     ],
     "order": 1
+  },
+  {
+    "id": "OgeqWsh4w0koXfkdwE7OU7",
+    "stage_id": "2Glwtw8BojNyLSogdIfB3z",
+    "title": "『アイドル甲子園』",
+    "date": "2025-09-03T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 1 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 2 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 3 },
+      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 4 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 5 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 6 }
+    ],
+    "order": null
   }
 ]
