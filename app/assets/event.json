@@ -305,5 +305,22 @@
       { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 6 }
     ],
     "order": null
+  },
+  {
+    "id": "T63ABwVfF3FVqZD2uSrpEn",
+    "stage_id": "uxe72dwowYIBEsJgMGfv2x",
+    "title": "#2i2 Live series 【version up.32】",
+    "date": "2025-09-06T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 1 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 2 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 3 },
+      { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 4 },
+      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 5 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 6 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 7 }
+    ],
+    "order": null
   }
 ]
