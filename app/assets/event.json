@@ -322,5 +322,21 @@
       { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 7 }
     ],
     "order": null
+  },
+  {
+    "id": "wm1jmUD6iKNOwZAaXzZ0Ml",
+    "stage_id": "Or37k3jsYLqKk9enKlwxkO",
+    "title": "『#くさのねアイドルフェス2025』",
+    "date": "2025-09-07T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 1 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 2 },
+      { "music_id": "1ey7G0WhN8Qvt104qQIlqY", "order": 3 },
+      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 4 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 5 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 6 }
+    ],
+    "order": null
   }
 ]
