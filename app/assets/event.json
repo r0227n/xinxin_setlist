@@ -371,5 +371,23 @@
       { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 5 }
     ],
     "order": null
+  },
+  {
+    "id": "jpgzL3roeTehAHmg7Vsdhr",
+    "stage_id": "d32Tp7vTaRboktEHPSUrtt",
+    "title": "#ﾆｷﾌﾟﾚ『シキサイ。』",
+    "date": "2025-09-16T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 1 },
+      { "music_id": "3sraGAoHucFwO7NVbHunxn", "order": 2 },
+      { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 3 },
+      { "music_id": "1vwLujMBp3VUFJuHPYEvmi", "order": 4 },
+      { "music_id": "2nOCB40cjvEyt1XrsIurK1", "order": 5 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 6 },
+      { "music_id": "4IS00CfJIuPa57eFy6sOfw", "order": 7 },
+      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 8 }
+    ],
+    "order": null
   }
 ]
