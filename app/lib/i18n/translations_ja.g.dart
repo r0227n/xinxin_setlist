@@ -116,6 +116,8 @@ class TranslationsMusicJa {
 
   // Translations
   String get detail => '楽曲詳細';
+  String get mainArtist => 'メインアーティスト';
+  String get singers => '歌唱メンバー';
   String shareText({required Object title}) =>
       '${title}\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST';
 }
