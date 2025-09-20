@@ -140,6 +140,10 @@ class _TranslationsMusicEn implements TranslationsMusicJa {
   @override
   String get detail => 'Music Detail';
   @override
+  String get mainArtist => 'Main Artist';
+  @override
+  String get singers => 'Singers';
+  @override
   String shareText({required Object title}) =>
       '${title}\n\nXINXIN\'s music to check!\n\n#XINXIN #XINXIN_SETLIST';
 }

@@ -80,7 +80,7 @@
   {
     "id": "PXvGnViRvLFrjspqv0HLJP",
     "title": "イルミネイト",
-    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000b2736775a0cf0a809ce0b0d861b3",
+    "thumbnail_url": "https://i.scdn.co/image/ab67616d00001e02091789f76384ae5dbd375180",
     "youtube_id": "DYPLAxHTSdY"
   },
   {
@@ -92,13 +92,17 @@
   {
     "id": "NNCR70Fl9p2cxyjXKchhnW",
     "title": "な？ 《和音・ゆに・セナ・らん》",
-    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000b2736775a0cf0a809ce0b0d861b3",
+    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000e1a31d5254598f9e9abe25986c02",
+    "artist": "ジエメイ",
+    "singers": ["甘リ和音", "ゆのみゆに", "蓮水セナ", "美月輝らん"],
     "youtube_id": null
   },
   {
     "id": "oZUrfZcalhYFOugEJ0KgxM",
     "title": "Dig Dig Dig 《マヨイ・叶多・さり》",
-    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000b2736775a0cf0a809ce0b0d861b3",
+    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000b273480f8daa16a301dec84c7d7c",
+    "artist": "ジエメイ",
+    "singers": ["廻途マヨイ", "柊 叶多", "西藤さり"],
     "youtube_id": null
   }
 ]

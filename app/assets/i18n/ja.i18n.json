@@ -45,6 +45,8 @@
   },
   "music": {
     "detail": "楽曲詳細",
+    "mainArtist": "メインアーティスト",
+    "singers": "歌唱メンバー",
     "shareText": "$title\n\nXINXIN の楽曲を確認しましょう！\n\n#XINXIN #XINXIN_SETLIST"
   },
   "error": "エラー"

@@ -45,6 +45,8 @@
   },
   "music": {
     "detail": "Music Detail",
+    "mainArtist": "Main Artist",
+    "singers": "Singers",
     "shareText": "$title\n\nXINXIN's music to check!\n\n#XINXIN #XINXIN_SETLIST"
   },
   "error": "Error"

@@ -231,6 +231,41 @@ class _MusicCard extends StatelessWidget {
 
             _AdoptionCountBadge(musicId: _music.id.value),
 
+            // Main Artist
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: AppSpacing.extraSmall,
+              children: [
+                Text(
+                  _music.artist,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Text(
+                  t.music.mainArtist,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+
+            if (!_music.singers.contains(_music.artist))
+              // Singers
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSpacing.extraSmall,
+                children: [
+                  Text(
+                    _music.singers.join(', '),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Text(
+                    t.music.singers,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+
             ShareButton(
               tooltip: t.share,
               text: t.music.shareText(title: _music.title),
