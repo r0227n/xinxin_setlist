@@ -14,6 +14,8 @@ abstract class Music with _$Music {
     @JsonKey(fromJson: MusicId.fromJson) required MusicId id,
     required String title,
     @JsonKey(name: 'thumbnail_url') required String thumbnailUrl,
+    @Default('XINXIN') String artist,
+    @Default(['XINXIN']) List<String> singers,
     @JsonKey(name: 'youtube_id') String? youtubeId,
   }) = _Music;
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Music {
 
-@JsonKey(fromJson: MusicId.fromJson) MusicId get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl;@JsonKey(name: 'youtube_id') String? get youtubeId;
+@JsonKey(fromJson: MusicId.fromJson) MusicId get id; String get title;@JsonKey(name: 'thumbnail_url') String get thumbnailUrl; String get artist; List<String> get singers;@JsonKey(name: 'youtube_id') String? get youtubeId;
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $MusicCopyWith<Music> get copyWith => _$MusicCopyWithImpl<Music>(this as Music, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.artist, artist) || other.artist == artist)&&const DeepCollectionEquality().equals(other.singers, singers)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,youtubeId);
+int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,artist,const DeepCollectionEquality().hash(singers),youtubeId);
 
 @override
 String toString() {
-  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, youtubeId: $youtubeId)';
+  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, artist: $artist, singers: $singers, youtubeId: $youtubeId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $MusicCopyWith<$Res>  {
   factory $MusicCopyWith(Music value, $Res Function(Music) _then) = _$MusicCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
+@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl, String artist, List<String> singers,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -65,12 +65,14 @@ class _$MusicCopyWithImpl<$Res>
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? artist = null,Object? singers = null,Object? youtubeId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as MusicId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
+as String,artist: null == artist ? _self.artist : artist // ignore: cast_nullable_to_non_nullable
+as String,singers: null == singers ? _self.singers : singers // ignore: cast_nullable_to_non_nullable
+as List<String>,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl,  String artist,  List<String> singers, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
-return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.artist,_that.singers,_that.youtubeId);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl,  String artist,  List<String> singers, @JsonKey(name: 'youtube_id')  String? youtubeId)  $default,) {final _that = this;
 switch (_that) {
 case _Music():
-return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.artist,_that.singers,_that.youtubeId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(fromJson: MusicId.fromJson)  MusicId id,  String title, @JsonKey(name: 'thumbnail_url')  String thumbnailUrl,  String artist,  List<String> singers, @JsonKey(name: 'youtube_id')  String? youtubeId)?  $default,) {final _that = this;
 switch (_that) {
 case _Music() when $default != null:
-return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
+return $default(_that.id,_that.title,_that.thumbnailUrl,_that.artist,_that.singers,_that.youtubeId);case _:
   return null;
 
 }
@@ -212,12 +214,20 @@ return $default(_that.id,_that.title,_that.thumbnailUrl,_that.youtubeId);case _:
 @JsonSerializable()
 
 class _Music implements Music {
-  const _Music({@JsonKey(fromJson: MusicId.fromJson) required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, @JsonKey(name: 'youtube_id') this.youtubeId});
+  const _Music({@JsonKey(fromJson: MusicId.fromJson) required this.id, required this.title, @JsonKey(name: 'thumbnail_url') required this.thumbnailUrl, this.artist = 'XINXIN', final  List<String> singers = const ['XINXIN'], @JsonKey(name: 'youtube_id') this.youtubeId}): _singers = singers;
   factory _Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
 
 @override@JsonKey(fromJson: MusicId.fromJson) final  MusicId id;
 @override final  String title;
 @override@JsonKey(name: 'thumbnail_url') final  String thumbnailUrl;
+@override@JsonKey() final  String artist;
+ final  List<String> _singers;
+@override@JsonKey() List<String> get singers {
+  if (_singers is EqualUnmodifiableListView) return _singers;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_singers);
+}
+
 @override@JsonKey(name: 'youtube_id') final  String? youtubeId;
 
 /// Create a copy of Music
@@ -233,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Music&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.artist, artist) || other.artist == artist)&&const DeepCollectionEquality().equals(other._singers, _singers)&&(identical(other.youtubeId, youtubeId) || other.youtubeId == youtubeId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,youtubeId);
+int get hashCode => Object.hash(runtimeType,id,title,thumbnailUrl,artist,const DeepCollectionEquality().hash(_singers),youtubeId);
 
 @override
 String toString() {
-  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, youtubeId: $youtubeId)';
+  return 'Music(id: $id, title: $title, thumbnailUrl: $thumbnailUrl, artist: $artist, singers: $singers, youtubeId: $youtubeId)';
 }
 
 
@@ -253,7 +263,7 @@ abstract mixin class _$MusicCopyWith<$Res> implements $MusicCopyWith<$Res> {
   factory _$MusicCopyWith(_Music value, $Res Function(_Music) _then) = __$MusicCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl,@JsonKey(name: 'youtube_id') String? youtubeId
+@JsonKey(fromJson: MusicId.fromJson) MusicId id, String title,@JsonKey(name: 'thumbnail_url') String thumbnailUrl, String artist, List<String> singers,@JsonKey(name: 'youtube_id') String? youtubeId
 });
 
 
@@ -270,12 +280,14 @@ class __$MusicCopyWithImpl<$Res>
 
 /// Create a copy of Music
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? youtubeId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? thumbnailUrl = null,Object? artist = null,Object? singers = null,Object? youtubeId = freezed,}) {
   return _then(_Music(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as MusicId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-as String,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
+as String,artist: null == artist ? _self.artist : artist // ignore: cast_nullable_to_non_nullable
+as String,singers: null == singers ? _self._singers : singers // ignore: cast_nullable_to_non_nullable
+as List<String>,youtubeId: freezed == youtubeId ? _self.youtubeId : youtubeId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
