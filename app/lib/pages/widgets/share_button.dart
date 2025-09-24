@@ -61,7 +61,7 @@ class ShareButton extends StatelessWidget {
 
     if (_text != null && _url != null) {
       // When both text and URL are provided, combine them into text
-      shareText = '$_text\n$_url';
+      shareText = '$_text\n\n$_url';
     } else if (_text != null) {
       shareText = _text;
     } else if (_url != null) {
