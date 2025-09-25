@@ -134,5 +134,13 @@
     "artist": "ジエメイ",
     "singers": ["廻途マヨイ", "柊 叶多", "西藤さり"],
     "youtube_id": null
+  },
+  {
+    "id": "XkWj5Vt5mgM0vemROv2wl1",
+    "title": "バイナリー",
+    "thumbnail_url": "https://i.scdn.co/image/ab67616d0000b2736775a0cf0a809ce0b0d861b3",
+    "artist": "XINXIN",
+    "singers": ["XINXIN"],
+    "youtube_id": null
   }
 ]
