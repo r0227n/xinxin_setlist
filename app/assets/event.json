@@ -427,21 +427,6 @@
     "order": null
   },
   {
-    "id": "g18u3kL6AAtPKao0UlDWz1",
-    "stage_id": "3Sso8e2lngnvMTJB3fBlLB",
-    "title": "『IDOORLOVES』",
-    "date": "2025-09-20T00:00:00.000",
-    "setlist": [
-      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
-      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 1 },
-      { "music_id": "XkWj5Vt5mgM0vemROv2wl1", "order": 2 },
-      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 3 },
-      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 4 },
-      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 5 }
-    ],
-    "order": null
-  },
-  {
     "id": "i0YTUheQdODVjba1HBhpCg",
     "stage_id": "NjyMVTXU0ZHLeozn9emFQy",
     "title": "『shibuya luisant Vol.40』",
@@ -471,6 +456,21 @@
       { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 3 },
       { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 4 },
       { "music_id": "1EvkRlwXg7DLsniVKVF87t", "order": 5 }
+    ],
+    "order": null
+  },
+  {
+    "id": "kLPYK86eyC2CaoOOV4HQ4R",
+    "stage_id": "P146oNc7DVYEkUwS7NTAxp",
+    "title": "『IDOORLOVES』",
+    "date": "2025-09-25T00:00:00.000",
+    "setlist": [
+      { "music_id": "dummyNewSeABCDEFGHIJKL", "order": 0 },
+      { "music_id": "PXvGnViRvLFrjspqv0HLJP", "order": 1 },
+      { "music_id": "3sraGAoHucFwO7NVbHunxn", "order": 2 },
+      { "music_id": "1cz1TpYCViNn2eSoV2qjaM", "order": 3 },
+      { "music_id": "1Y4nV4QEOV0VWFWxphD3Vz", "order": 4 },
+      { "music_id": "6oVVwseIEvd2HUYjQggoVb", "order": 5 }
     ],
     "order": null
   }
